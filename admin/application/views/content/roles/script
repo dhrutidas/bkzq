@@ -1,0 +1,37 @@
+<script>
+    
+$(document).ready(function() {
+    $('#addRoleform').formValidation({
+        framework: 'bootstrap',
+        excluded: [':disabled'],
+        icon: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            inputRolecode: {
+                validators: {
+                    notEmpty: {
+                        message: 'The username is required'
+                    }
+                }
+            },
+            inputRolename: {
+                validators: {
+                    notEmpty: {
+                        message: 'The password is required'
+                    }
+                }
+            },
+            inputRoledesc: {
+                validators: {
+                    notEmpty: {
+                        message: 'The password is required'
+                    }
+                }
+            }
+        }
+    });
+});
+</script>

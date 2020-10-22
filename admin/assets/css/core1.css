@@ -1,0 +1,174 @@
+/**
+*
+* @author  Sunny Kumar
+* @date    05.05.2020
+*
+**/
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;400;600;700;800&family=Open+Sans:wght@300;400;600;700&display=swap');
+
+body {
+	
+    background: url('../images/bg_texture.png');
+    font-family: 'Open Sans', 'Nunito Sans', "Ubuntu Light", "Tahoma", "Ubuntu", "Calibri", "Helvetica";
+}
+#wrapper{
+    border: 1px #e4e4e4 solid;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.15),-1px 0 0 rgba(0,0,0,0.03),1px 0 0 rgba(0,0,0,0.03),0 1px 0 rgba(0,0,0,0.12);
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.15),-1px 0 0 rgba(0,0,0,0.03),1px 0 0 rgba(0,0,0,0.03),0 1px 0 rgba(0,0,0,0.12);
+    -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.15),-1px 0 0 rgba(0,0,0,0.03),1px 0 0 rgba(0,0,0,0.03),0 1px 0 rgba(0,0,0,0.12);
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+}
+
+/*
+.page-header {
+            padding: 5px 0;
+}
+
+.panel-heading {
+        padding: 5px 15px;
+}
+
+.panel-footer {
+        padding: 1px 15px;
+        color: #A0A0A0;
+}
+*/
+
+
+div.ui-datepicker{
+    font-size:12px;
+}
+.profile-img {
+
+    margin: 0 auto 25px;
+    display: block;
+}
+.form_error{
+
+    color:#fd4747;
+    padding-top: 2px;
+}
+
+.modal .modal-body {
+
+    max-height: 420px;
+    overflow-y: auto;
+}
+
+.text-milky {
+    color: #fff;
+}
+
+.text-milky:hover {
+    color: #eee;
+}
+
+.text-milky:focus{
+    color: #eee;
+}
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
+.top-buffer-xl { margin-top:10px; }
+.top-buffer-xxl { margin-top:20px; }
+.top-buffer-xxxl { margin-top:30px; }
+
+.font-size-xl { font-size: 16px; }
+.font-size-xxl { font-size: 18px; }
+
+.remove-top-border{ border-top: none !important; }
+
+.remove-lpad{ padding-left: 0 !important; }
+
+.glyphicon-50x{ font-size: 50px; }
+.glyphicon-75x{ font-size: 75px; }
+
+.styled-opacity{
+
+    filter:alpha(opacity=30);
+    -moz-opacity:0.3;
+    -khtml-opacity: 0.3;
+    opacity: 0.3;
+}
+
+/* bootstrap hack: fix content width inside hidden tabs */
+.tab-content > .tab-pane,
+.pill-content > .pill-pane {
+    display: block !important;     /* undo display:none          */
+    height: 0 !important;          /* height:0 is also invisible */ 
+    overflow-y: hidden !important; /* no-overflow                */
+}
+.tab-content > .active,
+.pill-content > .active {
+    height: auto !important;       /* let the content decide it  */
+} /* bootstrap hack end */
+
+.highcharts-container{width:100% !important; height:100% !important; }
+
+#divPendingComplaints, #divResolvedComplaints table tbody tr:hover{ cursor: pointer; }
+.mandatory::after{
+    color:red;
+    content: '*';
+}
+.mandatory + div input[type="text"],  input[type="email"],  input[type="tel"], select{
+    background-color: #fbfde1 !important;
+}
+legend{
+    color:#7474de;
+}
+.form-group{
+    margin-bottom: 10px;
+}
+input#affiliateOptIn{
+    margin: 0;
+}
+#affiliateUserQuestion input[type='checkbox']{
+    zoom:2.5;
+}
+.gold-cls{
+    color:gold;
+}
+.goldbg-cls{
+    background-color:gold;
+    color:white;
+}
+.silver-cls{
+    color:silver;
+}
+.silverbg-cls{
+    background-color:silver;
+    color:white;
+}
+.bronze-cls{
+    color:#c15757;
+}
+.bronzebg-cls{
+    background-color:#c15757;
+    color:white;
+}
+.level-tbl{
+    text-align: center;
+    margin: 20px;
+}
+.level-tbl tr{
+    font-weight: 1000;
+}
+.noborder{
+    border: none;
+}
+.affiliateBg{
+    background-color:#ff760033;
+}
+
+.customTable .dataTables_length > label {
+    padding: 0 0 0 20px;
+}
