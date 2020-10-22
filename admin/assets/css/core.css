@@ -229,3 +229,8 @@ table.dataTable thead th, table.dataTable thead td {
 	justify-content: center;
 	cursor: pointer;
 }
+
+.qstnBtn {
+    display: flex;
+    justify-content: center;
+}
