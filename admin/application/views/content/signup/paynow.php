@@ -5,7 +5,7 @@ $MERCHANT_KEY = "USXGqSdn";
 $SALT = "Q9PmRAbDhC";
 //print_r($student);
 // End point - change to https://secure.payu.in for LIVE mode
-$PAYU_BASE_URL = "https://secure.payu.in";
+$PAYU_BASE_URL = "https://sandboxsecure.payu.in";//"https://secure.payu.in";
 
 $action = '';
 

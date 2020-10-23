@@ -4,10 +4,10 @@
         var package = $("#inputPackage").val();
         switch (package) {
             case "T":
-                $("#input_package_info").html("Free Trial: Select One Subject");
+                $("#input_package_info").html("Free Trial: Select All Subject");
                 break;
             case "B":
-                $("#input_package_info").html("Bronze: Select Two Subject")
+                $("#input_package_info").html("Bronze: Select One Subject")
                 break;
             case "S":
                 $("#input_package_info").html("Silver: Select Three Subject")
@@ -327,10 +327,10 @@
             </div>
         </div>
         
-        <div class="modal fade" id="viewModal" role="dialog">
+        <!-- <div class="modal fade" id="viewModal" role="dialog">
             <div class="modal-dialog">
         
-            <!-- Modal content-->
+           
             <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Welcome Studennt</h4>
@@ -340,13 +340,13 @@
                 
             </div>
             <div class="modal-footer">
-            <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+            
             <button type="button" class="btn btn-default" id="btn-pay-now">Pay Now</button>
             <button type="button" class="btn btn-default" id="btn-pay-later">Pay Later</button>
             </div>
             </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </div>
 <script type="text/javascript">
@@ -360,10 +360,10 @@
             var packageValue = $("#inputPackage").val();
             switch (packageValue) {
                 case "T":
-                    checkboxLimit = 1;
+                    checkboxLimit = 10;
                     break;
                 case "B":
-                    checkboxLimit = 2;
+                    checkboxLimit = 1;
                     break;
                 case "S":
                     checkboxLimit = 3;
@@ -501,9 +501,10 @@
                         $('#confirm_password_error').html('');
                         $('#addSignupform')[0].reset();
                         studentId = data.userId;
-                        $("#viewModal").modal();
-                        $('#viewModal .modal-body').append('<spna>Name:<strong>'+ data.name+'</strong></span></br><spna>Name:<strong>'+ data.email+'</strong></span>');
+                        //$("#viewModal").modal();
+                        //$('#viewModal .modal-body').append('<spna>Name:<strong>'+ data.name+'</strong></span></br><spna>Email:<strong>'+ data.email+'</strong></span>');
                         //window.location.href='manage-users';
+                        window.location.href='signup-paylater/'+studentId;
                     }
                 }
 
@@ -598,13 +599,13 @@
 
         });
 
-        $("#btn-pay-later").click(function(e){
-            window.location.href='signup-paylater/'+studentId;
-        });
+        // $("#btn-pay-later").click(function(e){
+        //     window.location.href='signup-paylater/'+studentId;
+        // });
 
-        $("#btn-pay-now").click(function(e){
-            window.location.href='signup-paynow/'+studentId;
-        });
+        // $("#btn-pay-now").click(function(e){
+        //     window.location.href='signup-paynow/'+studentId;
+        // });
       
     });
 </script>
