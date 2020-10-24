@@ -7,7 +7,7 @@
 
     <link rel="stylesheet" href="<?php echo base_url("assets/bootstrap/css/bootstrap.css"); ?>">
     <link rel="stylesheet" href="<?php echo base_url("assets/jquery-ui/jquery-ui.css"); ?>">
-    <link rel="stylesheet" href="<?php echo base_url("assets/css/core.css"); ?>">
+    <link rel="stylesheet" href="<?php echo base_url("assets/css/core.css?".date('l jS \of F Y h:i:s A')); ?>">
     <link rel="stylesheet" href="<?php //echo base_url("assets/css/core1.css"); ?>">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css">
@@ -35,6 +35,13 @@
             $('body').on('hidden.bs.modal', '.modal', function () {
                 $(this).removeData('bs.modal');
             });
+            $('.dropdown-menu li').each(function(){
+            var $this = $(this);
+            if($this.context.className == 'active'){
+                $this.parent().parent().addClass('active')
+                //console.log( $this.parent().parent().addClass('active'));
+            }
+        })
         });
     </script>
 </head>

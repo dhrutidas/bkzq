@@ -234,7 +234,6 @@ table.dataTable thead th, table.dataTable thead td {
     display: flex;
     justify-content: center;
 }
-
 .spin::before {
     animation: 1.5s linear infinite spinner;
     animation-play-state: inherit;

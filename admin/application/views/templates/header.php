@@ -1,8 +1,8 @@
 <?php
 $role_id = $this->sData['role_id'];
-if ( $role_id ==1 ) {
+if ($role_id == 1) {
     $path = 'manage-roles';
-}else{
+} else {
     $path = 'home';
 }
 ?>
@@ -13,39 +13,51 @@ if ( $role_id ==1 ) {
         </div>
         <div>
             <ul class="nav navbar-nav"><?php
-            if(strtotime($this->sData['expiryDate']) > strtotime(date('Y-m-d')))
-            {
+                                        if (strtotime($this->sData['expiryDate']) > strtotime(date('Y-m-d'))) {
 
-                function group_assoc($array, $key) {
 
-                    $return = array();
-                    foreach ($array as $v) { $return[$v[$key]][] = $v; }
-                    return $return;
-                }
+                                            function group_assoc($array, $key)
+                                            {
 
-                //Group the requests by their account_id
-                $account_requests = group_assoc($groupArr, 'group_app_name');
-                foreach ($account_requests AS $key => $values): ?>
+                                                $return = array();
+                                                foreach ($array as $v) {
+                                                    $return[$v[$key]][] = $v;
+                                                }
+                                                return $return;
+                                            }
 
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $key; ?><span class="caret"></span></a>
-                        <ul class="dropdown-menu">
+                                            //Group the requests by their account_id
+                                            $account_requests = group_assoc($groupArr, 'group_app_name');
+                                            // echo "<pre>";
+                                            // print_r($account_requests);exit;
+                                            foreach ($account_requests as $key => $values) : ?>
+                        <?php if (count($values) > 1) : ?>
+                            <li class="dropdown" >
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $key; ?><span class="caret"></span></a>
+                                <ul class="dropdown-menu">
 
-                        <?php foreach ($values AS $value): ?>
+                                    <?php foreach ($values as $value) : ?>
 
-                            <li><a href="<?php echo base_url($value['app_path']); ?>"><?php echo $value['app_name']; ?></a></li>
+                                        <li <?php if($this->uri->segment(1)==$value['app_path']){echo 'class="active"';}?>><a href="<?php echo base_url($value['app_path']); ?>"><?php echo $value['app_name']; ?></a></li>
 
-                        <?php endforeach; ?>
+                                    <?php endforeach; ?>
 
-                        </ul>
-                    </li>
+                                </ul>
+                            </li>
+                        <?php else : ?>
 
+                            <?php foreach ($values as $value) : ?>
+
+                                <li <?php if($this->uri->segment(1)==$value['app_path']){echo 'class="active"';}?>><a href="<?php echo base_url($value['app_path']); ?>"><?php echo $value['app_name']; ?></a></li>
+
+                            <?php endforeach; ?>
+
+                        <?php endif; ?>
                 <?php endforeach;
-
-              }
-              ?>
+                                        }
+                ?>
             </ul>
-            <?php if($role_id == 3) { ?>
+            <?php if ($role_id == 3) { ?>
                 <ul class="nav navbar-nav">
                     <li><a href="<?php echo base_url('profile'); ?>"><span class=""></span>&nbsp;Profile</a></li>
                 </ul>
@@ -61,3 +73,6 @@ if ( $role_id ==1 ) {
         </div>
     </div>
 </nav>
+<script>
+  
+</script>
