@@ -50,10 +50,11 @@
                 </div>
             </div>
 
-            <?php $this->load->view('content/' . $load_page); ?>
+        <?php $this->load->view('content/' . $load_page); ?>
         <?php elseif($this->uri->segment(1) == 'signup-paynow') : $this->load->view('content/signup/paynow'); ?>
         <?php elseif($this->uri->segment(1) == 'forgot-password'): $this->load->view('content/forgotpassword/forgot'); ?>
         <?php elseif($this->uri->segment(1) == 'signup'): $this->load->view('content/signup/index'); ?>
+        <?php elseif($this->uri->segment(1) == 'info'): $this->load->view('content/signup/info'); ?>
         <?php else: $this->load->view('content/login/sign_in'); ?>
 
         <?php endif; ?>

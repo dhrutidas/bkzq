@@ -118,7 +118,7 @@ if(empty($posted['hash']) && sizeof($posted) > 0) {
         </tr>
         <tr>
           <!--<td>Failure URI: </td>-->
-          <td colspan="3"><input type='hidden' name="furl" value="<?php echo 'http://'. $config['base_url'].'/failure.php'; ?>" size="64" /></td>
+          <td colspan="3"><input type='hidden' name="furl" value="<?php echo base_url('paynow-fail/').$student['userID']; ?>" size="64" /></td>
         </tr>
 
         <tr>

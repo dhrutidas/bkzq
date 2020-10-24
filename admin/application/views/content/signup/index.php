@@ -504,7 +504,10 @@
                         //$("#viewModal").modal();
                         //$('#viewModal .modal-body').append('<spna>Name:<strong>'+ data.name+'</strong></span></br><spna>Email:<strong>'+ data.email+'</strong></span>');
                         //window.location.href='manage-users';
-                        window.location.href='signup-paylater/'+studentId;
+                        if(data.packageType == 'T')
+                            window.location.href='info';
+                        else
+                            window.location.href='signup-paynow/'+studentId;
                     }
                 }
 

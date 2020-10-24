@@ -112,6 +112,31 @@ class Signup extends MY_Controller
         $this->load->view("kernel", $Data);
     }
 
+
+    function paysuccess($userID){
+        $confirmStatus = $this->student_model->payment_update($userID);
+        if ($confirmStatus) {
+            $this->session->set_flashdata('message', 'Success! Now you can login using your email id and password.');
+            redirect(base_url('student-login'));
+        } else {
+            $this->session->set_flashdata('warning', 'oops Something went wrong please try again.');
+            redirect(base_url('student-login'));
+        }
+    }
+
+    function paymentfail($userID){
+          $this->session->set_flashdata('warning', 'oops Something went wrong please try again.');
+         redirect(base_url('student-login'));
+       
+    }
+    
+    function info(){
+        $Data['page_title'] = "Welcome";
+        $Data['load_page'] = "signup/info";
+        $this->load->view("kernel", $Data);
+    }
+
+
     function paylater($userID)
     {
         $student = $this->student_model->getStudentDetails($userID);
@@ -233,7 +258,8 @@ class Signup extends MY_Controller
                         "message" => "Success! Sign up process has been completed,Confirmation link sent on your registered email ID.",
                         "name" =>  $postArr['fName']." ". $postArr['lName'],
                         "email" => $postArr['emailID'],
-                        "userId" => $insertID
+                        "userId" => $insertID,
+                        "packageType" => $postArr['package']
                     );
                     echo json_encode($success_arr);
                 } else {
