@@ -76,26 +76,41 @@ class Boards extends MY_Controller {
         $this->form_validation->set_rules('inputBoardname', 'Board Name', 'required');
         $this->form_validation->set_rules('inputBoarddesc', 'Board Description', 'required');
 
-        if ($this->form_validation->run() == TRUE ){
 
-            $postArr['dname'] = $this->input->post('inputBoardname');
-            $postArr['ddescription'] = $this->input->post('inputBoarddesc');
 
-			if($this->board_model->insertBoard($postArr))
-			{
-		            $this->session->set_flashdata('message', 'Success! New Board has been added successfully.');
-			}
-			else
-			{
-				$this->session->set_flashdata('warning', 'oops Something went wrong please try again.');
-			}
+        if ($this->form_validation->run() == FALSE){
+
+            //$errors = validation_errors();
+            $array = array(
+                'error'   => true,
+                'name_error' => form_error('inputBoardname'),
+                'desc_error' => form_error('inputBoarddesc')
+            );
+
+            echo json_encode($array);
+
+        }else{
+       
+            if ($this->form_validation->run() == TRUE ){
+
+                $postArr['dname'] = $this->input->post('inputBoardname');
+                $postArr['ddescription'] = $this->input->post('inputBoarddesc');
+    
+                if($this->board_model->insertBoard($postArr))
+                {
+                        $this->session->set_flashdata('message', 'Success! New Board has been added successfully.');
+                }
+            
+            }
+        
         }
-    	else
-    	{
-    		$this->session->set_flashdata('warning', 'Mendatory field can not be left blank.');
-    	}
-    	redirect( base_url('manage-boards') );
+       
+        
+
     }
+
+
+        
 
     public function editBoard(){
 
