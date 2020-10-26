@@ -362,6 +362,7 @@ table.dataTable thead th, table.dataTable thead td {
 
 .profileArea .dropdown-menu > li > a {
 	padding: 10px;
+	color: #777;
 }
 
 .profileArea button {
@@ -369,6 +370,7 @@ table.dataTable thead th, table.dataTable thead td {
     border: 0;
     display: flex;
     align-items: center;
+    color: #777;
 }
 
 .profileArea .pp {
@@ -393,4 +395,106 @@ table.dataTable thead th, table.dataTable thead td {
     max-height: 100%;
     max-width: 100%;
     border-radius: 50%;
+}
+
+.qstnBtn {
+    display: flex;
+    justify-content: center;
+    margin: 0 0 50px;
+}
+
+.stepping {
+    display: none;
+    margin: 0 auto;
+    box-shadow: 0 0 10px hsl(0deg 0% 0% / 12%);
+    padding: 50px 40px;
+    border-radius: 5px;
+    background: #fbfbfb;
+}
+
+.stepping .form-group {
+    margin-bottom: 10px;
+    display: inline-block;
+    width: 100%;
+}
+
+.stepping .textarea {
+    resize: none;
+}
+
+.stepping.active {
+    display: table;
+    margin: 0 auto;
+    min-width: 550px;
+}
+
+.stepping h3 {
+	font-size: 20px;
+	font-weight: 600;
+	border-bottom: solid 1px #ddd;
+	display: inline-block;
+	width: 100%;
+	padding: 0 0 6px;
+	margin: 0 0 30px;
+}
+
+.stepbtnWrap {
+    padding: 0;
+    clear: both;
+}
+
+.stepbtnWrap .btn {
+    display: inline-block;
+    min-width: 100px
+}
+
+.increasingFeilds {
+    display: flex;
+    align-items: center
+}
+
+.newSteppingWrap {
+    padding: 100px 30px;
+}
+
+.stageWrap {
+    display: inline-block;
+    width: 100%;
+    margin: 0 0 20px;
+}
+
+.stageWrap_show {
+}
+
+.toogleStageSec.form-group {
+    display: none;
+    width: auto !important;
+    background: #f0f0f0;
+    padding: 10px 15px;
+}
+
+label {
+    display: block;
+}
+
+.dropdownAreaSec {
+    margin: 0 0 20px 0;
+}
+
+.toogleStageSec_show {
+    display: inline-block !important;
+}
+
+.align-center-row {
+    display: flex;
+    align-items: center;
+}
+
+.marb10 {
+    margin-bottom: 10px;
+}
+
+.mainStageDropDown + .btn-group button {
+    width: 200px;
+    text-align: left;
 }

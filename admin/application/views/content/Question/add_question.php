@@ -26,64 +26,6 @@
 	}
 </script>
 
-<style>
-	.qstnBtn {
-		display: flex;
-		justify-content: center;
-        margin: 0 0 50px;
-	}
-
-	.stepping {
-		display: none;
-	}
-
-	.stepping.active {
-		display: block;
-	}
-
-	.stepbtnWrap {
-		display: flex;
-		clear: both;
-		gap: 10px;
-		justify-content: center;
-		padding: 10px 0 0;
-	}
-
-	.stepbtnWrap .btn {
-		display: inline-block;
-		background: #f0f;
-	}
-
-	.increasingFeilds {
-		display: flex;
-		align-items: center
-	}
-
-    .newSteppingWrap {
-        border: solid 1px #ddd;
-        margin: 100px 0 0;
-        padding: 100px 30px;
-    }
-
-    .stageWrap {
-        background: #f0f0f0;
-        display: inline-block;
-        width: 100%;
-    }
-
-    .stageWrap_show {
-        background: #f0f
-    }
-
-    .toogleStageSec {
-        display: none
-    }
-
-    .toogleStageSec_show {
-        display: block
-    }
-</style>
-
 <div class="row">
 	<div class="col-md-12">
 		<?php if( $this->session->flashdata('message')): ?>
@@ -104,7 +46,7 @@
 			<div class="panel-heading text-left">
 				<strong>Add Question</strong>
 			</div>
-			<div class="panel-collapse">
+			<div class="panel-collapse" hidden>
 				<br />
 				<div class="row">
 					<div class="col-sm-offset-2 col-sm-7">
@@ -147,7 +89,6 @@
 			</div>
 
 
-
 			<div class="newSteppingWrap">
 				<div class="row">
 					<div class="input-group qstnBtn">
@@ -156,93 +97,196 @@
 				</div>
 
 				<div class="stepping" id="step1" data-id="step1">
-					<h3>Step 1</h3>
-					<div class="form-group">
-						<label for="inputFirstName" class="col-sm-4 control-label">Add Question</label>
-						<div class="col-sm-6">
-							<input type="text" class="form-control" id="inputFirstName" name="inputFirstName">
-							<span id="first_name_error" class="text-danger"></span>
+					<h3>Add Question</h3>
+
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-12">
+								<label for="inputFirstName" class="control-label">Add Question *</label>
+								<textarea class="form-control textarea" id="inputFirstName" name="inputFirstName" id="" cols="30" rows="3"></textarea>
+								<span id="first_name_error" class="text-danger"></span>
+							</div>
 						</div>
-					</div>
-					<div class="form-group">
-						<label for="inputFirstName" class="col-sm-4 control-label">Options</label>
-						<div class="col-sm-6" id="increasingFeilds_Wrap">
-							<div class="row" id="increasingFeilds">
-								<div class="col-sm-10">
-									<input type="text" class="form-control" id="inputFirstName" name="inputFirstName">
-									<span id="first_name_error" class="text-danger"></span>
+						<div class="form-group">
+							<div class="align-center-row">
+								<div class="col-sm-10" id="increasingFeilds_Wrap">
+									<label for="inputFirstName" class="control-label">Options *</label>
+									<div class="row align-center-row marb10" id="increasingFeilds">
+										<div class="col-sm-10">
+											<input type="text" class="form-control" id="inputFirstName" name="inputFirstName">
+											<span id="first_name_error" class="text-danger"></span>
+										</div>
+
+										<div class="col-sm-2">
+											<input type="checkbox" name="">
+										</div>
+									</div>
 								</div>
 
 								<div class="col-sm-2">
-									<input type="checkbox" name="">
+									<div class="btn btn-default pull-right" onclick="duplicate()" id="increaseOptionBtn">Add More +</div>
 								</div>
 							</div>
 						</div>
+					</div>
 
-						<div class="col-sm-2">
-							<div class="btn btn-default" onclick="duplicate()" id="increaseOptionBtn">Add More +</div>
-						</div>
-
-						<div class="stepbtnWrap">
-							<button class="btn steppingbtn" data-name="next" data-step="step1" data-num="1"
-								data-id="next_step1">Next</button>
-						</div>
+					<div class="stepbtnWrap">
+						<button class="btn btn-primary steppingbtn" data-name="next" data-step="step1" data-num="1"
+							data-id="next_step1">Next</button>
 					</div>
 				</div>
+
 				<div class="stepping" id="step2" data-id="step2">
-					<h3>Step 2</h3>
+					<h3>Category (Board Name)</h3>
 
-                    <div class="form-group">
-                    <div class="col-md-4">
-                        <select id="dates-field2" class="multiselect-ui form-control" multiple="multiple">
-                            <option value="level_1">Level 1</option>
-                            <option value="level_2">Level 2</option>
-                            <option value="level_3">Level 3</option>
-                        </select>
-                    </div>
-                </div>
+					<!-- Add Level start -->
+					<section class="dropdownAreaSec">
+						<div class="form-group">
+							<label for="">Add Level</label>
+							<select id="dates-field2" class="multiselect-ui mainStageDropDown form-control" multiple="multiple">
+								<option value="level_1">Level 1</option>
+								<option value="level_2">Level 2</option>
+								<option value="level_3">Level 3</option>
+							</select>
+						</div>
 
-                <div class="stageWrap">
-                    <div class="form-group toogleStageSec" id="level_1">
-                        <div class="col-md-4">
-                            <label for="Level 1">Level 1</label>
-                            <select id="dates-field2" class="multiselect-ui form-control" multiple="multiple">
-                                <option value="Stage 1">Stage 1</option>
-                                <option value="Stage 2">Stage 2</option>
-                                <option value="Stage 3">Stage 3</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group toogleStageSec" id="level_2">
-                        <div class="col-md-4">
-                            <label for="Level 1">Level 2</label>
-                            <select id="dates-field2" class="multiselect-ui form-control" multiple="multiple">
-                                <option value="Stage 1">Stage 1</option>
-                                <option value="Stage 2">Stage 2</option>
-                                <option value="Stage 3">Stage 3</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group toogleStageSec" id="level_3">
-                        <div class="col-md-4">
-                            <label for="Level 1">Level 3</label>
-                            <select id="dates-field2" class="multiselect-ui form-control" multiple="multiple">
-                                <option value="Stage 1">Stage 1</option>
-                                <option value="Stage 2">Stage 2</option>
-                                <option value="Stage 3">Stage 3</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                    
-                    <div class="stepbtnWrap">
-                        <button class="btn steppingbtn" data-name="prev" data-step="step2" data-num="2"
-                            data-id="prev_step2">Prev</button>
-                        <button class="btn steppingbtn" data-name="next" data-step="step2" data-num="2"
-                            data-id="next_step2">Next</button>
-                        <button class="btn steppingbtn" data-name="skip" data-step="step2" data-num="2"
-                            data-id="skip_step2">Skip</button>
-                    </div>
+						<div class="stageWrap">
+							<div class="form-group toogleStageSec" id="level_1">
+								<div class="">
+									<label for="Level 1">Level 1</label>
+									<select id="dates-field2" class="multiselect-ui form-control" multiple="multiple">
+										<option value="Stage 1">Stage 1</option>
+										<option value="Stage 2">Stage 2</option>
+										<option value="Stage 3">Stage 3</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group toogleStageSec" id="level_2">
+								<div class="">
+									<label for="Level 1">Level 2</label>
+									<select id="dates-field2" class="multiselect-ui form-control" multiple="multiple">
+										<option value="Stage 1">Stage 1</option>
+										<option value="Stage 2">Stage 2</option>
+										<option value="Stage 3">Stage 3</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group toogleStageSec" id="level_3">
+								<div class="">
+									<label for="Level 1">Level 3</label>
+									<select id="dates-field2" class="multiselect-ui form-control" multiple="multiple">
+										<option value="Stage 1">Stage 1</option>
+										<option value="Stage 2">Stage 2</option>
+										<option value="Stage 3">Stage 3</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</section>
+					<!-- Add Level end -->
+
+					<!-- Add Subject start -->
+					<section class="dropdownAreaSec">
+						<div class="form-group">
+							<label for="">Add Subject</label>
+							<select id="dates-field2" class="multiselect-ui mainStageDropDown form-control" multiple="multiple">
+								<option value="level_1">Level 1</option>
+								<option value="level_2">Level 2</option>
+								<option value="level_3">Level 3</option>
+							</select>
+						</div>
+
+						<div class="stageWrap">
+							<div class="form-group toogleStageSec" id="level_1">
+								<div class="">
+									<label for="Level 1">Level 1</label>
+									<select id="dates-field2" class="multiselect-ui form-control" multiple="multiple">
+										<option value="Stage 1">Stage 1</option>
+										<option value="Stage 2">Stage 2</option>
+										<option value="Stage 3">Stage 3</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group toogleStageSec" id="level_2">
+								<div class="">
+									<label for="Level 1">Level 2</label>
+									<select id="dates-field2" class="multiselect-ui form-control" multiple="multiple">
+										<option value="Stage 1">Stage 1</option>
+										<option value="Stage 2">Stage 2</option>
+										<option value="Stage 3">Stage 3</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group toogleStageSec" id="level_3">
+								<div class="">
+									<label for="Level 1">Level 3</label>
+									<select id="dates-field2" class="multiselect-ui form-control" multiple="multiple">
+										<option value="Stage 1">Stage 1</option>
+										<option value="Stage 2">Stage 2</option>
+										<option value="Stage 3">Stage 3</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</section>
+					<!-- Add Subject end -->
+
+					<!-- Add Standard start -->
+					<section class="dropdownAreaSec">
+						<div class="form-group">
+							<label for="">Add Standard</label>
+							<select id="dates-field2" class="multiselect-ui mainStageDropDown form-control" multiple="multiple">
+								<option value="level_1">Level 1</option>
+								<option value="level_2">Level 2</option>
+								<option value="level_3">Level 3</option>
+							</select>
+						</div>
+
+						<div class="stageWrap">
+							<div class="form-group toogleStageSec" id="level_1">
+								<div class="">
+									<label for="Level 1">Level 1</label>
+									<select id="dates-field2" class="multiselect-ui form-control" multiple="multiple">
+										<option value="Stage 1">Stage 1</option>
+										<option value="Stage 2">Stage 2</option>
+										<option value="Stage 3">Stage 3</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group toogleStageSec" id="level_2">
+								<div class="">
+									<label for="Level 1">Level 2</label>
+									<select id="dates-field2" class="multiselect-ui form-control" multiple="multiple">
+										<option value="Stage 1">Stage 1</option>
+										<option value="Stage 2">Stage 2</option>
+										<option value="Stage 3">Stage 3</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group toogleStageSec" id="level_3">
+								<div class="">
+									<label for="Level 1">Level 3</label>
+									<select id="dates-field2" class="multiselect-ui form-control" multiple="multiple">
+										<option value="Stage 1">Stage 1</option>
+										<option value="Stage 2">Stage 2</option>
+										<option value="Stage 3">Stage 3</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						
+						<div class="stepbtnWrap">
+							<button class="btn btn-default steppingbtn" data-name="prev" data-step="step2" data-num="2"
+								data-id="prev_step2">Prev</button>
+							<button class="btn btn-primary steppingbtn" data-name="next" data-step="step2" data-num="2"
+								data-id="next_step2">Next</button>
+							<button class="btn btn-secondary steppingbtn" data-name="skip" data-step="step2" data-num="2"
+								data-id="skip_step2">Skip</button>
+						</div>
+					</section>
+					<!-- Add Standard end -->
+
+
 				<div class="stepping" id="step3" data-id="step3">
 					<h3>Step 3</h3>
 					<div class="form-group">
