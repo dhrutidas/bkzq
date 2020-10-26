@@ -20,18 +20,18 @@
         <strong>Manage Students</strong>
     </div>
     
-    <div class="panel-collapse">
+    <div class="panel-collapse customTable">
 
     <?php echo form_open('', 'class=form-inline'); ?>
 
-    <table class="table table-hover">
+    <table class="table table-hover table-striped" id="aff">
     <thead>
     <tr>
-        <th class="bg-primary col-sm-1">#</th>
-        <th class="bg-primary col-sm-3">Name</th>
-        <th class="bg-primary col-sm-2">Email</th>
-        <th class="bg-primary col-sm-1">Contact</th>
-        <th class="bg-primary col-sm-1">Status</th>
+        <th class="bg-primary">#</th>
+        <th class="bg-primary">Name</th>
+        <th class="bg-primary">Email</th>
+        <th class="bg-primary">Contact</th>
+        <th class="bg-primary">Status</th>
     </tr>
     </thead>
     <tbody>
@@ -69,3 +69,9 @@
 
 </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+    $('#aff').DataTable();
+} );
+</script>
