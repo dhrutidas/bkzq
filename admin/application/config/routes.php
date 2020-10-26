@@ -192,6 +192,8 @@ $route['open-view-user-modal/(:any)'] = 'employees/viewModal/$1';
 $route['submit-add-user'] = 'employees/addEmployee';
 $route['submit-edit-user'] = 'employees/editEmployee';
 $route['submit-edit-user-display-pic'] = 'employees/editEmployeeDisplayPic';
+$route['update-profile'] = 'employees/updateProfile';
+$route['open-edit-profile-modal'] = 'employees/editProfileModal';
 $route['users-reset-filter'] = 'employees/resetUsersFilter';
 
 

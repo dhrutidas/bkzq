@@ -159,6 +159,7 @@ class Students extends MY_Controller {
         $Data['packageSubject'] = $this->package_model->getActivePackageSubject($userID);
         $Data['userDetail'] = $this->student_model->getStudentDetails($userID);
         $resuleData = $this->api_model->getStudentMarks($userID);
+        //print_r($Data['userDetail']);exit;
         //print_r($resuleData);
         // $total = 0;
         // foreach ($resuleData AS $value) {

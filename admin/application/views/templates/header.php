@@ -72,14 +72,14 @@ if ($role_id == 1) {
           
 
         </div>
-        <ul class="profile-wrapper">
+        <!-- <ul class="profile-wrapper">
                 <li>
-                    <!-- user profile -->
+                   
                     <div class="profile">
                         <img src="http://gravatar.com/avatar/0e1e4e5e5c11835d34c0888921e78fd4?s=80" />
                         <a href="http://swimbi.com" class="name">swimbi.com</a>
                         
-                        <!-- more menu -->
+                        
                         <ul class="menu">
                             <li><a href="#">Edit</a></li>
                             <li><a href="#">Change Password</a></li>
@@ -87,7 +87,7 @@ if ($role_id == 1) {
                         </ul>
                     </div>
                 </li>
-            </ul>
+            </ul> -->
     </div>
 </nav>
 <script>

@@ -53,10 +53,6 @@
                         <div class="col-sm-8"><b><?php echo $userDetail['lName']; ?></b></div>
                     </div>
                     <div class="form-group">
-                        <div class="col-sm-4 text-right">Parent Name</div>
-                        <div class="col-sm-8"><b><?php echo $userDetail['parentName']; ?></b></div>
-                    </div>
-                    <div class="form-group">
                         <div class="col-sm-4 text-right">Email</div>
                         <div class="col-sm-8"><b><?php echo $userDetail['emailID']; ?></b></div>
                     </div>
@@ -72,6 +68,7 @@
                         <div class="col-sm-4 text-right">Additional Info</div>
                         <div class="col-sm-8"><b><?php echo empty($userDetail['additionalInfo']) ? '-' : $userDetail['additionalInfo']; ?></b></div>
                     </div>
+                    <?php if($userDetail['roleID'] == 3):?>
                     <div class="form-group">
                         <div class="col-sm-4 text-right">School</div>
                         <div class="col-sm-8"><b><?php echo $userDetail['schoolName']; ?></b></div>
@@ -116,103 +113,27 @@
                                         </div>
                                     </div>
                                 </div>
+                                
+                            <?php endif; ?>
+                            <div class="form-group">
+                                <div class="col-sm-offset-4 col-sm-8">
+                                    <a href="<?php echo base_url('open-edit-profile-modal'); ?>" data-toggle="modal" data-target="#profileModal">Edit Profile</a>
+                                </div>
+                            </div>
                         </form>
-                    </div>
+                        
+                        </div>
 
-                    <div class="form-group">
-                        <label for="inputPackage" class="col-sm-4 control-label">Select Package</label>
-                        <div class="col-sm-6">
-                            <select class="form-control" id="inputPackage" name="inputPackage">
-                                <option value="T" <?php echo ($userDetail['userPackageType'] == 'T') ? 'SELECTED' : ''; ?>>Free Trial</option>
-                                <option value="B" <?php echo ($userDetail['userPackageType'] == 'B') ? 'SELECTED' : ''; ?>>Bronze</option>
-                                <option value="S" <?php echo ($userDetail['userPackageType'] == 'S') ? 'SELECTED' : ''; ?>>Silver</option>
-                                <option value="G" <?php echo ($userDetail['userPackageType'] == 'G') ? 'SELECTED' : ''; ?>>Gold</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div id="bronze"<?php if($userDetail['userPackageType'] != 'B' && $userDetail['userPackageType'] != 'S' && $userDetail['userPackageType'] != 'G'){ echo 'style="display:none;"'; } ?>>
-                    <div class="form-group">
-                        <label for="inputSubject1" class="col-sm-4 control-label">Select Subject 1</label>
-                        <div class="col-sm-6">
-                            <select class="form-control" id="inputSubject1" name="inputSubject1">
-                                <option value="">----Select----</option>
-                                <?php foreach( $subjectArr as $dValues ): ?>
-                                    <option value="<?php echo $dValues['subjectID']; ?>"<?php if(isset($packageSubject[0]['subjectID'])) { if($dValues['subjectID'] == $packageSubject[0]['subjectID']) { echo 'SELECTED'; } } ?>><?php echo $dValues['subjectName']; ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                    </div>
-                    </div>
-
-                    <div id="silver"<?php if($userDetail['userPackageType'] != 'S' && $userDetail['userPackageType'] != 'G'){ echo 'style="display:none;"'; } ?>>
-                    <div class="form-group">
-                        <label for="inputSubject2" class="col-sm-4 control-label">Select Subject 2</label>
-                        <div class="col-sm-6">
-                            <select class="form-control" id="inputSubject2" name="inputSubject2">
-                                <option value="">----Select----</option>
-                                <?php foreach( $subjectArr as $dValues ): ?>
-                                    <option value="<?php echo $dValues['subjectID']; ?>"<?php if(isset($packageSubject[1]['subjectID'])) { if($dValues['subjectID'] == $packageSubject[1]['subjectID']) { echo 'SELECTED'; } } ?>><?php echo $dValues['subjectName']; ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputSubject3" class="col-sm-4 control-label">Select Subject 3</label>
-                        <div class="col-sm-6">
-                            <select class="form-control" id="inputSubject3" name="inputSubject3">
-                                <option value="">----Select----</option>
-                                <?php foreach( $subjectArr as $dValues ): ?>
-                                    <option value="<?php echo $dValues['subjectID']; ?>"<?php if(isset($packageSubject[2]['subjectID'])) { if($dValues['subjectID'] == $packageSubject[2]['subjectID']) { echo 'SELECTED'; } } ?>><?php echo $dValues['subjectName']; ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                    </div>
-                    </div>
-
-                    <div id="silver"<?php if($userDetail['userPackageType'] != 'G'){ echo 'style="display:none;"'; } ?>>
-                    <div class="form-group">
-                        <label for="inputSubject4" class="col-sm-4 control-label">Select Subject 4</label>
-                        <div class="col-sm-6">
-                            <select class="form-control" id="inputSubject4" name="inputSubject4">
-                                <option value="">----Select----</option>
-                                <?php foreach( $subjectArr as $dValues ): ?>
-                                    <option value="<?php echo $dValues['subjectID']; ?>"<?php if(isset($packageSubject[3]['subjectID'])) { if($dValues['subjectID'] == $packageSubject[3]['subjectID']) { echo 'SELECTED'; } } ?>><?php echo $dValues['subjectName']; ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputSubject5" class="col-sm-4 control-label">Select Subject 5</label>
-                        <div class="col-sm-6">
-                            <select class="form-control" id="inputSubject5" name="inputSubject5">
-                                <option value="">----Select----</option>
-                                <?php foreach( $subjectArr as $dValues ): ?>
-                                    <option value="<?php echo $dValues['subjectID']; ?>"<?php if(isset($packageSubject[4]['subjectID'])) { if($dValues['subjectID'] == $packageSubject[4]['subjectID']) { echo 'SELECTED'; } } ?>><?php echo $dValues['subjectName']; ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputSubject6" class="col-sm-4 control-label">Select Subject 6</label>
-                        <div class="col-sm-6">
-                            <select class="form-control" id="inputSubject6" name="inputSubject6">
-                                <option value="">----Select----</option>
-                                <?php foreach( $subjectArr as $dValues ): ?>
-                                    <option value="<?php echo $dValues['subjectID']; ?>"<?php if(isset($packageSubject[5]['subjectID'])) { if($dValues['subjectID'] == $packageSubject[5]['subjectID']) { echo 'SELECTED'; } } ?>><?php echo $dValues['subjectName']; ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                 <div class="form-group">
-                    <div class="col-sm-offset-4 col-sm-8">
-                        <button type="submit" class="btn btn-success">Submit</button>&nbsp;
-                    </div>
-                </div>
+                   
             </form>
         </div>
+        
     </div>
 </div>
+</div>
+
+<div id="profileModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content"></div>
+    </div>
 </div>

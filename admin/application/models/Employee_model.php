@@ -180,12 +180,14 @@ class Employee_model extends CI_Model{
 
 	function getEmployeeDetails($uID)
 	{
+		
 		$this->db->select("a.*,b.roleName");
 		$this->db->from("userMaster a");
 		$this->db->join('roleMaster b', 'a.roleID = b.roleID', 'inner');
 		$this->db->where( array('a.userId' => $uID) );
 		$this->db->limit(1);
 		$result = $this->db->get();
+		
 		return $result->row_array();
 	}
 
@@ -239,6 +241,20 @@ class Employee_model extends CI_Model{
 		return ( $this->db->affected_rows() === 1 ) ? TRUE : FALSE;
 	}
 
+	function updateProfile( $eDetails )
+	{
+		$eRecords = array(  'fName' => $eDetails['fName'],
+							'lName' => $eDetails['lName'],
+							'residenceAdd' => $eDetails['residenceAdd'],
+							'additionalInfo' => $eDetails['inputDesc'],
+							
+			    );
+
+		$this->db->where('userID', $eDetails['userID'] );
+		$this->db->update('userMaster', $eRecords);
+				// echo $this->db->last_query();exit;
+		return ( $this->db->affected_rows() === 1 ) ? TRUE : FALSE;
+	}
 
 		function updateEmployeeDisplayPic( $eDetails )
 		{
