@@ -74,26 +74,43 @@ class Roles extends MY_Controller {
         $this->form_validation->set_rules('inputRolename', 'Role Name', 'required');
         $this->form_validation->set_rules('inputRoledesc', 'Role Description', 'required');
 
-        if ($this->form_validation->run() == TRUE ){
 
-            $postArr['rname'] = $this->input->post('inputRolename');
-            $postArr['rdescription'] = $this->input->post('inputRoledesc');
+        if ($this->form_validation->run() == FALSE){
 
-			if( $this->role_model->insertRole($postArr))
-			{
-		            $this->session->set_flashdata('message', 'Success! New Role has been added successfully.');
-			}
-			else
-			{
-				$this->session->set_flashdata('warning', 'oops Something went wrong please try again.');
-			}
-		
+            //$errors = validation_errors();
+            $array = array(
+                'error'   => true,
+                'name_error' => form_error('inputRolename'),
+                'desc_error' => form_error('inputRoledesc')
+            );
+
+            echo json_encode($array);
+            
+        }else{
+
+            if ($this->form_validation->run() == TRUE ){
+
+                $postArr['rname'] = $this->input->post('inputRolename');
+                $postArr['rdescription'] = $this->input->post('inputRoledesc');
+    
+                if( $this->role_model->insertRole($postArr))
+                {
+                    $this->session->set_flashdata('message', 'Success! New User has been added successfully.');
+                    echo json_encode(['success'=>'Form submitted successfully.']);
+                }
+                
+            
+            }
+
         }
-	else
-	{
-		$this->session->set_flashdata('warning', 'Mendatory field can not be left blank.');
-	}
-	redirect( base_url('manage-roles') );
+
+
+
+
+
+
+        
+	
     }
 
     public function editRole(){

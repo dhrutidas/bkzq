@@ -76,28 +76,35 @@ class Level extends MY_Controller {
         $this->form_validation->set_rules('inputLevelDesc', 'Level Description', 'required|trim');
         $this->form_validation->set_rules('inputLevelOrder', 'Level Order', 'required|trim');
 
-        if ($this->form_validation->run() == TRUE ){
+
+        if ($this->form_validation->run() == FALSE){
+
+            //$errors = validation_errors();
+            $array = array(
+                'error'   => true,
+                'name_error' => form_error('inputLevelName'),
+                'desc_error' => form_error('inputLevelDesc'),
+                'order_error' => form_error('inputLevelOrder')
+            );
+
+            echo json_encode($array);
+
+        }else{
+            if ($this->form_validation->run() == TRUE ){
             
-            $postArr['level_name'] = $this->input->post('inputLevelName');
-            $postArr['level_desc'] = $this->input->post('inputLevelDesc');
-            $postArr['level_order'] = $this->input->post('inputLevelOrder');
-
-            if($this->level_model->insertLevel($postArr))
-            {
-                $this->session->set_flashdata('message', 'Success! New Level has been added successfully.');
+                $postArr['level_name'] = $this->input->post('inputLevelName');
+                $postArr['level_desc'] = $this->input->post('inputLevelDesc');
+                $postArr['level_order'] = $this->input->post('inputLevelOrder');
+    
+                if($this->level_model->insertLevel($postArr))
+                {
+                    $this->session->set_flashdata('message', 'Success! New Level has been added successfully.');
+                }
+               
             }
-            else
-            {
-                $this->session->set_flashdata('warning', 'oops Something went wrong please try again.');
-            }
-
-          redirect( base_url('manage-level') );
         }
-    else
-    {
-        $this->session->set_flashdata('warning', 'Mendatory field can not be left blank.');
-        redirect( base_url('manage-level') );
-    }
+
+        
     }
 
     public function editLevel(){
