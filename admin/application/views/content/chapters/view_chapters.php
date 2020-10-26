@@ -27,20 +27,20 @@
     
     
 </div>
-    <div class="panel-collapse">
+    <div class="panel-collapse customTable">
 
     <?php echo form_open('', 'class=form-inline'); ?>
 
-    <table class="table table-hover" id="chap">
+    <table class="table table-hover table-striped" id="chap">
     <thead>
     <tr>
-        <th class="bg-primary col-sm-1">#</th>
-        <th class="bg-primary col-sm-2">Chapter Name</th>
-        <th class="bg-primary col-sm-3">Chapter Description</th>
-        <th class="bg-primary col-sm-2">Subject Name</th>
-        <th class="bg-primary col-sm-1">Status</th>
-        <th class="bg-primary col-sm-2">Added on</th>
-        <th class="bg-primary col-sm-1">Edit</th>
+        <th class="bg-primary">#</th>
+        <th class="bg-primary">Chapter Name</th>
+        <th class="bg-primary">Chapter Description</th>
+        <th class="bg-primary">Subject Name</th>
+        <th class="bg-primary">Status</th>
+        <th class="bg-primary">Added on</th>
+        <th class="bg-primary">Edit</th>
     </tr>
     </thead>
     <tbody>
@@ -55,7 +55,7 @@
                 <td><?php echo $values["chapterName"]; ?></td>
                 <td><?php echo $values["chapterDesc"]; ?></td>
                 <td><?php echo $values["SubjectName"]; ?></td>
-                <td><?php echo ($values["status"]=="Y") ? "Active" : "Inactive"; ?></td>
+                <td><?php echo ($values["status"]=="Y") ? '<span class="badge badge-pill badge-success">Active</span>' : '<span class="badge badge-pill badge-danger">Inactive</span>'; ?></td>
                 <td><?php echo date('d-M-Y H:i:s', strtotime($values["updatedAt"])); ?></td>
                 <td>
                     <a href="<?php echo base_url("open-edit-chapter-modal/" . $values['chapterID'] ); ?>" data-toggle="modal" data-target="#viewModal">

@@ -26,20 +26,20 @@
     </div>
     <div>
 
-    <div class="panel-collapse">
+    <div class="panel-collapse customTable">
 
-    <table class="table table-hover display" id="board" style="width:100%">
+    <table class="table table-hover display  table-striped" id="board" style="width:100%">
     <thead>
     <tr>
-        <th class="bg-primary col-sm-1">#</th>
-        <th class="bg-primary col-sm-2">Name</th>
-        <th class="bg-primary col-sm-2">Email</th>
-        <th class="bg-primary col-sm-1">Contact</th>
-        <th class="bg-primary col-sm-1">Package</th>
-        <th class="bg-primary col-sm-1">Activated On</th>
-        <th class="bg-primary col-sm-2">Expiry Date</th>
-        <th class="bg-primary col-sm-1">Status</th>
-        <th class="bg-primary col-sm-1">Action</th>
+        <th class="bg-primary">#</th>
+        <th class="bg-primary">Name</th>
+        <th class="bg-primary">Email</th>
+        <th class="bg-primary">Contact</th>
+        <th class="bg-primary">Package</th>
+        <th class="bg-primary">Activated On</th>
+        <th class="bg-primary">Expiry Date</th>
+        <th class="bg-primary">Status</th>
+        <th class="bg-primary">Action</th>
         
     </tr>
     </thead>
@@ -51,7 +51,7 @@
 					//print_r($values);exit;
             $packageType = "";
             if( $values["userPackageType"] == "T" ){
-                $packageType = "Trial";
+                $packageType = 'Trial';
 								$register_date=date('d-m-Y',strtotime($values['createdAt']));//'20-01-2015';
 								$expire_date=date("d-m-Y",strtotime(date("d-m-Y", strtotime($values['createdAt'])) . " +3 day"));
             }elseif( $values["userPackageType"] == "B" ){
@@ -87,10 +87,10 @@
                 <td><?php  echo $packageType; ?></td>
                 <td><?php  echo ($values["status"]=='Y') ? $register_date : '-'; ?></td>
                 <td><?php  echo ($values["status"]=='Y') ? $expire_date : '-'; ?></td>
-                <td><?php echo ($values["status"]=='Y') ? 'Active' : 'Inactive'; ?></td>
+                <td><?php echo ($values["status"]=='Y') ? '<span class="badge badge-pill badge-success">Active</span>' : '<span class="badge badge-pill badge-danger">Inactive</span>'; ?></td>
                 <td>
                     <a href="<?php echo base_url("open-edit-student-modal/" . $values['userID'] ); ?>" data-toggle="modal" data-target="#viewModal">
-                        <span class="glyphicon glyphicon-edit"></span>
+                        <span class="glyphicon glyphicon-edit "></span>
                     </a>
                     <a href="<?php echo base_url("open-view-student-modal/" . $values['userID'] ); ?>" data-toggle="modal" data-target="#viewModal">
                         <span class="glyphicon glyphicon-list"></span>
