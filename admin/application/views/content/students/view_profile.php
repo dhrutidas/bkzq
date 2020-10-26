@@ -26,7 +26,11 @@
                     <div class="form-group">
                         <div class="col-sm-4 text-right">Profile Pic</div>
                         <div class="col-sm-2">
-                            <img class="img-responsive img-thumbnail" src="<?php echo base_url().'assets/images/profile_pic/'.$userDetail['profilPic'].'?ver='.date('dmyhsi'); ?>" alt="Profile Picture" width='150' height="150">
+                            <?php if($userDetail['profilPic']):?>
+                                <img class="img-responsive img-thumbnail" src="<?php echo base_url().'assets/images/profile_pic/'.$userDetail['profilPic'].'?ver='.date('dmyhsi'); ?>" alt="Profile Picture" width='150' height="150">
+                            <?php else:?>
+                                <img  class="img-responsive img-thumbnail" src='<?php echo base_url("assets/images/default_profile.png"); ?>' hight='200' width='200'>
+                            <?php endif;?>
                         </div>
                         <div class="col-sm-4 text-left">
                             <input type='file' name='inputProfilePic' style='display: inline;'>

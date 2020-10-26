@@ -77,27 +77,33 @@ class Subjects extends MY_Controller {
         $this->form_validation->set_rules('inputSubjectname', 'Subject Name', 'required');
         $this->form_validation->set_rules('inputSubjectdesc', 'Subject Description', 'required');
         $this->form_validation->set_rules('standards[]', 'Standards', 'required');
+        if ($this->form_validation->run() == FALSE){
+            
+            //$errors = validation_errors();
+            $array = array(
+                'error'   => true,
+                'name_error' => form_error('inputSubjectname'),
+                'desc_error' => form_error('inputSubjectdesc'),
+                'standards_error' => form_error('standards[]')
+            );
 
-        if ($this->form_validation->run() == TRUE ){
+            echo json_encode($array);
 
-            $postArr['sname'] = $this->input->post('inputSubjectname');
-            $postArr['sdescription'] = $this->input->post('inputSubjectdesc');
-            $postArr['standards']=implode(',', $this->input->post('standards'));
+        }else{
+            if ($this->form_validation->run() == TRUE ){
 
-			if( $this->subject_model->insertSubject($postArr))
-			{
-		            $this->session->set_flashdata('message', 'Success! New Subject has been added successfully.');
-			}
-			else
-			{
-				$this->session->set_flashdata('warning', 'oops Something went wrong please try again.');
-			}
+                $postArr['sname'] = $this->input->post('inputSubjectname');
+                $postArr['sdescription'] = $this->input->post('inputSubjectdesc');
+                $postArr['standards']=implode(',', $this->input->post('standards'));
+    
+                if( $this->subject_model->insertSubject($postArr))
+                {
+                        $this->session->set_flashdata('message', 'Success! New Subject has been added successfully.');
+                }
+                
+            }
         }
-	else
-	{
-		$this->session->set_flashdata('warning', 'Mendatory field can not be left blank.');
-	}
-	redirect( base_url('manage-subjects'));
+        
     }
 
     public function editSubject(){

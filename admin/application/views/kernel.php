@@ -7,7 +7,7 @@
 
     <link rel="stylesheet" href="<?php echo base_url("assets/bootstrap/css/bootstrap.css"); ?>">
     <link rel="stylesheet" href="<?php echo base_url("assets/jquery-ui/jquery-ui.css"); ?>">
-    <link rel="stylesheet" href="<?php echo base_url("assets/css/core.css"); ?>">
+    <link rel="stylesheet" href="<?php echo base_url("assets/css/core.css?".date('l jS \of F Y h:i:s A')); ?>">
     <link rel="stylesheet" href="<?php //echo base_url("assets/css/core1.css"); ?>">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css">
@@ -35,6 +35,13 @@
             $('body').on('hidden.bs.modal', '.modal', function () {
                 $(this).removeData('bs.modal');
             });
+            $('.dropdown-menu li').each(function(){
+            var $this = $(this);
+            if($this.context.className == 'active'){
+                $this.parent().parent().addClass('active')
+                //console.log( $this.parent().parent().addClass('active'));
+            }
+        })
         });
     </script>
 </head>
@@ -50,10 +57,11 @@
                 </div>
             </div>
 
-            <?php $this->load->view('content/' . $load_page); ?>
+        <?php $this->load->view('content/' . $load_page); ?>
         <?php elseif($this->uri->segment(1) == 'signup-paynow') : $this->load->view('content/signup/paynow'); ?>
         <?php elseif($this->uri->segment(1) == 'forgot-password'): $this->load->view('content/forgotpassword/forgot'); ?>
         <?php elseif($this->uri->segment(1) == 'signup'): $this->load->view('content/signup/index'); ?>
+        <?php elseif($this->uri->segment(1) == 'info'): $this->load->view('content/signup/info'); ?>
         <?php else: $this->load->view('content/login/sign_in'); ?>
 
         <?php endif; ?>

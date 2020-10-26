@@ -10,27 +10,31 @@
     <div class="scrollable-body">
 
         <div class="form-group">
-            <label for="inputFirstName" class="col-sm-4 control-label">First Name</label>
+            <label for="inputFirstName" class="col-sm-4 control-label">First Name *</label>
             <div class="col-sm-6">
                 <input type="text" class="form-control" id="inputFirstName" name="inputFirstName">
+                <span id="fname_error" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
-            <label for="inputLastName" class="col-sm-4 control-label">Last Name</label>
+            <label for="inputLastName" class="col-sm-4 control-label">Last Name *</label>
             <div class="col-sm-6">
                 <input type="text" class="form-control" id="inputLastName" name="inputLastName">
+                <span id="lname_error" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
-            <label for="inputEmail" class="col-sm-4 control-label">Email</label>
+            <label for="inputEmail" class="col-sm-4 control-label">Email *</label>
             <div class="col-sm-6">
                 <input type="text" class="form-control" id="inputEmail" name="inputEmail">
+                <span id="email_error" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
-            <label for="inputContact" class="col-sm-4 control-label">Contact</label>
+            <label for="inputContact" class="col-sm-4 control-label">Contact *</label>
             <div class="col-sm-6">
                 <input type="text" class="form-control" id="inputContact" name="inputContact">
+                <span id="contact_error" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
@@ -59,7 +63,7 @@
         </div>
 
         <div class="form-group">
-            <label for="inputBoard" class="col-sm-4 control-label">Select Board</label>
+            <label for="inputBoard" class="col-sm-4 control-label">Select Board *</label>
             <div class="col-sm-6">
                 <select class="form-control" id="inputBoard" name="inputBoard">
                     <option value="">----Select----</option>
@@ -67,39 +71,44 @@
                         <option value="<?php echo $bValues['boardID']; ?>"><?php echo $bValues['boardName']; ?></option>
                     <?php endforeach; ?>
                 </select> 
+                <span id="board_error" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
-            <label for="inputSchool" class="col-sm-4 control-label">Select School</label>
+            <label for="inputSchool" class="col-sm-4 control-label">Select School *</label>
             <div class="col-sm-6">
                 <select class="form-control" id="inputSchool" name="inputSchool">
                     <option value="">----Select----</option>
                     <?php foreach( $schoolArr as $dValues ): ?>
                         <option value="<?php echo $dValues['schoolID']; ?>"><?php echo $dValues['schoolName']; ?></option>
                     <?php endforeach; ?>
-                </select>                 
+                </select>       
+                <span id="school_error" class="text-danger"></span>          
             </div>
         </div>
         <div class="form-group">
-            <label for="inputClass" class="col-sm-4 control-label">Select Statndard</label>
+            <label for="inputClass" class="col-sm-4 control-label">Select Statndard *</label>
             <div class="col-sm-6">
                 <select class="form-control" id="inputClass" name="inputClass">
                     <option value="">----Select----</option>
                     <?php foreach( $classArr as $dValues ): ?>
                         <option value="<?php echo $dValues['stdID']; ?>"><?php echo $dValues['stdName']; ?></option>
                     <?php endforeach; ?>
-                </select>                 
+                </select>        
+                <span id="class_error" class="text-danger"></span>         
             </div>
         </div>
         <div class="form-group">
-            <label for="inputPackage" class="col-sm-4 control-label">Select Package</label>
+            <label for="inputPackage" class="col-sm-4 control-label">Select Package *</label>
             <div class="col-sm-6">
                 <select class="form-control" id="inputPackage" name="inputPackage">
-                    <option value="T" selected="selected">Free Trial</option>
+                    <option value="">----Select----</option>
+                    <option value="T">Free Trial</option>
                     <option value="B">Bronze</option>
                     <option value="S">Silver</option>
                     <option value="G">Gold</option>
-                </select>                 
+                </select>   
+                <span id="package_error" class="text-danger"></span>              
             </div>
         </div>
 
@@ -182,7 +191,7 @@
     
     <div class="form-group">
         <div class="col-sm-offset-4 col-sm-8">
-            <button type="submit" class="btn btn-default">Submit</button>&nbsp;
+            <button type="submit" class="btn btn-default btn-submit">Submit</button>&nbsp;
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
         </div>
     </div>
@@ -190,3 +199,125 @@
 </div>
 
 <div class="modal-footer"><p class="text-danger">*All fields are mandatory.</p></div>
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+
+  $(".btn-submit").click(function(e){
+
+      e.preventDefault();
+
+      var inputFirstName = $("input[name='inputFirstName']").val();
+      var inputLastName = $("input[name='inputLastName']").val();
+      var inputEmail = $("input[name='inputEmail']").val();
+      var inputContact = $("input[name='inputContact']").val();
+      var inputBoard = $("select[name='inputBoard']").val();
+      var inputSchool = $("select[name='inputSchool']").val();
+      var inputClass = $("select[name='inputClass']").val();
+      var inputPackage = $("select[name='inputPackage']").val();
+
+      $.ajax({
+
+          url: $(this).closest('form').attr('action'),
+
+          type:$(this).closest('form').attr('method'),
+
+          dataType: "json",
+
+          data: {inputFirstName:inputFirstName, inputLastName:inputLastName, inputEmail:inputEmail, inputContact:inputContact, inputBoard:inputBoard, inputSchool:inputSchool, inputClass:inputClass, inputPackage:inputPackage},
+
+          success: function(data) {
+            if(data.error)
+            {
+
+                if(data.fname_error != '')
+                {
+                    $('#fname_error').html(data.fname_error);
+                }
+                else
+                {
+                    $('#fname_error').html('');
+                }
+                if(data.lname_error != '')
+                {
+                    $('#lname_error').html(data.lname_error);
+                }
+                else
+                {
+                    $('#lname_error').html('');
+                }
+                if(data.email_error != '')
+                {
+                    $('#email_error').html(data.email_error);
+                }
+                else
+                {
+                    $('#email_error').html('');
+                }
+                if(data.contact_error != '')
+                {
+                    $('#contact_error').html(data.contact_error);
+                }
+                else
+                {
+                    $('#contact_error').html('');
+                }
+                if(data.board_error != '')
+                {
+                    $('#board_error').html(data.board_error);
+                }
+                else
+                {
+                    $('#board_error').html('');
+                }
+                if(data.school_error != '')
+                {
+                    $('#school_error').html(data.school_error);
+                }
+                else
+                {
+                    $('#school_error').html('');
+                }
+                if(data.class_error != '')
+                {
+                    $('#class_error').html(data.class_error);
+                }
+                else
+                {
+                    $('#class_error').html('');
+                }
+                if(data.package_error != '')
+                {
+                    $('#package_error').html(data.package_error);
+                }
+                else
+                {
+                    $('#package_error').html('');
+                }
+                
+            }
+            if(data.success)
+            {
+                $('#fname_error').html(data.success);
+                $('#lname_error').html('');
+                $('#email_error').html('');
+                $('#contact_error').html('');
+                $('#board_error').html('');
+                $('#school_error').html('');
+                $('#class_error').html('');
+                $('#package_error').html('');
+                window.location.href='manage-students';
+            }
+          
+
+          }
+
+      });
+
+  });
+
+
+});
+
+</script>

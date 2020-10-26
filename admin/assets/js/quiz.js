@@ -3,6 +3,7 @@ $(document).ready(function () {
     //this will trigger to load the chapter in subject load
     $("#inputSubject").change(function(){
         var subjectId = $("#inputSubject").val();
+        $("#chapter-spinner").show();
         if(subjectId != ""){
             var dropdowndata = "<option value=''>----Select----</option>"; 
             $.ajax({
@@ -12,11 +13,13 @@ $(document).ready(function () {
                 data: {subjectid: subjectId}, 
                 success: function (result)
                 {
+                    $("#chapter-spinner").hide();
                     $.each(result, function(i, obj) {
                       //use obj.id and obj.name here, for example:
                       dropdowndata += '<option value="'+obj.chapterID+'" >'+obj.chapterName+'</option>'
                     });
                     //alert(result);
+                    $("#inputChapter").removeAttr('disabled');
                     $("#inputChapter").empty();
                     $("#inputChapter").html(dropdowndata);
 
@@ -24,6 +27,7 @@ $(document).ready(function () {
             });
 
         }else{
+            $("#chapter-spinner").hide();
             $("#inputChapter").html('<option value="">----Select----</option>');
             $("#inputLevel").html('<option value="">----Select----</option>');
             $("#inputStage").html('<option value="">----Select----</option>');
@@ -34,6 +38,8 @@ $(document).ready(function () {
     $("#inputChapter").change(function(){
         var subjectVal = $("#inputSubject").val();
         var chapterVal = $("#inputChapter").val();
+        $("#level-spinner").show();
+        $("#stage-spinner").show();
         if(chapterVal != ""){
 
             $.ajax({
@@ -46,6 +52,9 @@ $(document).ready(function () {
                     //alert(result);
                     $("#inputLevel").html('<option value="'+result[0]['levelID']+'" SELECTED >'+result[0]['levelName']+'</option>');
                     $("#inputStage").html('<option value="'+result[0]['stageID']+'" SELECTED >'+result[0]['stageName']+'</option>');
+
+                    $("#level-spinner").hide();
+                    $("#stage-spinner").hide();
 
                 }
             });

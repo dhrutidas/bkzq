@@ -271,6 +271,22 @@ class Student_model extends CI_Model
 		return $status;
 	}
 
+	function payment_update($userId)
+	{
+		$userMasterUpdate = "UPDATE userMaster SET updatedAt='now()', status='Y' WHERE userID = '" . $userId . "'";
+		$query = $this->db->query($userMasterUpdate);
+
+		$confrimMasterUpdate = "UPDATE userConfirmationMaster SET status = 'Y', updatedOn = 'now()' WHERE user_code = '" . $userId . "'";
+
+		$query1 = $this->db->query($confrimMasterUpdate);
+
+		if (isset($query) && isset($query1)) {
+			return TRUE;
+		} else {
+			return FALSE;
+		}
+	}
+
 	function confirmUpgradePackage($eDetails)
 	{
 
@@ -287,7 +303,6 @@ class Student_model extends CI_Model
 			return FALSE;
 		}
 	}
-
 	function getStudentsWhereLike($field, $search)
 	{
 		$this->db->where('roleID', '3');

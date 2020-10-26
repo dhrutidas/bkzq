@@ -130,27 +130,35 @@ class Chapters extends MY_Controller {
         $this->form_validation->set_rules('inputChaptername', 'Chapter Name', 'required');
         $this->form_validation->set_rules('inputChapterdesc', 'Chapter Description', 'required');
         $this->form_validation->set_rules('inputSubject', 'Subject Name', 'required');
+        
+        if ($this->form_validation->run() == FALSE){
 
-        if ($this->form_validation->run() == TRUE ){
+            //$errors = validation_errors();
+            $array = array(
+                'error'   => true,
+                'name_error' => form_error('inputChaptername'),
+                'desc_error' => form_error('inputChapterdesc'),
+                'sub_error' => form_error('inputSubject')
+            );
 
-            $postArr['cname'] = $this->input->post('inputChaptername');
-            $postArr['cdescription'] = $this->input->post('inputChapterdesc');
-            $postArr['csubjectid'] = $this->input->post('inputSubject');
+            echo json_encode($array);
 
-			if( $this->chapter_model->insertChapter($postArr))
-			{
-		        $this->session->set_flashdata('message', 'Success! New Chapter has been added successfully.');
-			}
-			else
-			{
-				$this->session->set_flashdata('warning', 'oops Something went wrong please try again.');
-			}
+        }else{
+            if ($this->form_validation->run() == TRUE ){
+
+                $postArr['cname'] = $this->input->post('inputChaptername');
+                $postArr['cdescription'] = $this->input->post('inputChapterdesc');
+                $postArr['csubjectid'] = $this->input->post('inputSubject');
+    
+                if( $this->chapter_model->insertChapter($postArr))
+                {
+                    $this->session->set_flashdata('message', 'Success! New Chapter has been added successfully.');
+                }
+    
+            }
         }
-	else
-	{
-		$this->session->set_flashdata('warning', 'Mendatory field can not be left blank.');
-	}
-	redirect( base_url('manage-chapters') );
+
+        
     }
 
     public function editChapter(){

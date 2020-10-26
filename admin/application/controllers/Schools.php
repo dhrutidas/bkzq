@@ -123,28 +123,37 @@ class Schools extends MY_Controller {
         $this->form_validation->set_rules('inputSchoolAdd', 'School Phone', 'required');
         $this->form_validation->set_rules('inputSchoolEmail', 'School Phone', 'required');
 
-        if ($this->form_validation->run() == TRUE ){
+        if ($this->form_validation->run() == FALSE){
 
-            $postArr['sname'] = $this->input->post('inputSchoolname');
-            $postArr['sphone'] = $this->input->post('inputSchoolPhone');
-            $postArr['sadd'] = $this->input->post('inputSchoolAdd');
-            $postArr['semail'] = $this->input->post('inputSchoolEmail');
+            //$errors = validation_errors();
+            $array = array(
+                'error'   => true,
+                'name_error' => form_error('inputSchoolname'),
+                'phone_error' => form_error('inputSchoolPhone'),
+                'add_error' => form_error('inputSchoolAdd'),
+                'email_error' => form_error('inputSchoolEmail')
+            );
 
-			if( $this->school_model->insertSchool($postArr))
-			{
-		        $this->session->set_flashdata('message', 'Success! New School has been added successfully.');
-			}
-			else
-			{
-				$this->session->set_flashdata('warning', 'oops Something went wrong please try again.');
-			}
-		
+            echo json_encode($array);
+
+        }else{
+            if ($this->form_validation->run() == TRUE ){
+
+                $postArr['sname'] = $this->input->post('inputSchoolname');
+                $postArr['sphone'] = $this->input->post('inputSchoolPhone');
+                $postArr['sadd'] = $this->input->post('inputSchoolAdd');
+                $postArr['semail'] = $this->input->post('inputSchoolEmail');
+    
+                if( $this->school_model->insertSchool($postArr))
+                {
+                    $this->session->set_flashdata('message', 'Success! New School has been added successfully.');
+                }
+            
+            }
         }
-	else
-	{
-		$this->session->set_flashdata('warning', 'Mendatory field can not be left blank.');
-	}
-	redirect( base_url('manage-schools') );
+
+
+        
     }
 
     public function editSchool(){

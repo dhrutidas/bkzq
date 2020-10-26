@@ -55,33 +55,41 @@ class Application extends MY_Controller {
     }
     
      public function addModal(){ $this->load->view("content/application/add_modal"); }
-    public function submitApplication(){
+    
+     public function submitApplication(){
         $this->form_validation->set_rules('inputAppName', 'App Name', 'required|trim');
         $this->form_validation->set_rules('inputAppPath', 'App Path', 'required|trim');
         $this->form_validation->set_rules('inputAppOrder', 'App Order', 'required|trim');
 
-        if ($this->form_validation->run() == TRUE ){
+        if ($this->form_validation->run() == FALSE){
+
+            //$errors = validation_errors();
+            $array = array(
+                'error'   => true,
+                'app_error' => form_error('inputAppName'),
+                'path_error' => form_error('inputAppPath'),
+                'order_error' => form_error('inputAppOrder')
+            );
+
+            echo json_encode($array);
+
+        }else{
+
+
+            if ($this->form_validation->run() == TRUE ){
             
-            $postArr['app_name'] = $this->input->post('inputAppName');
-            $postArr['app_path'] = $this->input->post('inputAppPath');
-            $postArr['app_order'] = $this->input->post('inputAppOrder');
+                $postArr['app_name'] = $this->input->post('inputAppName');
+                $postArr['app_path'] = $this->input->post('inputAppPath');
+                $postArr['app_order'] = $this->input->post('inputAppOrder');
+    
+                $this->session->set_flashdata('message', 'Success! New User has been added successfully.');
+                echo json_encode(['success'=>'Form submitted successfully.']);
+    
+             
+         }
 
-            if($this->application_model->insertApp($postArr))
-            {
-                $this->session->set_flashdata('message', 'Success! New Level has been added successfully.');
-            }
-            else
-            {
-                $this->session->set_flashdata('warning', 'oops Something went wrong please try again.');
-            }
-
-          redirect( base_url('manage-applications') );
         }
-    else
-    {
-        $this->session->set_flashdata('warning', 'Mendatory field can not be left blank.');
-        redirect( base_url('manage-level') );
-    }
+        
 }
 
     public function editPrivilegeModal($rID){

@@ -5,7 +5,7 @@ $MERCHANT_KEY = "USXGqSdn";
 $SALT = "Q9PmRAbDhC";
 //print_r($student);
 // End point - change to https://secure.payu.in for LIVE mode
-$PAYU_BASE_URL = "https://secure.payu.in";
+$PAYU_BASE_URL = "https://sandboxsecure.payu.in";//"https://secure.payu.in";
 
 $action = '';
 
@@ -114,11 +114,11 @@ if(empty($posted['hash']) && sizeof($posted) > 0) {
         </tr>
         <tr>
           <!--<td>Success URI: </td>-->
-          <td colspan="3"><input type='hidden' name="surl" value="<?php echo 'http://'. $_SERVER['SERVER_NAME'].'/success.php'; ?>" size="64" /></td>
+          <td colspan="3"><input type='hidden' name="surl" value="<?php echo base_url('paynow-success/').$student['userID']; ?>" size="64" /></td>
         </tr>
         <tr>
           <!--<td>Failure URI: </td>-->
-          <td colspan="3"><input type='hidden' name="furl" value="<?php echo 'http://'. $_SERVER['SERVER_NAME'].'/failure.php'; ?>" size="64" /></td>
+          <td colspan="3"><input type='hidden' name="furl" value="<?php echo base_url('paynow-fail/').$student['userID']; ?>" size="64" /></td>
         </tr>
 
         <tr>
