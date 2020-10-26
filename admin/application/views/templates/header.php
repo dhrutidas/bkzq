@@ -62,9 +62,6 @@ if ($role_id == 1) {
                     <li><a href="<?php echo base_url('profile'); ?>"><span class=""></span>&nbsp;Profile</a></li>
                 </ul>
             <?php } ?>
-            <ul class="nav navbar-nav">
-                <li><a href="<?php echo base_url('change-password'); ?>"><span class="glyphicon glyphicon-user"></span>&nbsp;Change password</a></li>
-            </ul>
 
             <ul class="nav navbar-nav navbar-right profileArea_right">
                 
@@ -81,7 +78,7 @@ if ($role_id == 1) {
                     <!--      <img src="https://via.placeholder.com/150" />-->
                     <!--  </figure>-->
                     <!--</li>-->
-                    <li><a href="#">Change Password</a></li>
+                    <li><a href="<?php echo base_url('change-password'); ?>">Change password</a></li>
                     <li><a href="<?php echo base_url('logout'); ?>">Logout</a></li>
                   </ul>
                 </div>
