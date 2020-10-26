@@ -159,7 +159,7 @@
                                         <option value="S">Silver</option>
                                         <option value="G">Gold</option>
                                     </select>
-                                    <span id="input_package_info" class="text-danger">Free Trial: Select One Subject</span>
+                                    <span id="input_package_info" class="text-danger">Free Trial: Select All Subject</span>
                                     <span id="input_package_error" class="text-danger"></span>
                                 </div>
 
