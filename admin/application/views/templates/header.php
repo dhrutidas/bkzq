@@ -69,8 +69,25 @@ if ($role_id == 1) {
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="<?php echo base_url('logout'); ?>"><span class="glyphicon glyphicon-log-out"></span>&nbsp;Logout</a></li>
             </ul>
+          
 
         </div>
+        <ul class="profile-wrapper">
+                <li>
+                    <!-- user profile -->
+                    <div class="profile">
+                        <img src="http://gravatar.com/avatar/0e1e4e5e5c11835d34c0888921e78fd4?s=80" />
+                        <a href="http://swimbi.com" class="name">swimbi.com</a>
+                        
+                        <!-- more menu -->
+                        <ul class="menu">
+                            <li><a href="#">Edit</a></li>
+                            <li><a href="#">Change Password</a></li>
+                            <li><a href="#">Log out</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
     </div>
 </nav>
 <script>
