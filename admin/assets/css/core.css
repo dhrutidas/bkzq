@@ -343,3 +343,54 @@ table.dataTable thead th, table.dataTable thead td {
 .profile:hover .menu {
 	display:block;
 }
+
+.profileArea_right {
+    margin: 5px 0 0 0;
+}
+
+.profileArea {
+    display: inline-block;
+}
+
+.profileArea li {
+	border-bottom: solid 1px #f7f7f7;
+}
+
+.profileArea .dropdown-menu {
+	width: 200px;
+}
+
+.profileArea .dropdown-menu > li > a {
+	padding: 10px;
+}
+
+.profileArea button {
+    background: none;
+    border: 0;
+    display: flex;
+    align-items: center;
+}
+
+.profileArea .pp {
+    height: 40px;
+    width: 40px;
+    margin: 0 10px 0 0;
+}
+
+.profileArea .pp img {
+    max-height: 100%;
+    max-width: 100%;
+    border-radius: 50%;
+}
+
+.pp_big {
+    height: 70px;
+    width: 70px;
+    margin: 10px auto;
+}
+
+.pp_big img {
+    max-height: 100%;
+    max-width: 100%;
+    border-radius: 50%;
+}
