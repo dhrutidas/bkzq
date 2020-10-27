@@ -68,16 +68,17 @@ if ($role_id == 1) {
                 <div class="profileArea">
                   <button class="dropdown-toggle" type="button" data-toggle="dropdown">
                       <figure class="pp">
-                          <img src="https://via.placeholder.com/150" />
+                      <?php if($this->sData['profile_pic']):?>
+                        <img src="<?php echo base_url().'assets/images/profile_pic/'.$this->sData['profile_pic'].'?ver='.date('dmyhsi'); ?>" />
+                      <?php else:?>
+                        <img src="<?php echo base_url("assets/images/default_profile.png"); ?>" />
+                      <?php endif;?>
+                         
                       </figure>
-                      Welcome Sunny
+                      Welcome, <?php echo $this->sData['user_first_name'] ." ".$this->sData['user_last_name'] ; ?>
                   <span class="caret"></span></button>
                   <ul class="dropdown-menu">
-                    <!--<li>-->
-                    <!--    <figure class="pp_big">-->
-                    <!--      <img src="https://via.placeholder.com/150" />-->
-                    <!--  </figure>-->
-                    <!--</li>-->
+                    <li><a href="<?php echo base_url('profile'); ?>">profile</a></li>
                     <li><a href="<?php echo base_url('change-password'); ?>">Change password</a></li>
                     <li><a href="<?php echo base_url('logout'); ?>">Logout</a></li>
                   </ul>
