@@ -9,28 +9,28 @@
     <div class="scrollable-body">
 
         <div class="form-group">
-            <label for="inputFirstName" class="col-sm-4 control-label">First Name</label>
+            <label for="inputFirstName" class="col-sm-4 control-label">First Name *</label>
             <div class="col-sm-6">
                 <input type="text" class="form-control" id="inputFirstName" name="inputFirstName">
                 <span id="first_name_error" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
-            <label for="inputLastName" class="col-sm-4 control-label">Last Name</label>
+            <label for="inputLastName" class="col-sm-4 control-label">Last Name *</label>
             <div class="col-sm-6">
                 <input type="text" class="form-control" id="inputLastName" name="inputLastName">
                 <span id="last_name_error" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
-            <label for="inputEmail" class="col-sm-4 control-label">Email</label>
+            <label for="inputEmail" class="col-sm-4 control-label">Email *</label>
             <div class="col-sm-6">
                 <input type="text" class="form-control" id="inputEmail" name="inputEmail">
                 <span id="email_error" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
-            <label for="inputContact" class="col-sm-4 control-label">Contact</label>
+            <label for="inputContact" class="col-sm-4 control-label">Contact *</label>
             <div class="col-sm-6">
                 <input type="text" class="form-control" id="inputContact" name="inputContact">
                 <span id="contact_error" class="text-danger"></span>
@@ -62,7 +62,7 @@
         </div> -->
 
         <div class="form-group">
-            <label for="inputRole" class="col-sm-4 control-label">Select Role</label>
+            <label for="inputRole" class="col-sm-4 control-label">Select Role *</label>
             <div class="col-sm-6">
                 <select class="form-control" id="inputRole" name="inputRole">
                     <option value="">----Select----</option>
@@ -74,7 +74,7 @@
             </div>
         </div>   
         <div class="form-group">
-            <label for="inputPassword" class="col-sm-4 control-label">Password</label>
+            <label for="inputPassword" class="col-sm-4 control-label">Password *</label>
             <div class="col-sm-6 passwordWrap">
                 <input type="password" class="form-control" id="inputPassword" name="inputPassword" value="">
                 <i class="far fa-eye" id="togglePassword"></i>
@@ -82,7 +82,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="inputConfirmPassword" class="col-sm-4 control-label">Confirm Password</label>
+            <label for="inputConfirmPassword" class="col-sm-4 control-label">Confirm Password *</label>
             <div class="col-sm-6">
                 <input type="password" class="form-control" id="inputConfirmPassword" name="inputConfirmPassword" value="">
                 <span id="confirm_password_error" class="text-danger"></span>

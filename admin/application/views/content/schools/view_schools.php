@@ -28,19 +28,19 @@
     <div>
 
 </div>
-    <div class="panel-collapse">
+    <div class="panel-collapse customTable">
 
     <?php echo form_open('', 'class=form-inline'); ?>
 
-    <table class="table table-hover" id="school">
+    <table class="table table-hover table-striped" id="school">
     <thead>
     <tr>
-        <th class="bg-primary col-sm-1">#</th>
-        <th class="bg-primary col-sm-3">School Name</th>
-        <th class="bg-primary col-sm-3">School Number</th>
-        <th class="bg-primary col-sm-2">Status</th>
-        <th class="bg-primary col-sm-2">Added on</th>
-        <th class="bg-primary col-sm-1">Edit</th>
+        <th class="bg-primary">#</th>
+        <th class="bg-primary">School Name</th>
+        <th class="bg-primary">School Number</th>
+        <th class="bg-primary">Status</th>
+        <th class="bg-primary">Added on</th>
+        <th class="bg-primary">Edit</th>
     </tr>
     </thead>
     <tbody>
@@ -54,7 +54,7 @@
                 <td><?php echo $cnt++; ?></td>
                 <td><?php echo $values["schoolName"]; ?></td>
                 <td><?php echo $values["schoolContactNumber"]; ?></td>
-                <td><?php echo ($values["status"]=='Y') ? 'Active' : 'Inactive'; ?></td>
+                <td><?php echo ($values["status"]=='Y') ? '<span class="badge badge-pill badge-success">Active</span>' : '<span class="badge badge-pill badge-danger">Inactive</span>'; ?></td>
                 <td><?php echo date('d-M-Y H:i:s', strtotime($values["createdAt"])); ?></td>
                 <td>
                     <a href="<?php echo base_url("open-edit-school-modal/" . $values['schoolID'] ); ?>" data-toggle="modal" data-target="#viewModal">

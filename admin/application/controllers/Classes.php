@@ -80,27 +80,32 @@ class Classes extends MY_Controller {
         $this->form_validation->set_rules('inputClassName', 'Class Name', 'required');
         $this->form_validation->set_rules('inputClassDesc', 'Class Description', 'required');
 
-        if ($this->form_validation->run() == TRUE ){
-            
-            $postArr['bname'] = $this->input->post('inputClassName');
-            $postArr['bdesc'] = $this->input->post('inputClassDesc');
+        if ($this->form_validation->run() == FALSE){
 
-			if($this->class_model->insertClass($postArr))
-			{
-				$this->session->set_flashdata('message', 'Success! New Class has been added successfully.');
-			}
-			else
-			{
-				$this->session->set_flashdata('warning', 'oops Something went wrong please try again.');
-			}
-		  
-		  redirect( base_url('manage-classes') );
+            //$errors = validation_errors();
+            $array = array(
+                'error'   => true,
+                'name_error' => form_error('inputClassName'),
+                'desc_error' => form_error('inputClassDesc')
+            );
+
+            echo json_encode($array);
+
+        }else{
+        
+            if ($this->form_validation->run() == TRUE ){
+            
+                $postArr['bname'] = $this->input->post('inputClassName');
+                $postArr['bdesc'] = $this->input->post('inputClassDesc');
+    
+                if($this->class_model->insertClass($postArr))
+                {
+                    $this->session->set_flashdata('message', 'Success! New Class has been added successfully.');
+                }
+                
+            }
+        
         }
-	else
-	{
-		$this->session->set_flashdata('warning', 'Mendatory field can not be left blank.');
-		redirect( base_url('manage-classes') );
-	}
 }
     
     public function editClass(){ 

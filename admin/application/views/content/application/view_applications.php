@@ -26,17 +26,17 @@
         </div>
     </div>
 
-    <div class="panel-collapse">
+    <div class="panel-collapse customTable">
 
     <?php echo form_open('', 'class=form-inline'); ?>
 
-    <table class="table table-hover" id="app">
+    <table class="table table-hover table-striped" id="app">
     <thead>
     <tr>
-        <th class="bg-primary col-sm-1">#</th>
-        <th class="bg-primary col-sm-6">Application Name</th>
-        <th class="bg-primary col-sm-4">Status</th>
-        <th class="bg-primary col-sm-1">Edit</th>
+        <th class="bg-primary">#</th>
+        <th class="bg-primary">Application Name</th>
+        <th class="bg-primary">Status</th>
+        <th class="bg-primary">Edit</th>
     </tr>
     </thead>
     <tbody>
@@ -49,7 +49,7 @@
             <tr>
                 <td><?php echo $cnt++; ?></td>
                 <td><?php echo $values["app_name"]; ?></td>
-                <td><?php echo ($values["app_status"]=='Y') ? 'Active' : 'Inactive' ; ?></td>
+                <td><?php echo ($values["app_status"]=='Y') ? '<span class="badge badge-pill badge-success">Active</span>' : '<span class="badge badge-pill badge-danger">Inactive</span>' ; ?></td>
                 <td>
                     <a href="<?php echo base_url("open-edit-privilege-modal/" . $values['app_id'] ); ?>" data-toggle="modal" data-target="#viewModal">
                         <span class="glyphicon glyphicon-edit"></span>

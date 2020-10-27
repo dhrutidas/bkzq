@@ -25,19 +25,19 @@
         </div>
     </div>
 
-    <div class="panel-collapse">
+    <div class="panel-collapse customTable">
 
     <?php echo form_open('', 'class=form-inline'); ?>
 
-    <table class="table table-hover" id="board">
+    <table class="table table-hover table-striped" id="board">
     <thead>
     <tr>
-        <th class="bg-primary col-sm-1">#</th>
-        <th class="bg-primary col-sm-3">Board Name</th>
-        <th class="bg-primary col-sm-3">Board Description</th>
-        <th class="bg-primary col-sm-2">Status</th>
-        <th class="bg-primary col-sm-2">Added on</th>
-        <th class="bg-primary col-sm-1">Edit</th>
+        <th class="bg-primary">#</th>
+        <th class="bg-primary">Board Name</th>
+        <th class="bg-primary">Board Description</th>
+        <th class="bg-primary">Status</th>
+        <th class="bg-primary">Added on</th>
+        <th class="bg-primary">Edit</th>
     </tr>
     </thead>
     <tbody>
@@ -51,7 +51,7 @@
                 <td><?php echo $cnt++; ?></td>
                 <td><?php echo $values["boardName"]; ?></td>
                 <td><?php echo $values["boardDesc"]; ?></td>
-                <td><?php echo ($values["status"]=='Y') ? 'Active' : 'Inactive'; ?></td>
+                <td><?php echo ($values["status"]=='Y') ? '<span class="badge badge-pill badge-success">Active</span>' : '<span class="badge badge-pill badge-danger">Inactive</span>'; ?></td>
                 <td><?php echo date('d-M-Y H:i:s', strtotime($values["updatedAt"])); ?></td>
                 <td>
                     <a href="<?php echo base_url("open-edit-board-modal/" . $values['boardID'] ); ?>" data-toggle="modal" data-target="#viewModal">

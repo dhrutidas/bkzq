@@ -107,21 +107,31 @@ class Customers_type extends MY_Controller {
         $this->form_validation->set_rules('inputcustomertypename', 'Customer Type Name', 'required');
         $this->form_validation->set_rules('inputcustomertypedesc', 'Customer Type Description', 'required');
 
-        if ($this->form_validation->run() == TRUE) {
+        if ($this->form_validation->run() == FALSE){
 
-            $postArr['custlevel'] = $this->input->post('inputlevel');
-            $postArr['custtypename'] = $this->input->post('inputcustomertypename');
-            $postArr['custtypedescription'] = $this->input->post('inputcustomertypedesc');
+            //$errors = validation_errors();
+            $array = array(
+                'error'   => true,
+                'level_error' => form_error('inputlevel'),
+                'name_error' => form_error('inputcustomertypename'),
+                'desc_error' => form_error('inputcustomertypedesc')
+            );
 
-            if ($this->customer_type_model->insertcType($postArr) == TRUE) {
-                $this->session->set_flashdata('message', 'Success! Customer Type has been updated successfully.');
-            } else {
-                $this->session->set_flashdata('warning', 'oops Something went wrong please try again.');
-            }
+            echo json_encode($array);
+
         }else{
-            $this->session->set_flashdata('warning', 'Mendatory field can not be left blank.');
+            if ($this->form_validation->run() == TRUE) {
+
+                $postArr['custlevel'] = $this->input->post('inputlevel');
+                $postArr['custtypename'] = $this->input->post('inputcustomertypename');
+                $postArr['custtypedescription'] = $this->input->post('inputcustomertypedesc');
+    
+                if ($this->customer_type_model->insertcType($postArr) == TRUE) {
+                    $this->session->set_flashdata('message', 'Success! Customer Type has been updated successfully.');
+                }
+            }
         }
-        redirect(base_url('manage-customers-type'));
+        
     }
 
 }
