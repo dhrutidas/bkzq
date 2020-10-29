@@ -60,60 +60,63 @@
             </div>
         </div>
 
-        <div class="row" style="padding-top:1%;">
-            <div class="col-sm-8 col-md-10 col-md-offset-1">
+        <div class="" style="padding-top:1%;">
+            <div class="">
                 <div class="panel panel-default">
 
-                    <div class="panel-heading">
-                        <h4 class="text-center">Sign up to continues</h4>
+                    <div class="panel-heading" style="display: inline-block; width: 100%;">
+                        <h4 class="text-center pull-left">Sign up to continues</h4>
+
+                        <a href="<?php echo base_url(''); ?>" class="btn btn-default pull-right">Sign In</a>
                     </div>
 
-                    <div class="form-group" style="background-color:#ffffff; padding-top:5px;" id="affiliateUserQuestion">
-                        <label for="inputFirstName" class="col-sm-4 control-label" style="font-size: larger; color: #7474de;">Do you want to register as an Affiliate ? </label>
-                        <input type="checkbox" id="affiliateOptIn" name="affiliateOptIn" <?php echo isset($affiliateOptIn) ? 'checked' : ''; ?> />
+                    <div class="form-group affiliateUserQuestion" id="affiliateUserQuestion">
+                        <label for="affiliateOptIn" class="control-label">
+                            <input type="checkbox" id="affiliateOptIn" name="affiliateOptIn" <?php echo isset($affiliateOptIn) ? 'checked' : ''; ?> />
+                            Do you want to register as an Affiliate ?
+                        </label>
                     </div>
 
                     <div class="panel-body" id="nonAffiliateUser" style="display:block">
 
-                        <?php echo form_open_multipart('submit-signup', 'class="form-horizontal" id="addSignupform"'); ?>
+                        <?php echo form_open_multipart('submit-signup', ' id="addSignupform"'); ?>
 
                         <div class="scrollable-body">
 
-                            <div class="form-group">
-                                <label for="inputFirstName" class="col-sm-4 control-label mandatory">First Name </label>
-                                <div class="col-sm-7">
+                            <div class="form-group col-sm-6">
+                                <label for="inputFirstName" class="control-label mandatory">First Name </label>
+                                <div class="">
                                     <input type="text" class="form-control" id="inputFirstName" name="inputFirstName" placeholder="First Name">
                                     <span id="first_name_error" class="text-danger"></span>
                                 </div>
-
                             </div>
-                            <div class="form-group">
-                                <label for="inputLastName" class="col-sm-4 control-label mandatory">Last Name</label>
-                                <div class="col-sm-7">
+                            <div class="form-group col-sm-6">
+                                <label for="inputLastName" class="control-label mandatory">Last Name</label>
+                                <div class="">
                                     <input type="text" class="form-control" id="inputLastName" name="inputLastName" placeholder="Last Name">
                                     <span id="last_name_error" class="text-danger"></span>
                                 </div>
 
                             </div>
-                            <div class="form-group">
-                                <label for="inputEmail" class="col-sm-4 control-label mandatory">Email</label>
-                                <div class="col-sm-7">
+                            <div class="form-group col-sm-6">
+                                <label for="inputEmail" class="control-label mandatory">Email</label>
+                                <div class="">
                                     <input type="email" class="form-control" id="inputEmail" placeholder="Email" name="inputEmail">
                                     <span id="email_error" class="text-danger"></span>
                                 </div>
 
                             </div>
-                            <div class="form-group">
-                                <label for="inputContact" class="col-sm-4 control-label mandatory">Mobile Number</label>
-                                <div class="col-sm-5">
+                            <div class="form-group col-sm-6">
+                                <label for="inputContact" class="control-label mandatory">Mobile Number</label>
+                                <div class="">
                                     <input type="tel" class="form-control" id="inputContact" placeholder="Mobile Number" name="inputContact">
                                     <span id="mobile_number_error" class="text-danger"></span>
                                 </div>
 
                             </div>
-                            <div class="form-group">
-                                <label for="inputBoard" class="col-sm-4 control-label mandatory">Select Board</label>
-                                <div class="col-sm-7">
+                            <div class="form-group col-sm-6">
+                                <label for="inputBoard" class="control-label mandatory">Select Board</label>
+                                <div class="">
                                     <select class="form-control" id="inputBoard" name="inputBoard">
                                         <option value="">----Select----</option>
                                         <?php foreach ($boardArr as $bValues) : ?>
@@ -124,9 +127,9 @@
                                 </div>
 
                             </div>
-                            <div class="form-group">
-                                <label for="inputSchool" class="col-sm-4 control-label mandatory">Select School</label>
-                                <div class="col-sm-7">
+                            <div class="form-group col-sm-6">
+                                <label for="inputSchool" class="control-label mandatory">Select School</label>
+                                <div class="">
                                     <select class="form-control" id="inputSchool" name="inputSchool">
                                         <option value="">----Select----</option>
                                         <?php foreach ($schoolArr as $dValues) : ?>
@@ -137,9 +140,9 @@
                                 </div>
 
                             </div>
-                            <div class="form-group">
-                                <label for="inputClass" class="col-sm-4 control-label mandatory">Select Statndard</label>
-                                <div class="col-sm-7">
+                            <div class="form-group col-sm-6">
+                                <label for="inputClass" class="control-label mandatory">Select Statndard</label>
+                                <div class="">
                                     <select class="form-control" id="inputClass" name="inputClass">
                                         <option value="">----Select----</option>
                                         <?php foreach ($classArr as $dValues) : ?>
@@ -150,9 +153,9 @@
                                 </div>
 
                             </div>
-                            <div class="form-group">
-                                <label for="inputPackage" class="col-sm-4 control-label mandatory">Select Package</label>
-                                <div class="col-sm-7">
+                            <div class="form-group col-sm-6">
+                                <label for="inputPackage" class="control-label mandatory">Select Package</label>
+                                <div class="">
                                     <select class="form-control" onchange="packageChange()" id="inputPackage" name="inputPackage">
                                         <option value="T" selected="selected">Free Trial</option>
                                         <option value="B">Bronze</option>
@@ -165,74 +168,78 @@
 
                             </div>
 
-                            <div class="form-group">
-                                <label for="inputSubject" class="col-sm-4 control-label mandatory">Select Subject</label>
-                                <div class="col-sm-7" id="CheckboxListDiv">
+                            <div class="form-group col-sm-12">
+                                <label for="inputSubject" class="control-label mandatory">Select Subject</label>
+                                <div class="selectSub" id="CheckboxListDiv">
                                     <ul id="CheckBoxList">
                                         <?php foreach ($subjectArr as $dValues) : ?>
-                                            <input type="checkbox" name="subject[]" value="<?php echo $dValues['subjectID']; ?>"><label><?php echo $dValues['subjectName']; ?></label><br />
+                                            <li class="col-sm-3">
+                                                <input type="checkbox" name="subject[]" value="<?php echo $dValues['subjectID']; ?>"><label><?php echo $dValues['subjectName']; ?></label>
+                                            </li>
                                         <?php endforeach; ?>
                                         <span id="input_subject_error" class="text-danger"></span>
                                     </ul>
-
-
                                 </div>
-
                             </div>
 
-                            <div class="form-group">
-                                <label for="inputFirstName" class="col-sm-4 control-label mandatory">Password</label>
-                                <div class="col-sm-7">
+                            <div class="form-group col-sm-6">
+                                <label for="inputFirstName" class="control-label mandatory">Password</label>
+                                <div class="">
                                     <input type="password" class="form-control" id="inputPassword" name="inputPassword">
                                     <span id="password_error" class="text-danger"></span>
                                 </div>
 
                             </div>
-                            <div class="form-group">
-                                <label for="inputFirstName" class="col-sm-4 control-label mandatory">Confirm Password</label>
-                                <div class="col-sm-7">
+                            <div class="form-group col-sm-6">
+                                <label for="inputFirstName" class="control-label mandatory">Confirm Password</label>
+                                <div class="">
                                     <input type="password" class="form-control" id="inputConfirmPassword" name="inputConfirmPassword">
                                     <span id="confirm_password_error" class="text-danger"></span>
                                 </div>
 
                             </div>
-                            <div class="form-group">
-                                <label for="affiliateCode" class="col-sm-4 control-label">Afiiliate Code</label>
-                                <div class="col-sm-7">
+                            <div class="form-group col-sm-12">
+                                <label for="affiliateCode" class="control-label">Afiiliate Code</label>
+                                <div class="">
                                     <input type="text" class="form-control" id="affiliateCode" name="affiliateCode">
                                     <span id="affiliate_code_error" class="text-danger"></span>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label for="ihave" class="col-sm-4 control-label mandatory">I have</label>
-                                <div class="col-sm-7">
+                            <div class="form-group col-sm-12">
+                                <label for="ihave" class="control-label mandatory">I have</label>
+                                <div class="">
                                     <select class="form-control" id="ihave" name="ihave" required>
                                         <option value="accepted">Accepted</option>
                                     </select>
                                     <a href="http://bkzquiz.com/privacy_policy.php" target="_blank">Policy</a> , <a href="http://bkzquiz.com/publisher_terms.php" target="_blank">Term & Conditions</a>.
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <div class="col-sm-offset-4 col-sm-4">
-                                    <input type="text" class="form-control" id="captcha" name="captcha">
-                                    <span id="captcha_error" class="text-danger"></span>
-                                </div>
-                                <div class="col-sm-offset-4 col-sm-4">
-                                    <p id="image_captcha"><?php echo $captchaImg; ?></p>
-                                    <a href="javascript:void(0);" class="captcha-refresh" ><img width="40" src="<?php echo base_url("assets/images/refresh-button.png"); ?>"/></a>
+                            <div class="form-group col-sm-12">
+                                <div class="image_captchaWrap">
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control" id="captcha" name="captcha">
+                                        <span id="captcha_error" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <p id="image_captcha">
+                                            <?php echo $captchaImg; ?>
+                                            <a href="javascript:void(0);" class="captcha-refresh">
+                                                <img width="40" src="<?php echo base_url("assets/images/refresh-button.png"); ?>"/>
+                                            </a>
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <div class="col-sm-offset-4 col-sm-8">
-                                    <button type="submit" class="btn btn-default" id="btn-submit-student">Submit</button>&nbsp;
+                            <div class="form-group col-sm-12">
+                                <div class="btn-submit-student_wrap">
+                                    <button type="submit" class="btn btn-primary" id="btn-submit-student">Submit</button>&nbsp;
                                     <!--onclick="return mobile_validation(this)"-->
                                     <button type="button" class="btn btn-default" onclick="window.location='<?php echo base_url(''); ?>'">Cancel</button>
-
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <div class="col-md-6 col-md-offset-4">
-                                    <p style="color:grey">(Please provide correct information or else your account won't be activated*)</p>
+                            <div class="form-group col-sm-12">
+                                <div class="alert alert-warning">
+                                    <p>(Please provide correct information or else your account won't be activated*)</p>
                                 </div>
                             </div>
                         </div>
@@ -241,58 +248,58 @@
 
                     <div class="panel-body" id="affiliateUser" style="display:none">
 
-                        <?php echo form_open_multipart('submit-signup-affiliate', 'class="form-horizontal" id="addSignupformAffiliate"'); ?>
+                        <?php echo form_open_multipart('submit-signup-affiliate', ' id="addSignupformAffiliate"'); ?>
 
                         <div class="scrollable-body">
                             <fieldset>
                                 <legend>Affiliate related details</legend>
 
-                                <div class="form-group">
-                                    <label for="inputAffFirstName" class="col-sm-4 control-label mandatory">First Name</label>
-                                    <div class="col-sm-7">
+                                <div class="form-group col-sm-6">
+                                    <label for="inputAffFirstName" class="control-label mandatory">First Name</label>
+                                    <div class="">
                                         <input type="text" class="form-control" id="inputAffFirstName" name="inputAffFirstName" placeholder="First Name">
                                         <span id="inputAffFirstName_error" class="text-danger"></span>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="inputAffLastName" class="col-sm-4 control-label mandatory">Last Name</label>
-                                    <div class="col-sm-7">
+                                <div class="form-group col-sm-6">
+                                    <label for="inputAffLastName" class="control-label mandatory">Last Name</label>
+                                    <div class="">
                                         <input type="text" class="form-control" id="inputAffLastName" name="inputAffLastName" placeholder="Last Name">
                                         <span id="inputAffLastName_error" class="text-danger"></span>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="inputDateofbirth" class="col-sm-4 control-label mandatory">Date of birth </label>
+                                <div class="form-group col-sm-6">
+                                    <label for="inputDateofbirth" class="control-label mandatory">Date of birth </label>
                                     <div class="col-sm-2">
                                         <input type="text" class="form-control datepicker_class" id="inputDateofbirth" name="inputDateofbirth" />
                                         <span id="inputDateofbirth_error" class="text-danger"></span>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="inputAffEmail" class="col-sm-4 control-label mandatory">Email</label>
-                                    <div class="col-sm-7">
+                                <div class="form-group col-sm-6">
+                                    <label for="inputAffEmail" class="control-label mandatory">Email</label>
+                                    <div class="">
                                         <input type="email" class="form-control" id="inputAffEmail" placeholder="Email" name="inputAffEmail">
                                         <span id="inputAffEmail_error" class="text-danger"></span>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="inputAffContact" class="col-sm-4 control-label mandatory">Mobile Number</label>
+                                <div class="form-group col-sm-6">
+                                    <label for="inputAffContact" class="control-label mandatory">Mobile Number</label>
                                     <div class="col-sm-5">
                                         <input type="tel" class="form-control" id="inputAffContact" placeholder="Mobile Number" name="inputAffContact">
                                         <span id="inputAffContact_error" class="text-danger"></span>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="inputFirstName" class="col-sm-4 control-label mandatory">Password</label>
-                                    <div class="col-sm-7">
+                                <div class="form-group col-sm-6">
+                                    <label for="inputFirstName" class="control-label mandatory">Password</label>
+                                    <div class="">
                                         <input type="password" class="form-control" id="inputAffPassword" name="inputAffPassword">
                                         <span id="inputAffPassword_error" class="text-danger"></span>
                                     </div>
 
                                 </div>
-                                <div class="form-group">
-                                    <label for="inputFirstName" class="col-sm-4 control-label mandatory">Confirm Password</label>
-                                    <div class="col-sm-7">
+                                <div class="form-group col-sm-6">
+                                    <label for="inputFirstName" class="control-label mandatory">Confirm Password</label>
+                                    <div class="">
                                         <input type="password" class="form-control" id="inputAffConfirmPassword" name="inputAffConfirmPassword">
                                         <span id="inputAffConfirmPassword_error" class="text-danger"></span>
                                     </div>
@@ -303,8 +310,8 @@
                             </fieldset>
                             <!-- Affiliate related details fieldset ends here-->
                            
-                            <div class="form-group">
-                                <label for="ihave" class="col-sm-4 control-label mandatory">I have</label>
+                            <div class="form-group col-sm-6">
+                                <label for="ihave" class="control-label mandatory">I have</label>
                                 <div class="col-sm-6">
                                     <select class="form-control" id="ihave" name="ihave" required>
                                         <option value="accepted">Accepted</option>
@@ -312,33 +319,30 @@
                                     <a href="http://bkzquiz.com/privacy_policy.php" target="_blank">Policy</a> , <a href="http://bkzquiz.com/publisher_terms.php" target="_blank">Term & Conditions</a>.
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group col-sm-6">
                                 <div class="col-sm-offset-4 col-sm-4">
-                                    <input type="text" class="form-control" id="captcha" name="captcha">
-                                    <span id="captcha_error" class="text-danger"></span>
+                                    <input type="text" class="form-control" id="captcha" name="affCaptcha">
+                                    <span id="aff_captcha_error" class="text-danger"></span>
                                 </div>
                                 <div class="col-sm-offset-4 col-sm-4">
-                                    <p id="image_captcha"><?php echo $captchaImg; ?></p>
-                                    <a href="javascript:void(0);" class="captcha-refresh" ><img width="40" src="<?php echo base_url("assets/images/refresh-button.png"); ?>"/></a>
+                                    <p id="image_captcha_aff"><?php echo $captchaImg; ?></p>
+                                    <a href="javascript:void(0);" class="captcha-refresh-aff" ><img width="40" src="<?php echo base_url("assets/images/refresh-button.png"); ?>"/></a>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group col-sm-6">
                                 <div class="col-sm-offset-4 col-sm-8">
                                     <button type="submit" class="btn btn-default" id="btn-submit-affiliate">Submit</button>&nbsp;
                                     <button type="button" class="btn btn-default" onclick="window.location='<?php echo base_url(''); ?>'">Cancel</button>
 
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group col-sm-6">
                                 <div class="col-md-6 col-md-offset-4">
                                     <p style="color:grey">(Please provide correct information or else your account won't be activated*)</p>
                                 </div>
                             </div>
                         </div>
                         </form>
-                    </div>
-                    <div class="panel-footer">
-                        <h4 class="text-center"><small><a href="<?php echo base_url(''); ?>">Sign in to continue</a></small></h4><br>
                     </div>
                 </div>
 
@@ -532,7 +536,7 @@
             var inputDateofbirth = $('#inputDateofbirth').val();
             var inputAffPassword = $("input[name='inputAffPassword']").val();
             var inputAffConfirmPassword = $("input[name='inputAffConfirmPassword']").val();
-
+            var captcha = $("input[name='affCaptcha']").val();
 
             $.ajax({
 
@@ -549,7 +553,9 @@
                     inputAffContact: inputAffContact,
                     inputDateofbirth: inputDateofbirth,
                     inputAffPassword: inputAffPassword,
-                    inputAffConfirmPassword: inputAffConfirmPassword
+                    inputAffConfirmPassword: inputAffConfirmPassword,
+                    inputAffConfirmPassword: inputAffConfirmPassword,
+                    captcha: captcha
                 },
 
                 success: function(data) {
@@ -590,9 +596,9 @@
                             $('#inputAffConfirmPassword_error').html('');
                         }
                         if (data.captcha_error != '') {
-                            $('#captcha_error').html(data.captcha_error);
+                            $('#aff_captcha_error').html(data.captcha_error);
                         } else {
-                            $('#captcha_error').html('');
+                            $('#aff_captcha_error').html('');
                         }
                     }
                     if (data.success) {
@@ -617,6 +623,11 @@
         $('.captcha-refresh').on('click', function(){
             $.get('<?php echo base_url().'captcha-refresh'; ?>', function(data){
                 $('#image_captcha').html(data);
+            });
+        });
+        $('.captcha-refresh-aff').on('click', function(){
+            $.get('<?php echo base_url().'captcha-refresh'; ?>', function(data){
+                $('#image_captcha_aff').html(data);
             });
         });
 

@@ -120,19 +120,30 @@ div.ui-datepicker{
     content: '*';
 }
 .mandatory + div input[type="text"],  input[type="email"],  input[type="tel"], select{
-    background-color: #fbfde1 !important;
+/*     background-color: #fbfde1 !important; */
 }
-legend{
-    color:#7474de;
-}
+
+legend{font-weight: 600;padding: 10px 0 10px;display: block;}
 .form-group{
     margin-bottom: 10px;
 }
 input#affiliateOptIn{
     margin: 0;
 }
+
+.affiliateUserQuestion {
+    background: #f5f5f5;
+    padding: 20px 0 20px 20px;
+    margin: 20px 20px 0;
+    text-align: left;
+}
+
+
 #affiliateUserQuestion input[type='checkbox']{
-    zoom:2.5;
+    zoom: 1.5;
+    vertical-align: middle;
+    margin: 0 5px 0 0;
+    display: inline-block;
 }
 .gold-cls{
     color:gold;
@@ -377,12 +388,15 @@ table.dataTable thead th, table.dataTable thead td {
     height: 40px;
     width: 40px;
     margin: 0 10px 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .profileArea .pp img {
-    max-height: 100%;
-    max-width: 100%;
     border-radius: 50%;
+    max-width: 100%;
+    max-height: 100%;
 }
 
 .pp_big {
@@ -497,4 +511,44 @@ label {
 .mainStageDropDown + .btn-group button {
     width: 200px;
     text-align: left;
+}
+
+.selectSub ul {
+    padding: 0;
+    list-style: none
+}
+
+.selectSub li {
+    padding: 0;
+}
+
+.selectSub li label {
+    display: inline-block;
+    font-weight: 400;
+}
+
+.selectSub input[type="checkbox"] {
+    display: inline-block;
+    margin: 0 10px 0 0
+}
+
+.image_captchaWrap {
+    background: #f9f9f9;
+    display: inline-block;
+    width: 100%;
+    padding: 20px 0 0;
+}
+
+.image_captchaWrap #image_captcha img {
+	height: 40px !important;
+	margin: 0 20px 10px 0;
+}
+
+.image_captchaWrap #image_captcha .captcha-refresh img {
+	height: 30px !important;
+	width: auto;
+}
+
+.btn-submit-student_wrap {
+    margin: 0 0 20px;
 }
