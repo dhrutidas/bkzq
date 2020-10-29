@@ -589,6 +589,11 @@
                         } else {
                             $('#inputAffConfirmPassword_error').html('');
                         }
+                        if (data.captcha_error != '') {
+                            $('#captcha_error').html(data.captcha_error);
+                        } else {
+                            $('#captcha_error').html('');
+                        }
                     }
                     if (data.success) {
                         $("#flash-msg").show();

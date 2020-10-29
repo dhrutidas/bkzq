@@ -48,8 +48,8 @@ class Signup extends MY_Controller
         $Data['subjectArr'] = $this->subject_model->getAllActiveSubjects();
         $vals = array(
            // 'word'          => 'Random word',
-            'img_path'      => './assets/images/',
-            'img_url'       => base_url() .'assets/images/',
+            'img_path'      => './assets/images/captcha_images/',
+            'img_url'       => base_url() .'assets/images/captcha_images/',
             'font_path'     => 'system/fonts/texb.ttf',
             'img_width'     => '160',
             'img_height'    => 50,
@@ -166,8 +166,8 @@ class Signup extends MY_Controller
     {
         $vals = array(
             // 'word'          => 'Random word',
-             'img_path'      => './assets/images/',
-             'img_url'       => base_url() .'assets/images/',
+            'img_path'      => './assets/images/captcha_images/',
+            'img_url'       => base_url() .'assets/images/captcha_images/',
              'font_path'     => 'system/fonts/texb.ttf',
              'img_width'     => '160',
              'img_height'    => 50,
@@ -363,6 +363,10 @@ class Signup extends MY_Controller
             $this->form_validation->set_rules('inputAffContact', 'User Contact', 'required|regex_match[/^[0-9]{10}$/]');
             $this->form_validation->set_rules('inputAffPassword', 'Password', 'trim|required|min_length[4]|max_length[25]');
             $this->form_validation->set_rules('inputAffConfirmPassword', 'Confirm Password', 'trim|required|min_length[4]|max_length[25]');
+            $this->form_validation->set_rules('captcha', 'Captcha', 'required');
+
+            $inputCaptcha = $this->input->post('captcha');
+            $sessCaptcha = $this->session->userdata('captchaCode');
             $calcAge = $this->calculateAge($this->input->post('inputDateofbirth'));
             if ($this->form_validation->run() == FALSE) {
                 $array = array(
@@ -373,11 +377,21 @@ class Signup extends MY_Controller
                     'contact_error' => form_error('inputAffContact'),
                     'date_of_birth_error' => form_error('inputDateofbirth'),
                     'password_error' => form_error('inputAffPassword'),
-                    'confirm_password_error' => form_error('inputAffConfirmPassword')
+                    'confirm_password_error' => form_error('inputAffConfirmPassword'),
+                    'captcha_error' => form_error('captcha')
                 );
 
                 echo json_encode($array);
             } else {
+                if($inputCaptcha !== $sessCaptcha){
+                    $array = array(
+                        'error'   => true,
+                        'captcha_error' => 'Captcha not matched',
+                    );
+                    
+                    echo json_encode($array);
+                    return;
+                }
                 if ($this->employee_model->getEmployeeCountByEmailid($this->input->post('inputEmail')) > 0 || $this->employee_model->getEmployeeCountByEmailid($this->input->post('inputAffEmail')) > 0) {
                     $array = array(
                         'error'   => true,

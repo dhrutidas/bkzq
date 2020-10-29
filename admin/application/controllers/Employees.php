@@ -431,10 +431,15 @@ class Employees extends MY_Controller
             } else {
                 $data = array('upload_data' => $this->upload->data());
                 $postArr['profilPic'] = $profile_pic_name;
-                echo $postArr['profilPic'];
             }
         }
         if ($this->employee_model->updateEmployeeDisplayPic($postArr)) {
+            $sData = $this->session->userdata('user_details');
+            // echo "<pre>";
+            // print_r($sData);exit;
+            $sData['profile_pic'] = $profile_pic_name;
+            $this->session->set_userdata('user_details', $sData);
+
             $this->session->set_flashdata('message', 'Success! User Details has been updated successfully.');
         } else {
             $this->session->set_flashdata('warning', 'OOPS Something went wrong please try again.');
@@ -479,6 +484,10 @@ class Employees extends MY_Controller
             $postArr['inputDesc'] = $this->input->post('inputDesc');
 
             if ($this->employee_model->updateProfile($postArr)) {
+                $sData = $this->session->userdata('user_details');
+                $sData['user_first_name'] = ucwords($postArr['fName']);
+                $sData['user_last_name'] = ucwords($postArr['lName']);
+                $this->session->set_userdata('user_details', $sData);
                 echo json_encode(['success' => 'Form submitted successfully.']);
                 $this->session->set_flashdata('message', 'Success! Profile has been updated successfully.');
             } else {
