@@ -10,6 +10,7 @@ class Question_model extends CI_Model{
 
     function __construct() {
         parent::__construct();
+        $this->column_search = array( 'qbID');
         $this->load->library('session');
     }
 
@@ -114,6 +115,13 @@ class Question_model extends CI_Model{
         FROM questionbank t JOIN questionbankboardmapping q ON q.qbID = t.qbID WHERE t.qbID=$Qid")->result_array();
       }
 
+      function getAnswerDetail($Qid){
+
+        return $this->db->query("SELECT DISTINCT t.qbID,(SELECT GROUP_CONCAT(CONCAT(s.optionValue) SEPARATOR ',') FROM answerbank s WHERE s.qbID = t.qbID) AS optionDetails,
+        (SELECT a.optionValue FROM answerbank a WHERE a.qbID = t.qbID AND a.isCorrect = 'Y') AS correctAns
+        FROM questionbank t WHERE t.qbID=$Qid")->result_array();
+      }
+
       function getTaggingDetailsByQuestionID($Qid)
       {
         return $this->db->query("SELECT subjectName,chapterName,boardName,stdName,levelName,stageName FROM questionbank t
@@ -130,6 +138,70 @@ class Question_model extends CI_Model{
       function getAllQuestionUser($userid){
         return $this->db->query("SELECT * FROM `questionbank` WHERE addedBy=$userid and status='QA' ORDER BY addedOn")->result_array();
       }
+      public function countAll($user_id){
+        $this->db->from("questionbank");
+          $this->db->where('addedBy', $user_id);
+        return $this->db->count_all_results();
+      }
+
+      /*
+     * Count records based on the filter params
+     * @param $_POST filter data based on the posted parameters
+     */
+    public function countFiltered($postData){
+      $this->_get_datatables_query($postData);
+      $query = $this->db->get();
+      return $query->num_rows();
+      
+      }
+      private function _get_datatables_query($postData){
+         
+        //print_r($postData);exit;
+          $this->db->select("*");
+          $this->db->from("questionbank");
+          $this->db->where('addedBy', $postData['user_id']);
+          $i = 0;
+         foreach($this->column_search as $item){
+             // if datatable send POST for search
+             if($postData['search']['value']){
+                 // first loop
+                 if($i===0){
+                     // open bracket
+                     $this->db->group_start();
+                     $this->db->like($item, $postData['search']['value']);
+                 }else{
+                     $this->db->or_like($item, $postData['search']['value']);
+                 }
+                 
+                 // last loop
+                 if(count($this->column_search) - 1 == $i){
+                     // close bracket
+                     $this->db->group_end();
+                 }
+             }
+             $i++;
+         }
+          
+         if(isset($postData['order'])){
+             $this->db->order_by($this->column_order[$postData['order']['0']['column']], $postData['order']['0']['dir']);
+         }else if(isset($this->order)){
+             $order = $this->order;
+             $this->db->order_by(key($order), $order[key($order)]);
+         }
+     }
+      public function getRows($postData){
+          $this->_get_datatables_query($postData);
+          if($postData['length'] != -1){
+              $this->db->limit($postData['length'], $postData['start']);
+      }
+		
+		$query = $this->db->get();
+        return $query->result();
+    }
+      function getAllQuestionsManager($userid){
+        return $this->db->query("SELECT * FROM `questionbank` WHERE addedBy=$userid and status='Y' ORDER BY addedOn")->result_array();
+      }
+
       function makeItLive($data){
         $reason=(isset($data['msg']))?$data['msg']:"";
         $session_data=$this->session->userdata('user_details');

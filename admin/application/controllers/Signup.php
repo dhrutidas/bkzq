@@ -13,6 +13,7 @@ class Signup extends MY_Controller
         $this->load->helper('url');
         $this->load->library('pagination');
         $this->load->library('session');
+        $this->load->helper('captcha');
         $this->load->library('email');
         $this->load->library('encryption');
         $this->load->model('student_model');
@@ -40,24 +41,27 @@ class Signup extends MY_Controller
 
     function signupForm()
     {
-
-
+       
         $Data['boardArr'] = $this->board_model->getAllActiveBoards();
         $Data['schoolArr'] = $this->school_model->getAllActiveSchools();
         $Data['classArr'] = $this->class_model->getAllActiveClasses();
         $Data['subjectArr'] = $this->subject_model->getAllActiveSubjects();
-        // if($affiliate_parent !== ''){
-        //     $parentID = $this->getParentID($affiliate_parent);            
-        //     if(intval($parentID) > 0){
-        //         $Data['affiliateOptIn'] = true;
-        //         $Data['parentID'] = intval($parentID);
-        //     }else{
-        //         $Data['affiliateOptIn'] = true;
-        //         $Data['parentID'] = intval($parentID);
-        //         // echo 'Something wrong';
-        //         // return;
-        //     }           
-        // }
+        $vals = array(
+           // 'word'          => 'Random word',
+            'img_path'      => './assets/images/',
+            'img_url'       => base_url() .'assets/images/',
+            'font_path'     => 'system/fonts/texb.ttf',
+            'img_width'     => '160',
+            'img_height'    => 50,
+            'word_length'   => 4,
+            // 'font_size'     => 18
+        );
+       
+        $cap = create_captcha($vals);
+        $Data['captchaImg'] = $cap['image'];
+        //$this->session->set_userdata(array('captcha' => $captcha, 'image' => $cap['time'] . '.jpg'));
+        $this->session->unset_userdata('captchaCode');
+        $this->session->set_userdata('captchaCode', $cap['word']);
         $Data['page_title'] = "Sign Up";
         $Data['load_page'] = "signup/index";
         $this->load->view("kernel", $Data);
@@ -158,6 +162,23 @@ class Signup extends MY_Controller
         $this->load->view("kernel", $Data);
     }
 
+    public function captchaRefresh()
+    {
+        $vals = array(
+            // 'word'          => 'Random word',
+             'img_path'      => './assets/images/',
+             'img_url'       => base_url() .'assets/images/',
+             'font_path'     => 'system/fonts/texb.ttf',
+             'img_width'     => '160',
+             'img_height'    => 50,
+             'word_length'   => 4,
+             // 'font_size'     => 18
+         );
+        $captcha = create_captcha($vals);
+        $this->session->unset_userdata('captchaCode');
+        $this->session->set_userdata('captchaCode', $captcha['word']);
+        echo $captcha['image'];
+    }
     function processUserSignup()
     {
 
@@ -170,13 +191,19 @@ class Signup extends MY_Controller
         $this->form_validation->set_rules('inputSchool', 'User School', 'required');
         $this->form_validation->set_rules('inputClass', 'User Standard', 'required');
         $this->form_validation->set_rules('inputPackage', 'User Package', 'required');
+        $this->form_validation->set_rules('captcha', 'Captcha', 'required');
         $this->form_validation->set_rules('inputPassword', 'Password', 'trim|required|min_length[4]|max_length[25]');
         $this->form_validation->set_rules('inputConfirmPassword', 'Confirm Password', 'trim|required|min_length[4]|max_length[25]');
         if($this->input->post('affiliateCode'))
             $this->form_validation->set_rules('affiliateCode', 'Affiliate Code', 'trim|callback_affiliate_code_check');
 
-        if ($this->form_validation->run() == FALSE) {
+         $inputCaptcha = $this->input->post('captcha');
+         $sessCaptcha = $this->session->userdata('captchaCode');
+        
+        
 
+        if ($this->form_validation->run() == FALSE) {
+           
             //$errors = validation_errors();
             $array = array(
                 'error'   => true,
@@ -190,16 +217,27 @@ class Signup extends MY_Controller
                 'pacckage_error' => form_error('inputPackage'),
                 'password_error' => form_error('inputPassword'),
                 'confirm_password_error' => form_error('inputConfirmPassword'),
-                'affiliate_code_error' => form_error('affiliateCode')
+                'affiliate_code_error' => form_error('affiliateCode'),
+                'captcha_error' => form_error('captcha'),
             );
 
             echo json_encode($array);
         } else {
+            if($inputCaptcha !== $sessCaptcha){
+                $array = array(
+                    'error'   => true,
+                    'captcha_error' => 'Captcha not matched',
+                );
+                
+                echo json_encode($array);
+                return;
+            }
+            
             if ($this->input->post('inputPassword') != $this->input->post('inputConfirmPassword')) {
                 $this->session->set_flashdata('warning', 'Password and Confirm Password is not same.');
                 $array = array(
                     'error'   => true,
-                    'confirm_password_error' => form_error('Password and Confirm Password is not same.'),
+                    'confirm_password_error' => 'Password and Confirm Password is not same.'
                 );
                 $status = 'N';
                 echo json_encode($array);

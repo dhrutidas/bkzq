@@ -212,7 +212,16 @@
                                     <a href="http://bkzquiz.com/privacy_policy.php" target="_blank">Policy</a> , <a href="http://bkzquiz.com/publisher_terms.php" target="_blank">Term & Conditions</a>.
                                 </div>
                             </div>
-
+                            <div class="form-group">
+                                <div class="col-sm-offset-4 col-sm-4">
+                                    <input type="text" class="form-control" id="captcha" name="captcha">
+                                    <span id="captcha_error" class="text-danger"></span>
+                                </div>
+                                <div class="col-sm-offset-4 col-sm-4">
+                                    <p id="image_captcha"><?php echo $captchaImg; ?></p>
+                                    <a href="javascript:void(0);" class="captcha-refresh" ><img width="40" src="<?php echo base_url("assets/images/refresh-button.png"); ?>"/></a>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <div class="col-sm-offset-4 col-sm-8">
                                     <button type="submit" class="btn btn-default" id="btn-submit-student">Submit</button>&nbsp;
@@ -293,7 +302,7 @@
                                 <!-- <input type="hidden" name="parentID" value=<?php echo (isset($parentID) && $parentID > 0) ? $parentID : 0; ?> /> -->
                             </fieldset>
                             <!-- Affiliate related details fieldset ends here-->
-
+                           
                             <div class="form-group">
                                 <label for="ihave" class="col-sm-4 control-label mandatory">I have</label>
                                 <div class="col-sm-6">
@@ -303,7 +312,16 @@
                                     <a href="http://bkzquiz.com/privacy_policy.php" target="_blank">Policy</a> , <a href="http://bkzquiz.com/publisher_terms.php" target="_blank">Term & Conditions</a>.
                                 </div>
                             </div>
-
+                            <div class="form-group">
+                                <div class="col-sm-offset-4 col-sm-4">
+                                    <input type="text" class="form-control" id="captcha" name="captcha">
+                                    <span id="captcha_error" class="text-danger"></span>
+                                </div>
+                                <div class="col-sm-offset-4 col-sm-4">
+                                    <p id="image_captcha"><?php echo $captchaImg; ?></p>
+                                    <a href="javascript:void(0);" class="captcha-refresh" ><img width="40" src="<?php echo base_url("assets/images/refresh-button.png"); ?>"/></a>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <div class="col-sm-offset-4 col-sm-8">
                                     <button type="submit" class="btn btn-default" id="btn-submit-affiliate">Submit</button>&nbsp;
@@ -327,26 +345,7 @@
             </div>
         </div>
         
-        <!-- <div class="modal fade" id="viewModal" role="dialog">
-            <div class="modal-dialog">
         
-           
-            <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Welcome Studennt</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                
-            </div>
-            <div class="modal-footer">
-            
-            <button type="button" class="btn btn-default" id="btn-pay-now">Pay Now</button>
-            <button type="button" class="btn btn-default" id="btn-pay-later">Pay Later</button>
-            </div>
-            </div>
-            </div>
-        </div> -->
     </div>
 </div>
 <script type="text/javascript">
@@ -412,6 +411,7 @@
             var inputSubject = subject_list.join(",");
             var inputPassword = $("input[name='inputPassword']").val();
             var inputConfirmPassword = $("input[name='inputConfirmPassword']").val();
+            var captcha = $("input[name='captcha']").val();
 
 
             $.ajax({
@@ -434,7 +434,8 @@
                     inputPassword: inputPassword,
                     inputConfirmPassword: inputConfirmPassword,
                     inputSubject: inputSubject,
-                    affiliateCode: affiliateCode
+                    affiliateCode: affiliateCode,
+                    captcha: captcha
                 },
 
                 success: function(data) {
@@ -489,6 +490,11 @@
                         } else {
                             $('#affiliate_code_error').html('');
                         }
+                        if (data.captcha_error != '') {
+                            $('#captcha_error').html(data.captcha_error);
+                        } else {
+                            $('#captcha_error').html('');
+                        }
                     }
                     if (data.success) {
                         $("#flash-msg").show();
@@ -499,6 +505,7 @@
                         $('#role_error').html('');
                         $('#password_error').html('');
                         $('#confirm_password_error').html('');
+                        $('#captcha_error').html('');
                         $('#addSignupform')[0].reset();
                         studentId = data.userId;
                         //$("#viewModal").modal();
@@ -600,6 +607,12 @@
 
             });
 
+        });
+
+        $('.captcha-refresh').on('click', function(){
+            $.get('<?php echo base_url().'captcha-refresh'; ?>', function(data){
+                $('#image_captcha').html(data);
+            });
         });
 
         // $("#btn-pay-later").click(function(e){
