@@ -60,7 +60,8 @@ class Application extends MY_Controller {
         $this->form_validation->set_rules('inputAppName', 'App Name', 'required|trim');
         $this->form_validation->set_rules('inputAppPath', 'App Path', 'required|trim');
         $this->form_validation->set_rules('inputAppOrder', 'App Order', 'required|trim');
-
+        $this->form_validation->set_rules('inputAppGroup', 'App Group', 'required|trim');
+        
         if ($this->form_validation->run() == FALSE){
 
             //$errors = validation_errors();
@@ -68,7 +69,8 @@ class Application extends MY_Controller {
                 'error'   => true,
                 'app_error' => form_error('inputAppName'),
                 'path_error' => form_error('inputAppPath'),
-                'order_error' => form_error('inputAppOrder')
+                'order_error' => form_error('inputAppOrder'),
+                'input_app_group_error' => form_error('inputAppGroup')
             );
 
             echo json_encode($array);
@@ -81,9 +83,21 @@ class Application extends MY_Controller {
                 $postArr['app_name'] = $this->input->post('inputAppName');
                 $postArr['app_path'] = $this->input->post('inputAppPath');
                 $postArr['app_order'] = $this->input->post('inputAppOrder');
-    
-                $this->session->set_flashdata('message', 'Success! New User has been added successfully.');
-                echo json_encode(['success'=>'Form submitted successfully.']);
+                $postArr['app_group'] = $this->input->post('inputAppGroup');
+                $status = $this->application_model->insertApp($postArr);
+                if($status)
+                {
+                    $this->session->set_flashdata('message', 'Success! New Application has been added successfully.');
+                    echo json_encode(['success'=>'Form submitted successfully.']);
+                }else{
+                    $array = array(
+                        'error'   => true,
+                        'app_error' => 'Error',
+                    );
+        
+                    echo json_encode($array);
+                }
+                    
     
              
          }

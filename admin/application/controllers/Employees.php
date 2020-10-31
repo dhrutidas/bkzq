@@ -117,6 +117,21 @@ class Employees extends MY_Controller
         $this->load->view("kernel", $Data);
     }
 
+    public function affiliateList(){
+        $Data['groupArr'] = parent::menu();
+
+        $Data['page_title'] = "Manage Affiliate ";
+        $Data['load_page'] = "employees/view_affiliate_table";
+
+        $Data['usersFilter'] = array(
+            'fname' => 'First name',
+            'lname' => 'Last name',
+            'emailID' => 'Email id',
+            'contactNumber' => 'Contact number'
+        );
+        $this->load->view("kernel", $Data);
+    }
+
     function getLists()
     {
         $data = $row = array();
@@ -154,6 +169,42 @@ class Employees extends MY_Controller
         echo json_encode($output);
     }
 
+    function getaffiliatelist()
+    {
+        $data = $row = array();
+
+        // Fetch member's records
+
+        $_POST['role'] = 7;
+        $memData = $this->employee_model->getRows($_POST);
+
+        $i = $_POST['start'];
+        foreach ($memData as $member) {
+
+            $editUrl = base_url('open-edit-user-modal/' . $member->userID);
+            $viewUrl = base_url('open-view-user-modal/' . $member->userID);
+
+            $editButton = "<a href='" . $editUrl . "' data-toggle='modal' data-target='#viewModal'><span class='glyphicon glyphicon-edit'></span></a>";
+            $viewButton = "<a href='" . $viewUrl . "' data-toggle='modal' data-target='#viewModal'><span class='glyphicon glyphicon-list'></span></a>";
+            
+
+            $i++;
+            $created = date('jS M Y', strtotime($member->createdAt));
+            $status = ($member->status == 'Y') ? 'Active' : 'Inactive';
+            $action = $editButton . " " . $viewButton;
+            $data[] = array($i, $member->fName . ' ' . $member->lName, $member->emailID, $member->contactNumber, $member->roleName, $status, $action);
+        }
+
+        $output = array(
+            "draw" => $_POST['draw'],
+            "recordsTotal" => $this->employee_model->countAll(),
+            "recordsFiltered" => $this->employee_model->countFiltered($_POST),
+            "data" => $data,
+        );
+
+        // Output to JSON format
+        echo json_encode($output);
+    }
     public function addModal()
     {
 

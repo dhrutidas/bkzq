@@ -78,7 +78,7 @@ class Affiliate extends MY_Controller
         $Data['page_title'] = "My Students";
         $Data['load_page'] = "affiliate/students_list";
         $sData = $this->session->userdata('user_details');
-        $Data['student_list']=$this->affiliate_student_mapping_model->getAllStudents();
+        $Data['student_list']=$this->affiliate_student_mapping_model->getAllStudents($sData['user_id']);
         //print_r($Data);exit;
         $this->load->view("kernel", $Data);
     }

@@ -53,12 +53,16 @@ class Employee_model extends CI_Model{
      */
     private function _get_datatables_query($postData){
          
-       // $this->db->from($this->table);
-		$roles = array(3,8);
+	   // $this->db->from($this->table);
+	   if(isset($postData['role']))
+			   $roles = array(7);
+		else
+			$roles = array(4.5,8,1);
+
 		$this->db->select("a.*,b.roleName");
 		$this->db->from("userMaster a");
 		$this->db->join('roleMaster b', 'a.roleID = b.roleID', 'inner');
-		$this->db->where_not_in('a.roleID', $roles);
+		$this->db->where_in('a.roleID', $roles);
         $i = 0;
         // loop searchable columns 
         foreach($this->column_search as $item){
