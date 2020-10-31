@@ -52,68 +52,69 @@ body.loading .modal {
             </div>
             <?php echo form_open('submit-quiz','class="form-horizontal" id="onlineQuiz" name="onlineQuiz"'); ?>
 
-                <div class="form-group"></div>
-                <div class="pull-right" style="padding-right: 20px;" id='timerQuizStatus'></div>
-                <div class="col-sm-offset-2 col-sm-8">
-                    <div class="well" id="question">Q1: <?php  echo empty($questionimage) ? '' : ' <a href="#" class="pop"><img src="'.$questionimage .'" class="img-rounded" alt="Question Image" width="80" height="80"></a> ';  echo $question; ?></div>
+                <div class="quiz_questionWrap">
+                    <div class="well">
+                        <div id="question">
+                            Q1:
+                            <?php  echo empty($questionimage)   ? '' : ' <a href="#" class="pop"><img src="'.$questionimage .'" class="img-rounded" alt="Question Image" width="80" height="80"></a> ';  echo $question; ?>
+                        </div>
 
-                    <input type="hidden" name="questionId" id="questionId" value="<?php echo $questionId; ?>">
-                    <input type="hidden" name="indexId" id="indexId" value="<?php echo $first_key; ?>">
-                </div>
-                <?php
-                $i = 0;
-                foreach($options AS $key => $value) {
-                    $i++;
-                    $optionData = explode('#image#', $value);
-                    $imgData = empty($optionData[1]) ? '' : ' <a href="#" class="pop"><img src="'.$optionData[1].'" class="img-rounded" alt="Option Image" width="80" height="80"></a>';
+                        <input type="hidden" name="questionId" id="questionId" value="<?php echo $questionId; ?>">
+                        <input type="hidden" name="indexId" id="indexId" value="<?php echo $first_key; ?>">
 
-                    ${"option" . $i} = '<div class="col-sm-12">
-                                            <label class="radio-inline" id="label'.$i.'">
-                                              <input type="radio" name="optradio" id="option'.$i.'" value="'.$key.'"><div id="label'.$i.'">'.$imgData.' '.$optionData[0].'</div>
-                                            </label>
-                                        </div>';
-                }
-                ?>
-                <div class="col-sm-offset-2 col-sm-8">
-                    <?php echo $option1; ?>
-                </div>
-                <div class="form-group"></div>
+                        <div class="timerQuizStatus" id='timerQuizStatus'></div>
+                    </div>
+                    <?php
+                    $i = 0;
+                    foreach($options AS $key => $value) {
+                        $i++;
+                        $optionData = explode('#image#', $value);
+                        $imgData = empty($optionData[1]) ? '' : ' <a href="#" class="pop"><img src="'.$optionData[1].'" class="img-rounded" alt="Option Image" width="80" height="80"></a>';
 
-                <div class="col-sm-offset-2 col-sm-8">
-                    <?php echo $option2; ?>
-                </div>
-                <div class="form-group"></div>
+                        ${"option" . $i} = '
+                                                <label class="radio-inline" id="label'.$i.'">
+                                                <input type="radio" name="optradio" id="option'.$i.'" value="'.$key.'"><div id="label'.$i.'">'.$imgData.' '.$optionData[0].'</div>
+                                                </label>
+                                            ';
+                    }
+                    ?>
 
-                <div class="col-sm-offset-2 col-sm-8">
-                    <?php if(isset($option3)) echo $option3; ?>
-                </div>
-                <div class="form-group"></div>
+                    <ul class="quizQstnUL">
+                        <li class="">
+                            <?php echo $option1; ?>
+                        </li>
 
-                <div class="col-sm-offset-2 col-sm-8">
-                    <?php if(isset($option4)) echo $option4; ?>
-                </div>
-                <div class="form-group"></div>
+                        <li class="">
+                            <?php echo $option2; ?>
+                        </li>
 
-                <div class="col-sm-offset-2 col-sm-8">
-                    <?php if(isset($option5)) echo $option5; ?>
-                </div>
+                        <li class="">
+                            <?php if(isset($option3)) echo $option3; ?>
+                        </li>
 
-                <div id="resultValueIconRight" class="modal">
-                  <img src='<?php echo base_url("assets/images/Correct-icon.png"); ?>' hight='200' width='200'>
-                </div>
-                <div id="resultValueIconWrong" class="modal">
-                  <img src='<?php echo base_url("assets/images/Incorrect-icon.png"); ?>' hight='200' width='200'>
-                </div>
+                        <li class="">
+                            <?php if(isset($option4)) echo $option4; ?>
+                        </li>
 
-                <div class="form-group"></div>
-                <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-8">
-                        <div class="col-sm-10" id="skipDiv">
+                        <li class="">
+                            <?php if(isset($option5)) echo $option5; ?>
+                        </li>
+                    </ul>
+
+                    <div id="resultValueIconRight" class="modal">
+                        <img src='<?php echo base_url("assets/images/Correct-icon.png"); ?>' hight='200' width='200'>
+                    </div>
+                    <div id="resultValueIconWrong" class="modal">
+                        <img src='<?php echo base_url("assets/images/Incorrect-icon.png"); ?>' hight='200' width='200'>
+                    </div>
+
+                    <div class="skipBtn">
+                        <div id="skipDiv">
                             <?php if($skipStatus == "Y"): ?>
-                                <button type="button" class="btn btn-primary" id="skip">&nbsp;&nbsp;Skip&nbsp;&nbsp;</button>
+                                <button type="button" class="btn btn-default" id="skip">&nbsp;&nbsp;Skip&nbsp;&nbsp;</button>
                             <?php endif; ?>
                         </div>
-                        <div class="col-sm-2" id="nextDiv">
+                        <div id="nextDiv">
                             <?php if($maxStatus == 'Y') { ?>
                                 <button type="button" class="btn btn-primary" id="next" >Next >></button>
                             <?php } elseif ($maxStatus == 'N') {
@@ -123,6 +124,39 @@ body.loading .modal {
                     </div>
                 </div>
             </form>
+
+
+
+
+            <section class="finishAllAnswrWrap completedStages">
+                <div class="finishAll_imageArea">
+                    <img src="http://placehold.it/200x200" alt="">
+                </div>
+
+                <div class="heading">Completed Stage 1</div>
+
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+                <div class="btnWrap">
+                    <a href="#" class="btn">Home</a>
+                    <a href="#" class="btn">Next Stage</a>
+                </div>
+            </section>
+
+            <section class="finishAllAnswrWrap not_completedStages">
+                <div class="finishAll_imageArea">
+                    <img src="http://placehold.it/200x200" alt="">
+                </div>
+
+                <div class="heading">Not Completed Stage</div>
+
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+                <div class="btnWrap">
+                    <a href="#" class="btn">Home</a>
+                    <a href="#" class="btn">Replay</a>
+                </div>
+            </section>
         </div>
     </div>
 </div>
