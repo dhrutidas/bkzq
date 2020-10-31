@@ -314,12 +314,12 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-sm-offset-4 col-sm-4">
-                                    <input type="text" class="form-control" id="captcha" name="captcha">
-                                    <span id="captcha_error" class="text-danger"></span>
+                                    <input type="text" class="form-control" id="captcha" name="affCaptcha">
+                                    <span id="aff_captcha_error" class="text-danger"></span>
                                 </div>
                                 <div class="col-sm-offset-4 col-sm-4">
-                                    <p id="image_captcha"><?php echo $captchaImg; ?></p>
-                                    <a href="javascript:void(0);" class="captcha-refresh" ><img width="40" src="<?php echo base_url("assets/images/refresh-button.png"); ?>"/></a>
+                                    <p id="image_captcha_aff"><?php echo $captchaImg; ?></p>
+                                    <a href="javascript:void(0);" class="captcha-refresh-aff" ><img width="40" src="<?php echo base_url("assets/images/refresh-button.png"); ?>"/></a>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -532,7 +532,7 @@
             var inputDateofbirth = $('#inputDateofbirth').val();
             var inputAffPassword = $("input[name='inputAffPassword']").val();
             var inputAffConfirmPassword = $("input[name='inputAffConfirmPassword']").val();
-
+            var captcha = $("input[name='affCaptcha']").val();
 
             $.ajax({
 
@@ -549,7 +549,9 @@
                     inputAffContact: inputAffContact,
                     inputDateofbirth: inputDateofbirth,
                     inputAffPassword: inputAffPassword,
-                    inputAffConfirmPassword: inputAffConfirmPassword
+                    inputAffConfirmPassword: inputAffConfirmPassword,
+                    inputAffConfirmPassword: inputAffConfirmPassword,
+                    captcha: captcha
                 },
 
                 success: function(data) {
@@ -590,9 +592,9 @@
                             $('#inputAffConfirmPassword_error').html('');
                         }
                         if (data.captcha_error != '') {
-                            $('#captcha_error').html(data.captcha_error);
+                            $('#aff_captcha_error').html(data.captcha_error);
                         } else {
-                            $('#captcha_error').html('');
+                            $('#aff_captcha_error').html('');
                         }
                     }
                     if (data.success) {
@@ -617,6 +619,11 @@
         $('.captcha-refresh').on('click', function(){
             $.get('<?php echo base_url().'captcha-refresh'; ?>', function(data){
                 $('#image_captcha').html(data);
+            });
+        });
+        $('.captcha-refresh-aff').on('click', function(){
+            $.get('<?php echo base_url().'captcha-refresh'; ?>', function(data){
+                $('#image_captcha_aff').html(data);
             });
         });
 
