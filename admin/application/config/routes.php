@@ -189,7 +189,9 @@ $route['schools-reset-filter'] = 'schools/resetSchoolsFilter';
 
 //Employees @Krishna Gupta #13082016
 $route['manage-users'] = 'employees/index';
+$route['manage-affiliate'] = 'employees/affiliateList';
 $route['manage-users-list'] = 'employees/getlists';
+$route['manage-affiliate-list'] = 'employees/getaffiliatelist';
 $route['manage-users/(:any)'] = 'employees/index/$1';
 $route['open-add-user-modal'] = 'employees/addModal';
 $route['open-edit-user-modal/(:any)'] = 'employees/editModal/$1';
@@ -247,6 +249,8 @@ $route['ajax-get-chapter'] = 'chapters/ajax_get_chapter_subject';
 
 //Quize @Krishna Gupta #05092016
 $route['add-question'] = 'questions/index';
+$route['add-question-new'] = 'questions/createQuestion';
+$route['add-question-basic'] = 'questions/createQuestionBasic';
 $route['search-question'] = 'questions/searchquestion';
 $route['ajax-question-count'] = 'questions/getQuestionsCount';
 $route['ajax-getdata'] = 'questions/getdata';

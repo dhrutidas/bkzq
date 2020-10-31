@@ -46,7 +46,7 @@ class Application_model extends CI_Model{
 
         $rRecords = array(  'app_name' => $rDetails['app_name'],
                             'app_path' => $rDetails['app_path'],
-                            'group_app_name' => $rDetails['app_name'],
+                            'group_app_name' => $rDetails['app_group'],
                             'group_order' => $rDetails['app_order'],
                             'app_order' => $rDetails['app_order'],
                             'app_status' => 'Y'

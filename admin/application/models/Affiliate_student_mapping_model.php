@@ -31,10 +31,11 @@ class Affiliate_student_mapping_model extends CI_Model{
         return $data[0]['code'];
     }
 
-    function getAllStudents(){
+    function getAllStudents($userId){
         $this->db->select("a.*");
 		$this->db->from("userMaster a");
-		$this->db->join('affiliateStudentMappping b', 'a.userID = b.student_id', 'inner');
+        $this->db->join('affiliateStudentMappping b', 'a.userID = b.student_id', 'inner');
+        $this->db->where( array('b.affiliate_id' => $userId,'status' => 1) );
 		$this->db->order_by('created', 'desc');
 		$result = $this->db->get();
 		return $result->result_array();
