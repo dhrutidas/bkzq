@@ -250,6 +250,8 @@ $route['ajax-get-chapter'] = 'chapters/ajax_get_chapter_subject';
 //Quize @Krishna Gupta #05092016
 $route['add-question'] = 'questions/index';
 $route['add-question-new'] = 'questions/createQuestion';
+$route['get-level-stage-html'] = 'questions/getLevelStage';
+$route['get-chapter-subject-html'] = 'questions/getChapterBySubject';
 $route['add-question-basic'] = 'questions/createQuestionBasic';
 $route['search-question'] = 'questions/searchquestion';
 $route['ajax-question-count'] = 'questions/getQuestionsCount';

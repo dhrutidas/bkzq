@@ -32,7 +32,7 @@ class Questions extends MY_Controller {
         $Data['page_title'] = "Question";
         $Data['load_page'] = "Question/add_question";
 
-		    $this->load->model('level_model');
+		$this->load->model('level_model');
         $this->load->model('board_model');
         $this->load->model('subject_model');
         $this->load->model('class_model');
@@ -45,17 +45,163 @@ class Questions extends MY_Controller {
         $this->load->view("kernel", $Data);
     }
 
-	public function tag_html() {
+    public function createQuestion() {
 
-		    $this->load->model('level_model');
+        $Data['groupArr'] = parent::menu();
+
+        $Data['page_title'] = "Question";
+        $Data['load_page'] = "Question/add_question_new";
+
+		
+        $this->load->model('level_model');
         $this->load->model('board_model');
         $this->load->model('subject_model');
         $this->load->model('class_model');
-	$this->load->model('chapter_model');
+        $this->load->model('chapter_model');
+        
+        $Data['levels'] = $this->level_model->getAllActiveLevelForQuestion();
+        $Data['allLevel'] = $this->level_model->getAllActiveLevelForTagSorted();
+        $Data['allBoard'] = $this->board_model->getAllActiveBoards();
+        $Data['allsubjects'] = $this->subject_model->getAllActiveSubjects();
+	    $Data['allChapter'] = $this->chapter_model->getAllActiveChapterNamesIdMapping();
+        $Data['allStd'] = $this->class_model->getAllActiveClass();
+
+        // echo "<pre>";
+        // print_r($Data['allsubject']);exit;
+        $this->load->view("kernel", $Data);
+    }
+
+    public function createQuestionBasic(){
+        $validation = true;
+        $post = $this->input->post();
+        if (isset($post)) {
+           // print_r($post);exit;
+            $this->form_validation->set_rules('question_text', 'Question Text', 'required');
+            $option_error  = "";
+            $optionData = $this->input->post('options');
+            if(isset($optionData)){
+                //print_r($optionData);exit;
+                for($i =0;$i<count($optionData);$i++){
+                    //echo "hi";exit;
+                    if($optionData[$i] == "")
+                    {
+                        $option_error = "<p>The Options field is required.</p>";
+                        $validation = false;
+                    }
+
+                }
+                ///$option_error = "";
+            }else{
+                $option_error = "<p>The Options field is required.</p>";
+                $validation = false;
+            }
+            // if(count($optionData) <= 1){
+            //     $validation = false;
+            // }
+            $answer = $this->input->post('answer');
+            if(isset($answer)){
+                $answer_error = "";
+            }else{
+                $answer_error = "<p>The Answer field is required.</p>";
+                $validation = false;
+            }
+            if ($this->form_validation->run() == FALSE || $validation == FALSE) {
+                $array = array(
+                    'error'   => true,
+                    'question_text_error' => form_error('question_text'),
+                    'options_error' => $option_error,
+                    'answer_error' => $answer_error,
+                );
+
+                echo json_encode($array);
+            }else{
+                $array = array(
+                    'error'   => false,
+                    'success' => true
+                );
+                echo json_encode($array);
+            }
+        }
+    }
+    public function getLevelStage(){
+       // print_r($this->input->post('levelID'));exit;
+        if(!$this->input->post('levelID')){
+            $array = array(
+                "error" => true,
+                "message" => "Level Id is not provided"
+            );
+            echo json_encode( $array);
+        }else{
+            $this->load->model('stage_model');
+            $this->load->model('level_model');
+            $levelIds=$this->input->post('levelID');
+            $parentHtml = "";
+            foreach($levelIds as $id){
+                $levelDetails = $this->level_model->getLevelDetails($id);
+                $html = '<div class="form-group toogleStageSec" id="level_stage_1">
+                <div class="">
+                    <label for="Level 1">'.$levelDetails['levelName'].'</label>
+                    <select id="dates-field2" class="multiselect-ui form-control " multiple="multiple">';
+                        
+                    '</select></div></div>';
+                $stages = $this->stage_model->getAllActiveStagesByLevel($id);
+                $stageOptions = "";
+                foreach($stages as $stage){
+                    $stageOptions = $stageOptions.'<option value="'.$stage['stageID'].'>'.$stage['stageName'].'</option>';
+                }
+                $html=$html.$stageOptions.'</select></div></div>';
+            }
+            $parentHtml= $parentHtml.$html;
+            echo $parentHtml;
+        }
+       
+    }
+    public function getChapterBySubject(){
+         if(!$this->input->post('subjectID')){
+             $array = array(
+                 "error" => true,
+                 "message" => "Subject is not provided"
+             );
+             echo json_encode( $array);
+         }else{
+             $this->load->model('subject_model');
+             $this->load->model('chapter_model');
+             $subjectIds=$this->input->post('subjectID');
+             $parentHtml = "";
+             foreach($subjectIds as $id){
+                 $subjectDetails = $this->subject_model->getSubjectDetails($id);
+                 $html = '<div class="form-group toogleStageSec" id="level_stage_1">
+                 <div class="">
+                     <label for="'.$subjectDetails['subjectName'].'">'.$subjectDetails['subjectName'].'</label>
+                     <select id="chapter_select_'.$subjectDetails['subjectID'].'" class="multiselect-ui form-control " multiple="multiple">';
+                         
+                     '</select></div></div>';
+                 $chapters = $this->chapter_model->getAllActiveChaptersBySubject($id);
+                //  print_r( $chapters);exit;
+                 $chapterOptions = "";
+                 foreach($chapters as $chapter){
+                    //   print_r($chapter);exit;
+                     $chapterOptions = $chapterOptions.'<option value="'.$chapter['chapterID'].'>'.$chapter['chapterName'].'</option>';
+                 }
+                 $html=$html.$chapterOptions.'</select></div></div>';
+             }
+             $parentHtml= $parentHtml.$html;
+             echo $parentHtml;
+         }
+        
+     }
+ 
+	public function tag_html() {
+
+		$this->load->model('level_model');
+        $this->load->model('board_model');
+        $this->load->model('subject_model');
+        $this->load->model('class_model');
+	    $this->load->model('chapter_model');
         $allLevel = $this->level_model->getAllActiveLevelForTagSorted();
         $allBoard = $this->board_model->getAllActiveBoards();
         $allsubject = $this->subject_model->getAllActiveSubjectsForTags();
-	$allChapter = $this->chapter_model->getAllActiveChapterNamesIdMapping();
+	    $allChapter = $this->chapter_model->getAllActiveChapterNamesIdMapping();
         $allStd = $this->class_model->getAllActiveClass();
 		?>
 					<select class="selectpicker" name="inputBoard" id="inputBoard">

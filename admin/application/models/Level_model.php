@@ -41,6 +41,14 @@ class Level_model extends CI_Model{
     function getAllActiveLevelForTagSorted(){
         return $this->db->query("SELECT level.*,GROUP_CONCAT(stage.stageID ORDER BY stage.orderBy) AS catStageID,GROUP_CONCAT(stage.stageName ORDER BY stage.orderBy) AS catStageName FROM stagesMaster stage JOIN levelMaster level ON stage.levelID = level.levelID GROUP BY level.levelID")->result_array();
     }
+    function getAllActiveLevelForQuestion(){
+        $this->db->select("*");
+        $this->db->from("levelMaster");
+        $this->db->join('stagesMaster', 'stagesMaster.levelId = levelMaster.levelId');
+        $this->db->where( array('levelMaster.status' => 'Y') );
+        $this->db->group_by('levelMaster.levelId'); 
+        $result = $this->db->get(); return $result->result_array();
+    }
 
     function getLevelDetails($rID){
 

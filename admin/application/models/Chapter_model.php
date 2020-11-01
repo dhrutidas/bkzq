@@ -35,6 +35,15 @@ class Chapter_model extends CI_Model{
         $result = $this->db->get(); return $result->row_array();
     }
 
+    function getAllActiveChaptersBySubject($subjectID){
+      
+         $this->db->select("*");
+         $this->db->from("chapterMaster");
+         $this->db->where(array('subjectID' => $subjectID,'status' => 'Y'));
+         $this->db->order_by('chapterID');
+         $result = $this->db->get(); 
+         return $result->result_array();
+     }
     function getAllActiveChaptersSubjectwise($subjectID){
        $Data['session_data'] = $this->session->userdata('user_details');
       // print_r($Data['session_data']); die;

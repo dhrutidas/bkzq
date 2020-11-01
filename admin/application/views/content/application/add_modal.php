@@ -21,6 +21,13 @@
             </div>
         </div>
         <div class="form-group">
+            <label for="inputAppOrder" class="col-sm-4 control-label">App Group *</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="inputAppGroup" name="inputAppGroup">
+                <span id="input_app_group_error" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
             <label for="inputAppOrder" class="col-sm-4 control-label">App Order *</label>
             <div class="col-sm-8">
                 <input type="text" class="form-control" id="inputAppOrder" name="inputAppOrder">
@@ -49,6 +56,7 @@ $(document).ready(function() {
       var inputAppName = $("input[name='inputAppName']").val();
       var inputAppPath = $("input[name='inputAppPath']").val();
       var inputAppOrder = $("input[name='inputAppOrder']").val();
+      var inputAppGroup = $("input[name='inputAppGroup']").val();
 
       $.ajax({
 
@@ -58,7 +66,7 @@ $(document).ready(function() {
 
           dataType: "json",
 
-          data: {inputAppName:inputAppName, inputAppPath:inputAppPath, inputAppOrder:inputAppOrder},
+          data: {inputAppName:inputAppName, inputAppPath:inputAppPath, inputAppOrder:inputAppOrder, inputAppGroup:inputAppGroup},
 
           success: function(data) {
             if(data.error)
@@ -79,6 +87,14 @@ $(document).ready(function() {
                 {
                     $('#path_error').html('');
                 }
+                if(data.input_app_group_error != '')
+                {
+                    $('# input_app_group_error').html(data.input_app_group_error);
+                }
+                else
+                {
+                    $('# input_app_group_error').html('');
+                }
                 if(data.order_error != '')
                 {
                     $('#order_error').html(data.order_error);
@@ -87,6 +103,7 @@ $(document).ready(function() {
                 {
                     $('#order_error').html('');
                 }
+               
                 
             }
             if(data.success)
