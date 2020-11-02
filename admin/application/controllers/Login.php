@@ -112,7 +112,7 @@ class Login extends CI_Controller{
     
    function processUserAuthentication(){
 
-        $roleIds = [4, 8];
+        $roleIds = [4,5,8];
         $this->form_validation->set_rules('txt_username', 'Username', 'required|trim|xss_clean');
         $this->form_validation->set_rules('txt_password', 'Password', 'required');
 

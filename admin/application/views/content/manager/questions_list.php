@@ -19,7 +19,7 @@
             <div class="panel-heading text-left">
                 <strong>Manage questions</strong>
                 <div class="pull-right">
-                    <a href="<?php echo base_url("open-add-user-modal"); ?>" data-toggle="modal" data-target="#viewModal">
+                    <a href="<?php echo base_url("add-question-new"); ?>">
                         <span class="glyphicon glyphicon-plus-sign"></span> Add New Question
                     </a>
                 </div>
@@ -33,7 +33,8 @@
                             <th class="bg-primary">Question</th>
                             <th class="bg-primary">Options</th>
                             <th class="bg-primary">Answer</th>
-                            <!-- <th class="bg-primary">Action</th> -->
+                            <th class="bg-primary">Status</th>
+                            <th class="bg-primary">Action</th>
                         </tr>
                     </thead>
                     <tbody>

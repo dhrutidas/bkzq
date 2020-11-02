@@ -51,15 +51,15 @@ class QuestionManager extends MY_Controller
         //print_r($qData);exit;
         $i = $_POST['start'];
         foreach ($qData as $question) {
-
-            // $editUrl = base_url('open-edit-user-modal/' . $member->userID);
+            //print_r($question);exit;
+            $editUrl = base_url('open-edit-user-modal/' . $question->qbID);
             // $viewUrl = base_url('open-view-user-modal/' . $member->userID);
-
-            // $editButton = "<a href='" . $editUrl . "' data-toggle='modal' data-target='#viewModal'><span class='glyphicon glyphicon-edit'></span></a>";
-            // $viewButton = "<a href='" . $viewUrl . "' data-toggle='modal' data-target='#viewModal'><span class='glyphicon glyphicon-list'></span></a>";
-            //$editButton = "<button class='btn btn-sm btn-info updateUser' data-id='".$member->userID."' data-toggle='modal' data-target='#updateModal' >Edit</button>";
-            // Delete Button
-            //$deleteButton = "<button class='btn btn-sm btn-danger deleteUser' data-id='".$member->userID."'>Delete</button>";
+            if($question->status == 'Draft')
+                $editButton = "<a href='" . $editUrl . "'><span class='glyphicon glyphicon-edit'></span></a>";
+            else
+                $editButton = "<a href='#' disabled class='not-active'><span class='glyphicon glyphicon-edit'></span></a>";
+            
+            
 
             $i++;
             //$created = date('jS M Y', strtotime($member->createdAt));
@@ -67,7 +67,7 @@ class QuestionManager extends MY_Controller
             //$action = $editButton . " " . $viewButton;
             $answers = $this->question_model->getAnswerDetail($question->qbID);
             //print_r($answers);exit;
-            $data[] = array($i, $question->questionText, $answers[0]['optionDetails'], $answers[0]['correctAns']);
+            $data[] = array($i, $question->questionText, $answers[0]['optionDetails'], $answers[0]['correctAns'],$question->status,$editButton);
         }
 
         $output = array(

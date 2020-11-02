@@ -70,8 +70,67 @@ class Questions extends MY_Controller {
         // print_r($Data['allsubject']);exit;
         $this->load->view("kernel", $Data);
     }
-
-    public function createQuestionBasic(){
+    public  function saveQuestion(){
+        $post = $this->input->post();
+        if (isset($post)) {
+            
+            //  echo "<pre>";
+            //  print_r($post);
+            $data = array();
+            $stage = array();
+            $lstatus = false;
+            $ststatus = false;
+            $sstatus = false;
+            if(isset($post['input_level']) && isset($post['input_stage'])){
+                foreach($post['input_level'] as $l=>$v){
+                    if($post['input_stage']){
+                         foreach($post['input_stage'] as $key=>$values){
+                             if(isset($values[$v]))
+                                 $stage[$v][]= $values[$v];
+                         }
+                     }
+                }
+                $lstatus = true;
+            }else{
+                $data['error']="true";
+                $data['error_level']="Please select level & stage";
+            }
+            $subject=array();
+            if(isset($post['input_subject']) && isset($post['input_chapter'])){
+                foreach($post['input_subject'] as $sub=>$chap){
+                    if(isset($post['input_chapter'])){
+                        foreach($post['input_chapter'] as $x=>$y){
+                            if(isset($y[$chap]))
+                                $subject[$chap][]= $y[$chap];
+                        }
+                    }
+                }
+                $sstatus = true;
+            }else{
+                $data['error']="true";
+                $data['error_subject']="Please select subject & chapter";
+            }
+            if(isset($post['input_standard'])){
+                $ststatus = true;
+            }else{
+                $data['error']="true";
+                $data['error_standard']="Please select standard";
+            }
+            $resultArr = $this->question_model->insertQuestionNew($post);
+            if($lstatus && $sstatus && $ststatus)
+            {
+                $this->question_model->questionLevelMapping($stage,$resultArr['questionId'],$subject,$post['input_standard']);
+                $data['error']=false;
+                $data['success']=true;
+                $this->session->set_flashdata('message', 'Success! Question added.');
+                echo json_encode($data);
+            }else{
+                echo json_encode($data);
+            }
+           
+        }
+    }
+    public function createQuestionValidate(){
         $validation = true;
         $post = $this->input->post();
         if (isset($post)) {
@@ -126,10 +185,7 @@ class Questions extends MY_Controller {
     public function getLevelStage(){
        // print_r($this->input->post('levelID'));exit;
         if(!$this->input->post('levelID')){
-            $array = array(
-                "error" => true,
-                "message" => "Level Id is not provided"
-            );
+            $array['error'] = true;
             echo json_encode( $array);
         }else{
             $this->load->model('stage_model');
@@ -141,28 +197,31 @@ class Questions extends MY_Controller {
                 $html = '<div class="form-group toogleStageSec" id="level_stage_1">
                 <div class="">
                     <label for="Level 1">'.$levelDetails['levelName'].'</label>
-                    <select id="dates-field2" class="multiselect-ui form-control " multiple="multiple">';
+                    <select id="dates-field2" class="multiselect-ui form-control " multiple="multiple" name="input_stage[]['.$id.']">';
                         
                     '</select></div></div>';
                 $stages = $this->stage_model->getAllActiveStagesByLevel($id);
                 $stageOptions = "";
                 foreach($stages as $stage){
-                    $stageOptions = $stageOptions.'<option value="'.$stage['stageID'].'>'.$stage['stageName'].'</option>';
+                    $stageOptions = $stageOptions.'<option value="'.$stage['stageID'].'">'.$stage['stageName'].'</option>';
                 }
                 $html=$html.$stageOptions.'</select></div></div>';
+                $parentHtml= $parentHtml.$html;
             }
-            $parentHtml= $parentHtml.$html;
-            echo $parentHtml;
+            
+           
+            $array['error'] = false;
+            $array['success'] = true;
+            $array['html'] = $parentHtml;
+            echo json_encode($array);
         }
        
     }
+
     public function getChapterBySubject(){
          if(!$this->input->post('subjectID')){
-             $array = array(
-                 "error" => true,
-                 "message" => "Subject is not provided"
-             );
-             echo json_encode( $array);
+            $array['error'] = true;
+            echo json_encode( $array);
          }else{
              $this->load->model('subject_model');
              $this->load->model('chapter_model');
@@ -173,7 +232,7 @@ class Questions extends MY_Controller {
                  $html = '<div class="form-group toogleStageSec" id="level_stage_1">
                  <div class="">
                      <label for="'.$subjectDetails['subjectName'].'">'.$subjectDetails['subjectName'].'</label>
-                     <select id="chapter_select_'.$subjectDetails['subjectID'].'" class="multiselect-ui form-control " multiple="multiple">';
+                     <select id="chapter_select_'.$subjectDetails['subjectID'].'" class="multiselect-ui form-control " name="input_chapter[]['.$id.']" multiple="multiple">';
                          
                      '</select></div></div>';
                  $chapters = $this->chapter_model->getAllActiveChaptersBySubject($id);
@@ -181,12 +240,16 @@ class Questions extends MY_Controller {
                  $chapterOptions = "";
                  foreach($chapters as $chapter){
                     //   print_r($chapter);exit;
-                     $chapterOptions = $chapterOptions.'<option value="'.$chapter['chapterID'].'>'.$chapter['chapterName'].'</option>';
+                     $chapterOptions = $chapterOptions.'<option value="'.$chapter['chapterID'].'">'.$chapter['chapterName'].'</option>';
                  }
                  $html=$html.$chapterOptions.'</select></div></div>';
+                 $parentHtml= $parentHtml.$html;
              }
-             $parentHtml= $parentHtml.$html;
-             echo $parentHtml;
+            
+             $array['error'] = false;
+            $array['success'] = true;
+            $array['html'] = $parentHtml;
+            echo json_encode($array);
          }
         
      }

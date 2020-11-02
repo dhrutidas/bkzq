@@ -57,7 +57,7 @@ class Employee_model extends CI_Model{
 	   if(isset($postData['role']))
 			   $roles = array(7);
 		else
-			$roles = array(4.5,8,1);
+			$roles = array(4,5,8,1);
 
 		$this->db->select("a.*,b.roleName");
 		$this->db->from("userMaster a");

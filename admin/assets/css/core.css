@@ -466,6 +466,7 @@ table.dataTable thead th, table.dataTable thead td {
     background: #fbfbfb;
 }
 
+
 .stepping .form-group {
     margin-bottom: 10px;
     display: inline-block;
@@ -521,7 +522,6 @@ table.dataTable thead th, table.dataTable thead td {
 }
 
 .toogleStageSec.form-group {
-    display: none;
     width: auto !important;
     background: #f0f0f0;
     padding: 10px 15px;
@@ -763,3 +763,9 @@ label {
 label {
 	font-weight: 600
 }
+.not-active {
+    pointer-events: none;
+    cursor: default;
+    text-decoration: none;
+    color: black;
+  }

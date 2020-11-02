@@ -71,16 +71,10 @@
 
 			<div class="newSteppingWrap">
 				<input type="hidden" name="optionsrowCount" id="optionsrowCount" value="1" />
-				<div class="row">
-					<div class="input-group qstnBtn">
-						<button type="button" class="btn btn-primary btn-md" id="addQstnBtn">Skip Search/ Add Question</button>
-					</div>
-				</div>
 
-				<div class="stepping" id="step1" data-id="step1">
+				<?php echo form_open('add-question-basic', 'id="question_basic"'); ?>
+				<div class="stepping active" id="step1" data-id="step1">
 					<h3>Add Question</h3>
-					<?php echo form_open('add-question-basic', 'id="question_basic"'); ?>
-					<!-- <form id="question_basic" name="question_basic" action="#" method="post"> -->
 					<div class="row">
 						<div class="form-group">
 							<div class="col-sm-12">
@@ -101,10 +95,13 @@
 											<input type="checkbox" name="answer[0]" id="answer_0">
 										</div>
 									</div>
+									
+								</div>
+								<div class="col-sm-10">
 									<span id="options_error" class="text-danger"></span>
 									<span id="answer_error" class="text-danger"></span>
 								</div>
-
+								
 								<div class="col-sm-2">
 									<div class="btn btn-default pull-right" id="increaseOptionBtn">Add More +</div>
 								</div>
@@ -115,32 +112,22 @@
 					<div class="stepbtnWrap">
 						<button class="btn btn-primary steppingbtn" data-name="next" data-step="step1" data-num="1" data-id="next_step1" id="question_next">Next</button>
 					</div>
-					</form>
-
 				</div>
-				<div class="stepping active" id="step2" data-id="step2">
+				<div class="stepping" id="step2" data-id="step2">
 					<!-- Add Level start -->
 					<section class="dropdownAreaSec">
 						<div class="form-group">
 							<label for="">Add Level</label>
-							<select id="level-select" class="multiselect-ui mainStageDropDown form-control" multiple="multiple">
+							<select id="level-select" class="multiselect-ui mainStageDropDown form-control" multiple="multiple" name="input_level[]">
 								<?php foreach ($levels as $level) : ?>
 									<option value="<?php echo $level['levelID']; ?>"><?php echo $level['levelName']; ?></option>
 								<?php endforeach; ?>
 							</select>
+							<span id="error_level" class="text-danger"></span>
 						</div>
 
 						<div class="stageWrap" id="section-level">
-							<!-- <div class="form-group toogleStageSec" id="level_stage_1">
-								<div class="">
-									<label for="Level 1">Level 1</label>
-									<select id="dates-field2" class="multiselect-ui form-control" multiple="multiple">
-										<option value="Stage 1">Stage 1</option>
-										<option value="Stage 2">Stage 2</option>
-										<option value="Stage 3">Stage 3</option>
-									</select>
-								</div>
-							</div> -->
+							
 						</div>
 					</section>
 					<!-- Add Level end -->
@@ -149,15 +136,16 @@
 					<section class="dropdownAreaSec">
 						<div class="form-group">
 							<label for="">Add Subject</label>
-							<select id="select-subject" class="multiselect-ui mainStageDropDown form-control" multiple="multiple">
+							<select id="select-subject" class="multiselect-ui mainStageDropDown form-control" multiple="multiple" name="input_subject[]">
 								<?php foreach ($allsubjects as $subject) : ?>
-									<option value="<?php echo $subject['subjectID'];?>"><?php echo $subject['subjectName'];?></option>
+									<option value="<?php echo $subject['subjectID']; ?>"><?php echo $subject['subjectName']; ?></option>
 								<?php endforeach; ?>
 							</select>
+							<span id="error_subject" class="text-danger"></span>
 						</div>
 
 						<div class="stageWrap" id="chapter-level">
-							
+
 						</div>
 					</section>
 					<!-- Add Subject end -->
@@ -166,15 +154,16 @@
 					<section class="dropdownAreaSec">
 						<div class="form-group">
 							<label for="">Add Standard</label>
-							<select id="dates-field2" class="multiselect-ui mainStageDropDown form-control" multiple="multiple">
-							<?php foreach ($allStd as $std) : ?>
+							<select id="dates-field2" class="multiselect-ui mainStageDropDown form-control" name="input_standard[]" multiple="multiple">
+								<?php foreach ($allStd as $std) : ?>
 									<option value="<?php echo $std['stdID']; ?>"><?php echo $std['stdName']; ?></option>
 								<?php endforeach; ?>
 							</select>
+							<span id="error_standard" class="text-danger"></span>
 						</div>
 						<div class="stepbtnWrap">
 							<button class="btn btn-default steppingbtn" data-name="prev" data-step="step2" data-num="2" data-id="prev_step2">Prev</button>
-							<button class="btn btn-primary steppingbtn" data-name="next" data-step="step2" data-num="2" data-id="next_step2">Submit</button>
+							<button class="btn btn-primary steppingbtn" id="submit-btn">Submit</button>
 						</div>
 					</section>
 					<!-- Add Standard end -->
@@ -182,23 +171,7 @@
 
 
 				</div>
-
-				<div class="stepping" id="step3" data-id="step3">
-					<h3>Step 3</h3>
-					<div class="form-group">
-						<label for="inputFirstName" class="col-sm-4 control-label">First Name</label>
-						<div class="col-sm-6">
-							<input type="text" class="form-control" id="inputFirstName" name="inputFirstName">
-							<span id="first_name_error" class="text-danger"></span>
-						</div>
-
-						<div class="stepbtnWrap">
-							<button class="btn steppingbtn" data-name="prev" data-step="step3" data-num="3" data-id="prev_step3">Prev</button>
-							<button class="btn steppingbtn" data-name="submit" data-step="step3" data-num="3" data-id="submit_step3">Submit</button>
-						</div>
-					</div>
-				</div>
-
+				</form>
 			</div>
 		</div>
 

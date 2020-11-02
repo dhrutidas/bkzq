@@ -75,7 +75,7 @@ if ($role_id == 1) {
                       <?php endif;?>
                          
                       </figure>
-                      Welcome, <?php echo $this->sData['user_first_name'] ." ".$this->sData['user_last_name'] ; ?>
+                      <?php echo $this->sData['user_first_name'] ." ".$this->sData['user_last_name'] ; ?>
                   <span class="caret"></span></button>
                   <ul class="dropdown-menu">
                     <li><a href="<?php echo base_url('profile'); ?>">profile</a></li>
