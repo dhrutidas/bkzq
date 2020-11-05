@@ -56,6 +56,7 @@ $route['admin-login'] = 'login/superadminlogin';
 //$route['login'] = 'login/index';
 $route['home'] = 'home/index';
 $route['qa'] = 'home/qa';
+$route['qc'] = 'home/qa';
 $route['signup'] = 'signup/signupform';
 $route['captcha-refresh'] = 'signup/captchaRefresh';
 $route['signup-paynow/(:any)'] = 'signup/paynow/$1';

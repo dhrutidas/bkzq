@@ -41,6 +41,8 @@ class QuestionManager extends MY_Controller
         $this->load->view("kernel", $Data);
     }
 
+    
+
     public function questionListManager()
     { 
         $sData = $this->session->userdata('user_details');

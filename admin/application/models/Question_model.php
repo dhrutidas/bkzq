@@ -61,7 +61,7 @@ class Question_model extends CI_Model
         $status['status'] = true;
         return $status;
       }
-      if ($questionID > 0) {
+      if ($questionID) {
         $counterValue = 1;
         $option = 'INSERT INTO `answerbank`(`qbID`, `optionValue`, `optionImg`, `isCorrect`, `qsort`, `status`) VALUES ';
         foreach ($data['options'] as $optionText) {
@@ -81,7 +81,6 @@ class Question_model extends CI_Model
         $status['msg'] = 'Fail ! Question Not Inserted ';
         $status['status'] = false;
       }
-     
     return $status;
   }
   function questionLevelMapping($leveldata,$questionID, $subject, $standard){
@@ -309,7 +308,8 @@ class Question_model extends CI_Model
         }
       }
     }
-    $whereTaggingQuery = $whereTaggingQuery ? "(" . rtrim($whereTagging, " OR ") . ") AND " : '';
+    //$whereTaggingQuery = $whereTaggingQuery ? "(" . rtrim($whereTagging, " OR ") . ") AND " : '';
+    $whereTaggingQuery = "(" . rtrim($whereTagging, " OR ") . ") AND " ;
     $sqlQuery = "SELECT * FROM questionbank q JOIN `questionbankboardmapping` tag ON q.qbID=tag.qbID WHERE " . $whereTaggingQuery . "  q.status='" . $data['status'] . "' AND q.addedBy='" . $data['userID'] . "' GROUP BY q.qbID ORDER BY q.addedOn";
     $countAllQuery = "SELECT count(DISTINCT q.qbID) AS allQuestion FROM questionbank q JOIN `questionbankboardmapping` tag ON q.qbID=tag.qbID WHERE " . $whereTaggingQuery . "  q.status='" . $data['status'] . "'";
     $rs = $this->db->query($sqlQuery);

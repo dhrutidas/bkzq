@@ -67,7 +67,7 @@ class Home extends MY_Controller {
           $Data['page_title'] = "QA";
           $this->load->model('employee_model');
           $Data['user_list']=$this->employee_model->getAllEmployees();
-          $Data['load_page'] = "home/qa";
+          $Data['load_page'] = "home/qc";
 
         elseif($role_id == 7): //This is for Affiliate	
           $this->load->model('affiliate_code_model');	
@@ -97,6 +97,14 @@ class Home extends MY_Controller {
       $this->load->model('employee_model');
       $Data['user_list']=$this->employee_model->getAllUsers();
       $Data['load_page'] = "home/qa";
+      $this->load->view("kernel", $Data);
+    }
+    function qc(){
+      $Data['groupArr'] = parent::menu();
+      $Data['page_title'] = "QA";
+      $this->load->model('employee_model');
+      $Data['user_list']=$this->employee_model->getAllUsers();
+      $Data['load_page'] = "home/qc";
       $this->load->view("kernel", $Data);
     }
     function ajaxAdminReportGraph(){

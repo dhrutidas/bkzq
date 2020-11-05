@@ -92,7 +92,7 @@
 											<input type="text" class="form-control" id="options_0" name="options[0]">
 										</div>
 										<div class="col-sm-2">
-											<input type="checkbox" name="answer[0]" id="answer_0">
+											<input class="answer_check" type="checkbox" name="answer[0]" id="answer_0">
 										</div>
 									</div>
 									
