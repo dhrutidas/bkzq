@@ -95,7 +95,14 @@
 											<input class="answer_check" type="checkbox" name="answer[0]" id="answer_0">
 										</div>
 									</div>
-									
+									<div class="row align-center-row marb10">
+										<div class="col-sm-10">
+											<input type="text" class="form-control" id="options_1" name="options[0]">
+										</div>
+										<div class="col-sm-2">
+											<input class="answer_check" type="checkbox" name="answer[0]" id="answer_0">
+										</div>
+									</div>
 								</div>
 								<div class="col-sm-10">
 									<span id="options_error" class="text-danger"></span>
@@ -162,7 +169,7 @@
 							<span id="error_standard" class="text-danger"></span>
 						</div>
 						<div class="stepbtnWrap">
-							<button class="btn btn-default steppingbtn" data-name="prev" data-step="step2" data-num="2" data-id="prev_step2">Prev</button>
+							<button class="btn btn-default steppingbtn" id="prev-btn">Prev</button>
 							<button class="btn btn-primary steppingbtn" id="submit-btn">Submit</button>
 						</div>
 					</section>

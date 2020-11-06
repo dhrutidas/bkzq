@@ -16,6 +16,11 @@ class Question_model extends CI_Model
     parent::__construct();
     $this->column_search = array('qbID');
     $this->load->library('session');
+    $this->column_order = array(null, 'questionText', null, 'addedOn', null);
+    // Set searchable column fields
+    $this->column_search = array( 'questionText');
+    // Set default order
+    $this->order = array('addedOn' => 'desc');
   }
 
   function getQuestionCount()
@@ -236,9 +241,11 @@ class Question_model extends CI_Model
   {
 
     //print_r($postData);exit;
-    $this->db->select("*");
-    $this->db->from("questionbank");
-    $this->db->where('addedBy', $postData['user_id']);
+    $this->db->select("q.*,u.fName,u.lName");
+    $this->db->from("questionbank q");
+    $this->db->join('userMaster u', 'u.userID = q.addedBy', 'inner');
+    if(isset($postData['user_id']))
+      $this->db->where('q.addedBy', $postData['user_id']);
     $i = 0;
     foreach ($this->column_search as $item) {
       // if datatable send POST for search

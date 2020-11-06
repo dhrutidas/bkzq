@@ -28,25 +28,34 @@ class QualityControl extends MY_Controller
     public function index()
     {
         $Data['groupArr'] = parent::menu();
-        $Data['usersFilter'] = array(
-            'fname' => 'First name',
-            'lname' => 'Last name',
-            'emailID' => 'Email id',
-            'contactNumber' => 'Contact number'
-        );
+        // $Data['usersFilter'] = array(
+        //     'fname' => 'First name',
+        //     'lname' => 'Last name',
+        //     'emailID' => 'Email id',
+        //     'contactNumber' => 'Contact number'
+        // );
         $this->load->model('question_model');
-
+        $this->load->model('employee_model');
+        $Data['qm_list']=$this->employee_model->getAllQm();
+        $Data['qStatus']=array(
+            'Draft' => 'Draft',
+            'Approved' => 'Approved',
+            'Rejected' => 'Rejected'
+        );
+        // echo "<pre>";
+        // print_r($Data['qm_list']);exit;
         $Data['page_title'] = "Question List";
-        $Data['load_page'] = "manager/questions_list";
+        $Data['load_page'] = "control/questions_list";
         $this->load->view("kernel", $Data);
     }
 
     public function questionList()
     { 
         $sData = $this->session->userdata('user_details');
-        $_POST['user_id'] = $sData['user_id'];
         $qData = $this->question_model->getRows($_POST);
         $i = $_POST['start'];
+        $data = array();
+        
         foreach ($qData as $question) {
             $editUrl = base_url('open-edit-user-modal/' . $question->qbID);
             if($question->status == 'Draft')
@@ -57,7 +66,7 @@ class QualityControl extends MY_Controller
 
             $i++;
                         
-            $data[] = array($i, $question->questionText, $question->status,$editButton);
+            $data[] = array($i, $question->questionText, $question->fName." ".$question->lName,date("d/m/Y",strtotime($question->addedOn)),$editButton);
         }
 
         $output = array(
@@ -68,5 +77,9 @@ class QualityControl extends MY_Controller
         );
 
         echo json_encode($output);
+    }
+
+    public function openPreview(){
+        
     }
 }

@@ -56,7 +56,7 @@ $route['admin-login'] = 'login/superadminlogin';
 //$route['login'] = 'login/index';
 $route['home'] = 'home/index';
 $route['qa'] = 'home/qa';
-$route['qc'] = 'home/qa';
+///$route['qc'] = 'home/qa';
 $route['signup'] = 'signup/signupform';
 $route['captcha-refresh'] = 'signup/captchaRefresh';
 $route['signup-paynow/(:any)'] = 'signup/paynow/$1';
@@ -75,6 +75,8 @@ $route['ajax-subject-chapter'] = 'evaluation/ajax_get_chapter_subject';
 //Question Manager
 $route['qm'] = 'questionManager/index';
 $route['questions-list-manager'] = 'questionManager/questionListManager';
+$route['qc'] = 'qualityControl/index';
+$route['questions-list-control'] = 'qualityControl/questionList';
 //end
 
 $route['home-graph-data'] = 'home/graph_data';

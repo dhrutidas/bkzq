@@ -153,6 +153,19 @@ class Employee_model extends CI_Model{
 		return $result->result_array();
 	}
 
+	function getAllQm()
+	{
+		$roles = array(4);
+		$this->db->select("a.*,b.roleName");
+		$this->db->from("userMaster a");
+		$this->db->join('roleMaster b', 'a.roleID = b.roleID', 'inner');
+		$this->db->where('a.status', 'Y');
+		$this->db->where_in('a.roleID', $roles);
+		$this->db->order_by('userID', 'ASC');
+		$result = $this->db->get();
+		return $result->result_array();
+	}
+
 	function getAllUsersRestrictedRoleWise($limit=null, $start=null)
 	{
 		$roles = array(3,8);
