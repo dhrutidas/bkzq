@@ -5,19 +5,18 @@
     <h4 class="modal-title text-primary"><b>Preview Question</b></h4>
 </div>
 <div class="modal-body">
-
-
     <div class="scrollable-body">
         <?php
         $options = explode(",", $answers['optionDetails']);
         ?>
-        <p>Question:<?php echo $qdetails['questionText']; ?></p>
-        <ul>
+        <p class="qstion">Question:<?php echo $qdetails['questionText']; ?></p>
+        <ul class="answr">
             <?php foreach ($options as $val) : ?>
 
                 <li class="<?php echo $answers['correctAns'] == $val ? "correct-answer" : ""; ?>"><?php echo $val; ?></li>
             <?php endforeach; ?>
         </ul>
+        
         <div id="step2" data-id="step2">
             <!-- Add Level start -->
             <section class="dropdownAreaSec">
@@ -91,28 +90,25 @@
 
             </section>
             <!-- Add Standard end -->
-
-
-
-        </div>
-
-    </div>
-    <div class="form-group">
-            <input type="hidden" id="qidhidden" value="<?php echo $qdetails['qbID']; ?>">
-        <label for="inputRejectReason" class="col-sm-4 control-label">Reject Reason</label>
-        <div class="col-sm-6">
-            <textarea class="form-control textarea" id="question_text" name="inputRejectReason" id="" cols="30" rows="3"></textarea>
         </div>
     </div>
-    <div class="form-group">
-        <div class="col-sm-offset-4 col-sm-8">
-            <button class="btn btn-success btn-md" style="cursor:pointer" onclick="makeItLive('Y');">Approve</button>
-            <button class="btn btn-danger btn-md" style="cursor:pointer" data-toggle="modal" data-target="#auth">Reject </button>
-            <!-- <button type="submit" class="btn btn-default btn-submit">Approve</button>&nbsp;
-            <button type="button" class="btn btn-default" data-dismiss="modal">Reject</button> -->
+    <div class="">
+        <div class="form-group">
+                <input type="hidden" id="qidhidden" value="<?php echo $qdetails['qbID']; ?>">
+            <label for="inputRejectReason" class="control-label">Please add your rejection reason</label>
+            <div class="">
+                <textarea class="form-control textarea inputRejectReason" id="question_text" name="inputRejectReason" id="" cols="30" rows="3"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="apprRejectArea">
+                <button class="btn btn-success btn-md" style="cursor:pointer" onclick="makeItLive('Y');">Approve</button>
+                <button class="btn btn-danger btn-md" style="cursor:pointer" data-toggle="modal" data-target="#auth">Reject </button>
+                <!-- <button type="submit" class="btn btn-default btn-submit">Approve</button>&nbsp;
+                <button type="button" class="btn btn-default" data-dismiss="modal">Reject</button> -->
+            </div>
         </div>
     </div>
-
 </div>
 
 

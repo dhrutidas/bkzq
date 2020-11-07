@@ -768,4 +768,65 @@ label {
     cursor: default;
     text-decoration: none;
     color: black;
-  }
+}
+
+.qstion {font-weight: 800;font-size: 16px;}
+.answr {
+	list-style: none;
+	padding: 0;
+}
+.answr li {
+	align-items: center;
+	background: #fff;
+	margin: 0 0 10px !important;
+	border: solid 1px #eaeaea;
+	border-radius: 30px;
+	padding: 10px 20px !important;
+	transition: all ease .2s;
+	font-size: 13px;
+}
+li.correct-answer {
+	background: rgb(94 209 52);
+	border: rgb(94 209 52);
+	color: #fff;
+	font-weight: 800;
+}
+.qstnLevelArea {background: #f7f7f7;padding: 20px 30px;}
+.qstnLevelArea .dropdownAreaSec .dropdown-menu{
+    pointer-events: none;
+}
+.apprRejectArea {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.viewLevels {
+    background: #03A9F4;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 14px;
+    width: 100%;
+    text-align: left;
+    font-weight: 700;
+    border: 0;
+    color: #fff;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.viewLevels:after {
+	content: "";
+	border-top: solid 5px #fff;
+	border-left: solid 5px transparent;
+	border-right: solid 5px transparent;
+}
+
+.inputRejectReason {
+    border: solid 1px #eaeaea;
+    resize: none;
+    height: 140px !important;
+}
