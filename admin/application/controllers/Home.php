@@ -96,7 +96,7 @@ class Home extends MY_Controller {
       $Data['page_title'] = "QA";
       $this->load->model('employee_model');
       $Data['user_list']=$this->employee_model->getAllUsers();
-      $Data['load_page'] = "questionManager/index";
+      $Data['load_page'] = "home/qa";
       $this->load->view("kernel", $Data);
     }
     function qc(){
@@ -104,7 +104,7 @@ class Home extends MY_Controller {
       $Data['page_title'] = "QA";
       $this->load->model('employee_model');
       $Data['user_list']=$this->employee_model->getAllUsers();
-      $Data['load_page'] = "qualityControl/index";
+      $Data['load_page'] = "home/qc";
       $this->load->view("kernel", $Data);
     }
     function ajaxAdminReportGraph(){

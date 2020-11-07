@@ -77,6 +77,8 @@ $route['qm'] = 'questionManager/index';
 $route['questions-list-manager'] = 'questionManager/questionListManager';
 $route['qc'] = 'qualityControl/index';
 $route['questions-list-control'] = 'qualityControl/questionList';
+$route['open-preview-quality/(:any)'] = 'qualityControl/openPreview/$1';
+$route['change-question-status'] = 'questions/makeItLive';
 //end
 
 $route['home-graph-data'] = 'home/graph_data';

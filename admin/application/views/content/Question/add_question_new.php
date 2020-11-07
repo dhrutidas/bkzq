@@ -70,7 +70,7 @@
 
 
 			<div class="newSteppingWrap">
-				<input type="hidden" name="optionsrowCount" id="optionsrowCount" value="1" />
+				<input type="hidden" name="optionsrowCount" id="optionsrowCount" value="2" />
 
 				<?php echo form_open('add-question-basic', 'id="question_basic"'); ?>
 				<div class="stepping active" id="step1" data-id="step1">
@@ -97,10 +97,10 @@
 									</div>
 									<div class="row align-center-row marb10">
 										<div class="col-sm-10">
-											<input type="text" class="form-control" id="options_1" name="options[0]">
+											<input type="text" class="form-control" id="options_1" name="options[1]">
 										</div>
 										<div class="col-sm-2">
-											<input class="answer_check" type="checkbox" name="answer[0]" id="answer_0">
+											<input class="answer_check" type="checkbox" name="answer[1]" id="answer_1">
 										</div>
 									</div>
 								</div>

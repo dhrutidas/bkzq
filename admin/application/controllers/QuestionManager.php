@@ -50,7 +50,7 @@ class QuestionManager extends MY_Controller
         $_POST['user_id'] =  $userId;
         // Fetch member's records
         $qData = $this->question_model->getRows($_POST);
-        //print_r($qData);exit;
+        $data = [];
         $i = $_POST['start'];
         foreach ($qData as $question) {
             //print_r($question);exit;

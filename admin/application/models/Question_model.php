@@ -89,37 +89,37 @@ class Question_model extends CI_Model
     return $status;
   }
   function questionLevelMapping($leveldata,$questionID, $subject, $standard){
-    // echo "<pre>";
-    // print_r($leveldata);
    
+   
+   $stageq = 'INSERT INTO `question_level_stage_mapping`(`qbID`, `levelID`, `stageID`) VALUES ';
     foreach ($leveldata as $key=>$values) {
       foreach($values as $k=>$v){
-        $stageq = 'INSERT INTO `question_level_stage_mapping`(`qbID`, `levelID`, `stageID`) VALUES '."(" . $questionID . ",'" . $key . "','" .$v. "')";
-        if($this->db->query($stageq)){
-          $levelMappingID = $this->db->insert_id();
-          $this->subjectChapterMapping($subject,$levelMappingID);
-          $this->levelStandardMapping($standard,$levelMappingID);
-        }
+        $stageq .= "(" . $questionID . ",'" . $key . "','" .$v. "'),";
       }
     }
+    
     $stagequery = rtrim($stageq, ",");
-    $query = $this->db->query($stagequery);
+    if( $this->db->query($stagequery)){
+      //$levelMappingID = $this->db->insert_id();
+      $this->subjectChapterMapping($subject,$questionID);
+      $this->levelStandardMapping($standard,$questionID);
+   }
   }
 
-  function subjectChapterMapping($subjectdata,$levelMappingID){
-    $subq = 'INSERT INTO `question_level_subject_chapter_mapping`(`levelMapId`, `subjectId`, `chapterId`) VALUES ';
+  function subjectChapterMapping($subjectdata,$questionID){
+    $subq = 'INSERT INTO `question_level_subject_chapter_mapping`(`qbId`, `subjectId`, `chapterId`) VALUES ';
     foreach ($subjectdata as $key=>$values) {
       foreach($values as $k=>$v){
-        $subq .= "(" . $levelMappingID . ",'" . $key . "','" .$v. "'),";
+        $subq .= "(" . $questionID . ",'" . $key . "','" .$v. "'),";
       }
     }
     $subQuery = rtrim($subq, ",");
     $this->db->query($subQuery);
   }
-  function levelStandardMapping($standardData,$levelMappingID){
-    $subq = 'INSERT INTO `question_level_standard_mapping`(`levelMapId`, `standardId`) VALUES ';
+  function levelStandardMapping($standardData,$questionID){
+    $subq = 'INSERT INTO `question_level_standard_mapping`(`qbId`, `standardId`) VALUES ';
     foreach ($standardData as $key=>$values) {
-      $subq .= "(" . $levelMappingID . ",'" . $values . "'),";
+      $subq .= "(" . $questionID . ",'" . $values . "'),";
     }
     $subQuery = rtrim($subq, ",");
     $this->db->query($subQuery);
@@ -195,14 +195,41 @@ class Question_model extends CI_Model
         FROM questionbank t JOIN questionbankboardmapping q ON q.qbID = t.qbID WHERE t.qbID=$Qid")->result_array();
   }
 
+  function getDetail($Qid)
+  {
+    $this->db->select("*");
+    $this->db->from("questionbank");
+		$this->db->where(array('qbID' => $Qid));
+		$result = $this->db->get();
+		return $result->row_array();
+  }
   function getAnswerDetail($Qid)
   {
-
     return $this->db->query("SELECT DISTINCT t.qbID,(SELECT GROUP_CONCAT(CONCAT(s.optionValue) SEPARATOR ',') FROM answerbank s WHERE s.qbID = t.qbID) AS optionDetails,
         (SELECT a.optionValue FROM answerbank a WHERE a.qbID = t.qbID AND a.isCorrect = 'Y') AS correctAns
         FROM questionbank t WHERE t.qbID=$Qid")->result_array();
   }
 
+  function getQuestionMappingByQbId($Qid){
+      return $this->db->query("SELECT  lsm.id,lsm.levelId,lsm.stageID,levelName,stageName FROM questionbank q
+        JOIN `question_level_stage_mapping` lsm ON q.qbID=lsm.qbID
+        JOIN `levelMaster` lev ON lev.levelID=lsm.levelId
+        JOIN `stagesMaster` stg ON stg.stageID=lsm.stageId
+        WHERE q.qbID=$Qid")->result_array();
+  }
+  function getQuestionSubjectByMapLevel($Qid){
+    return $this->db->query("SELECT  sc.id,sc.subjectId,sc.chapterId,subjectName,chapterName FROM questionbank q
+      JOIN `question_level_subject_chapter_mapping` sc ON sc.qbId=q.qbID
+      JOIN `chapterMaster` chap ON chap.chapterID=sc.chapterId
+      JOIN `subjectMaster` sub ON sub.subjectID=sc.subjectId
+      WHERE q.qbID=$Qid")->result_array();
+}
+function getQuestionStandardMap($Qid){
+  return $this->db->query("SELECT  stdID,stdName FROM questionbank q
+    JOIN `question_level_standard_mapping` st ON st.qbId=q.qbID
+    JOIN `classMaster` cls ON cls.stdID=st.standardId
+    WHERE q.qbID=$Qid")->result_array();
+}
   function getTaggingDetailsByQuestionID($Qid)
   {
     return $this->db->query("SELECT subjectName,chapterName,boardName,stdName,levelName,stageName FROM questionbank t

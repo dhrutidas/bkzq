@@ -116,6 +116,8 @@ class Questions extends MY_Controller {
                 $data['error']="true";
                 $data['error_standard']="Please select standard";
             }
+            // echo "<pre>";
+            // print_r($post);exit;
             $resultArr = $this->question_model->insertQuestionNew($post);
             if($lstatus && $sstatus && $ststatus)
             {
@@ -198,8 +200,7 @@ class Questions extends MY_Controller {
                 <div class="">
                     <label for="Level 1">'.$levelDetails['levelName'].'</label>
                     <select id="dates-field2" class="multiselect-ui form-control " multiple="multiple" name="input_stage[]['.$id.']">';
-                        
-                    '</select></div></div>';
+                  
                 $stages = $this->stage_model->getAllActiveStagesByLevel($id);
                 $stageOptions = "";
                 foreach($stages as $stage){

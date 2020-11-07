@@ -57,12 +57,9 @@ class QualityControl extends MY_Controller
         $data = array();
         
         foreach ($qData as $question) {
-            $editUrl = base_url('open-edit-user-modal/' . $question->qbID);
-            if($question->status == 'Draft')
-                $editButton = "<a href='" . $editUrl . "'><span class='glyphicon glyphicon-edit'></span></a>";
-            else
-                $editButton = "<a href='#' disabled class='not-active'><span class='glyphicon glyphicon-edit'></span></a>";
-                      
+            $editUrl = base_url('open-preview-quality/' . $question->qbID);
+           
+            $editButton = "<a href='" . $editUrl . "' data-toggle='modal' data-target='#viewModal'><span class='glyphicon glyphicon-edit'></span></a>";
 
             $i++;
                         
@@ -79,7 +76,40 @@ class QualityControl extends MY_Controller
         echo json_encode($output);
     }
 
-    public function openPreview(){
+    public function openPreview($qId){
         
+        $this->load->model('level_model');
+        $this->load->model('board_model');
+        $this->load->model('subject_model');
+        $this->load->model('class_model');
+        $this->load->model('chapter_model');
+        
+        $Data['qdetails'] = $this->question_model->getDetail($qId);
+        $answers = $this->question_model->getAnswerDetail($qId);
+        $mapping = $this->question_model->getQuestionMappingByQbId($qId);
+        $subjectChapter =  $this->question_model->getQuestionSubjectByMapLevel($qId);
+        $standard =  $this->question_model->getQuestionStandardMap($qId);
+        $level = [];
+        $stage = [];
+        $subject = [];
+        $chapter = [];
+        foreach($mapping as $map){
+            $level[$map['levelId']] = $map['levelName'];
+            $stage[ $map['levelName']][$map['stageID']] = $map['stageName'];
+        }
+        foreach($subjectChapter as $smap){
+            $subject[$smap['subjectId']] = $smap['subjectName'];
+            $chapter[$smap['subjectName']][$smap['chapterId']] = $smap['chapterName'];
+        }
+       
+        $Data['answers'] = $answers[0];
+        $Data['levels'] = $level;
+        $Data['stages'] = $stage;
+        $Data['subjects'] = $subject;
+        $Data['chapters'] = $chapter;
+        $Data['allStd'] = $standard;
+        // echo "<pre>";
+        // print_r($Data);exit;
+        $this->load->view("content/control/previewModal",$Data);
     }
 }

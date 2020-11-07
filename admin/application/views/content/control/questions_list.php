@@ -17,12 +17,12 @@
 
         <div class="panel panel-default">
             <div class="panel-heading text-left">
-                <strong>Manage questions</strong>
-                <div class="pull-right">
+                <strong>Quality Control questions</strong>
+                <!-- <div class="pull-right">
                     <a href="<?php echo base_url("add-question-new"); ?>">
                         <span class="glyphicon glyphicon-plus-sign"></span> Add New Question
                     </a>
-                </div>
+                </div> -->
             </div>
             <div class="panel-collapse customTable">
 
@@ -32,14 +32,16 @@
                             <th class="bg-primary">No:</th>
                             <th class="bg-primary">Question</th>
                             <th class="bg-primary">
-                            <select class="form-control" id="select-manager" name="inputRole">
-                                <option value="">Select manager</option>
-                                <?php foreach($qm_list as $rValues ): ?>
-                                <?php //print_r($rValues);exit;?>
-                                    <option value="<?php echo $rValues['userID']; ?>"><?php echo $rValues['fName']." ".$rValues['lName']; ?></option>
-                                <?php endforeach; ?>
-                            </select>  
+                                <select class="form-control" id="select-manager" name="inputRole">
+                                    <option value="">Select manager</option>
+                                    <?php foreach ($qm_list as $rValues) : ?>
+                                        <?php //print_r($rValues);exit;
+                                        ?>
+                                        <option value="<?php echo $rValues['userID']; ?>"><?php echo $rValues['fName'] . " " . $rValues['lName']; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
                             </th>
+                        
                             <th class="bg-primary">Created On</th>
                             <th class="bg-primary">Action</th>
                         </tr>
@@ -55,7 +57,7 @@
         </div>
 
         <div id="viewModal" class="modal fade">
-            <div class="modal-dialog">
+            <div class="modal-dialog" style="width:950px;">
                 <div class="modal-content"></div>
             </div>
         </div>
@@ -78,7 +80,7 @@
             },
             //Set column definition initialisation properties
             "columnDefs": [{
-                "targets": [2,4],
+                "targets": [2, 4],
                 "orderable": false
             }]
         });
@@ -88,26 +90,53 @@
             }
             var userID = $(this).val();
             $('#user-table').DataTable({
-            // Processing indicator
-            "processing": true,
-            // DataTables server-side processing mode
-            "serverSide": true,
-            // Initial no order.
-            "order": [],
-            // Load data from an Ajax source
-            "ajax": {
-                "url": "<?php echo base_url('questions-list-control'); ?>",
-                "type": "POST",
-                'data': {
-                    user_id: userID,
+                // Processing indicator
+                "processing": true,
+                // DataTables server-side processing mode
+                "serverSide": true,
+                // Initial no order.
+                "order": [],
+                // Load data from an Ajax source
+                "ajax": {
+                    "url": "<?php echo base_url('questions-list-control'); ?>",
+                    "type": "POST",
+                    'data': {
+                        user_id: userID,
+                    },
                 },
-            },
-            //Set column definition initialisation properties
-            "columnDefs": [{
-                "targets": [2],
-                "orderable": false
-            }]
+                //Set column definition initialisation properties
+                "columnDefs": [{
+                    "targets": [2],
+                    "orderable": false
+                }]
+            });
         });
+        $('#select-status').change(function() {
+            if ($.fn.DataTable.isDataTable("#user-table")) {
+                $('#user-table').DataTable().clear().destroy();
+            }
+            var status = $(this).val();
+            $('#user-table').DataTable({
+                // Processing indicator
+                "processing": true,
+                // DataTables server-side processing mode
+                "serverSide": true,
+                // Initial no order.
+                "order": [],
+                // Load data from an Ajax source
+                "ajax": {
+                    "url": "<?php echo base_url('questions-list-control'); ?>",
+                    "type": "POST",
+                    'data': {
+                        status:status
+                    },
+                },
+                //Set column definition initialisation properties
+                "columnDefs": [{
+                    "targets": [2],
+                    "orderable": false
+                }]
+            });
         });
     });
 </script>
