@@ -579,13 +579,13 @@ label {
     padding: 20px 0 0;
 }
 
-.image_captchaWrap #image_captcha img {
+.image_captchaWrap p img {
 	height: 40px !important;
 	margin: 0 20px 10px 0;
 }
 
-.image_captchaWrap #image_captcha .captcha-refresh img {
-	height: 30px !important;
+.image_captchaWrap p .captcha-refresh-img {
+	height: 20px !important;
 	width: auto;
 }
 

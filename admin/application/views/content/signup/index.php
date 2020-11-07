@@ -224,7 +224,7 @@
                                         <p id="image_captcha">
                                             <?php echo $captchaImg; ?>
                                             <a href="javascript:void(0);" class="captcha-refresh">
-                                                <img width="40" src="<?php echo base_url("assets/images/refresh-button.png"); ?>"/>
+                                                <img class="captcha-refresh-img" src="<?php echo base_url("assets/images/refresh-button.png"); ?>"/>
                                             </a>
                                         </p>
                                     </div>
@@ -252,7 +252,7 @@
 
                         <div class="scrollable-body">
                             <fieldset>
-                                <legend>Affiliate related details</legend>
+                                <legend class="col-sm-12">Affiliate related details</legend>
 
                                 <div class="form-group col-sm-6">
                                     <label for="inputAffFirstName" class="control-label mandatory">First Name</label>
@@ -270,7 +270,7 @@
                                 </div>
                                 <div class="form-group col-sm-6">
                                     <label for="inputDateofbirth" class="control-label mandatory">Date of birth </label>
-                                    <div class="col-sm-2">
+                                    <div class="">
                                         <input type="text" class="form-control datepicker_class" id="inputDateofbirth" name="inputDateofbirth" />
                                         <span id="inputDateofbirth_error" class="text-danger"></span>
                                     </div>
@@ -282,9 +282,9 @@
                                         <span id="inputAffEmail_error" class="text-danger"></span>
                                     </div>
                                 </div>
-                                <div class="form-group col-sm-6">
+                                <div class="form-group col-sm-12">
                                     <label for="inputAffContact" class="control-label mandatory">Mobile Number</label>
-                                    <div class="col-sm-5">
+                                    <div class="">
                                         <input type="tel" class="form-control" id="inputAffContact" placeholder="Mobile Number" name="inputAffContact">
                                         <span id="inputAffContact_error" class="text-danger"></span>
                                     </div>
@@ -310,35 +310,41 @@
                             </fieldset>
                             <!-- Affiliate related details fieldset ends here-->
                            
-                            <div class="form-group col-sm-6">
+                            <div class="form-group col-sm-12">
                                 <label for="ihave" class="control-label mandatory">I have</label>
-                                <div class="col-sm-6">
+                                <div class="">
                                     <select class="form-control" id="ihave" name="ihave" required>
                                         <option value="accepted">Accepted</option>
                                     </select>
                                     <a href="http://bkzquiz.com/privacy_policy.php" target="_blank">Policy</a> , <a href="http://bkzquiz.com/publisher_terms.php" target="_blank">Term & Conditions</a>.
                                 </div>
                             </div>
-                            <div class="form-group col-sm-6">
-                                <div class="col-sm-offset-4 col-sm-4">
-                                    <input type="text" class="form-control" id="captcha" name="affCaptcha">
-                                    <span id="aff_captcha_error" class="text-danger"></span>
-                                </div>
-                                <div class="col-sm-offset-4 col-sm-4">
-                                    <p id="image_captcha_aff"><?php echo $captchaImg; ?></p>
-                                    <a href="javascript:void(0);" class="captcha-refresh-aff" ><img width="40" src="<?php echo base_url("assets/images/refresh-button.png"); ?>"/></a>
+                            <div class="form-group col-sm-12">
+                                <div class="image_captchaWrap">
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control" id="captcha" name="affCaptcha">
+                                        <span id="aff_captcha_error" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <p id="image_captcha_aff">
+                                            <?php echo $captchaImg; ?>
+                                            <a href="javascript:void(0);" class="captcha-refresh-aff" >
+                                                <img class="captcha-refresh-img" src="<?php echo base_url("assets/images/refresh-button.png"); ?>"/>
+                                            </a>
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="form-group col-sm-6">
-                                <div class="col-sm-offset-4 col-sm-8">
-                                    <button type="submit" class="btn btn-default" id="btn-submit-affiliate">Submit</button>&nbsp;
-                                    <button type="button" class="btn btn-default" onclick="window.location='<?php echo base_url(''); ?>'">Cancel</button>
 
+                            <div class="form-group col-sm-12">
+                                <div class="btn-submit-student_wrap">
+                                    <button type="submit" class="btn btn-primary" id="btn-submit-affiliate">Submit</button>&nbsp;
+                                    <button type="button" class="btn btn-default" onclick="window.location='<?php echo base_url(''); ?>'">Cancel</button>
                                 </div>
                             </div>
-                            <div class="form-group col-sm-6">
-                                <div class="col-md-6 col-md-offset-4">
-                                    <p style="color:grey">(Please provide correct information or else your account won't be activated*)</p>
+                            <div class="form-group col-sm-12">
+                                <div class="alert alert-warning">
+                                    <p>(Please provide correct information or else your account won't be activated*)</p>
                                 </div>
                             </div>
                         </div>
