@@ -773,6 +773,9 @@ label {
 .qstion {font-weight: 800;font-size: 16px;}
 .answr {
 	list-style: none;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
 	padding: 0;
 }
 .answr li {
@@ -784,6 +787,7 @@ label {
 	padding: 10px 20px !important;
 	transition: all ease .2s;
 	font-size: 13px;
+	width: 48%;
 }
 li.correct-answer {
 	background: rgb(94 209 52);
