@@ -44,7 +44,7 @@ class Chapter_model extends CI_Model{
          $result = $this->db->get(); 
          return $result->result_array();
      }
-    function getAllActiveChaptersSubjectwise($subjectID){
+    function getAllActiveChaptersSubjectwiseOld($subjectID){
        $Data['session_data'] = $this->session->userdata('user_details');
       // print_r($Data['session_data']); die;
         $user_id = $Data['session_data']['user_id'];
@@ -63,6 +63,16 @@ class Chapter_model extends CI_Model{
         return $result->result_array();
     }
 
+    function getAllActiveChaptersSubjectwise($subjectID){
+        $Data['session_data'] = $this->session->userdata('user_details');
+        $user_id = $Data['session_data']['user_id'];
+        $std_id=$Data['session_data']['std_id'];
+ 
+        $select="SELECT cm.chapterID, cm.chapterName FROM chapterMaster cm LEFT JOIN question_level_subject_chapter_mapping qbbm ON cm.chapterID=qbbm.chapterId LEFT JOIN questionbank qb ON qbbm.qbId=qb.qbID WHERE cm.status='Y' AND qbbm.subjectId=".$subjectID." AND cm.chapterID NOT IN (SELECT DISTINCT subjectID FROM levelStageValidation WHERE quizStatus ='Y' AND userID='$user_id')  AND qb.qbID IS NOT NULL GROUP BY cm.chapterID";
+ 
+         $result=$this->db->query($select);
+         return $result->result_array();
+     }
     function getAllActiveChapters(){
 
         $this->db->select("*");

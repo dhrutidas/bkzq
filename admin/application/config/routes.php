@@ -251,6 +251,7 @@ $route['next-question-data'] = 'quiz/nextQuestion';
 $route['radio-button-validation'] = 'quiz/onRadioButtonValidation';
 $route['ajax-get-subject-stage-level'] = 'quiz/subjectStageLevel';
 $route['ajax-get-chapter'] = 'chapters/ajax_get_chapter_subject';
+$route['quiz-result/(:any)'] = 'quiz/result/$1';
 
 //Quize @Krishna Gupta #05092016
 $route['add-question'] = 'questions/index';

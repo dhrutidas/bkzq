@@ -55,7 +55,7 @@ class Home extends MY_Controller {
             $Data['level_drop']=$this->level_model->levelForUser();
             $Data['load_page'] = "home/home_page_student";
 
-        elseif($role_id == 4): //This is for QA
+        elseif($role_id == 4): //This is for QM
           $Data['groupArr'] = parent::menu();
           $Data['page_title'] = "QA";
           $this->load->model('employee_model');

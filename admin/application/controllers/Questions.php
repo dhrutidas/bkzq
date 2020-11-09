@@ -458,6 +458,7 @@ class Questions extends MY_Controller {
       $this->load->model('question_model');
       $msg = $this->question_model->makeItLive($data);
       $return = json_encode($msg, TRUE);
+      $this->session->set_flashdata('message', 'Success! Question is approved.');
       echo ($return);
   }
 

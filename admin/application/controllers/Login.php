@@ -155,7 +155,14 @@ class Login extends CI_Controller{
                 $this->session->set_userdata('user_details', $sArray);
                 if($return_val['roleID'] == 1){
                     redirect( base_url('home') );
-                }else{
+                }
+                else if($return_val['roleID'] == 4){
+                    redirect(base_url('qm') );
+                }
+                else if($return_val['roleID'] == 5){
+                    redirect(base_url('qc') );
+                }
+                else{
                     redirect( base_url('home') );
                 }
             }

@@ -85,6 +85,19 @@ class Quiz_model extends CI_Model{
         return ( $result->num_rows() > 0 ) ? $result->result_array() : FALSE;
     }
 
+    function getAllQuizData($postData){
+        
+		$sql="SELECT t.*, (SELECT GROUP_CONCAT(CONCAT(s.ansID,'~!~',s.optionValue) SEPARATOR '#!~!#')
+		FROM answerbank s WHERE s.qbID = t.qbID) As optionDetails, 
+        (SELECT a.ansID FROM answerbank a WHERE a.qbID = t.qbID AND a.isCorrect = 'Y') As correctAnsID 
+        FROM questionbank t JOIN question_level_stage_mapping q ON q.qbID = t.qbID
+         JOIN question_level_subject_chapter_mapping sm ON sm.qbId = t.qbID 
+       JOIN question_level_standard_mapping st ON st.qbId = t.qbID 
+        WHERE t.status ='Y' AND q.levelID =".$postData['inputLevel']." AND q.stageID =".$postData['inputStage']." AND sm.subjectId=".$postData['inputSubject']." AND sm.chapterId=".$postData['inputChapter']." AND st.standardId =".$postData['inputStandard']." ORDER BY rand() LIMIT ".$postData['maxQuestion'];
+        $result = $this->db->query($sql);
+
+        return ( $result->num_rows() > 0 ) ? $result->result_array() : FALSE;
+    }
 
     //Get Current level and stage on basis of user,sub,chapter
 function getLevelAndStage($subjectID,$chapterID){
